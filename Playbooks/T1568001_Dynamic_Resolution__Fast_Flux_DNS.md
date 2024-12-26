@@ -1,0 +1,15 @@
+# Dynamic_Resolution:_Fast_Flux_DNS - T1568001
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Command and Control |
+| MITRE TTP | T1568.001 |
+| MITRE Sub-TTP | T1568.001 |
+| Name | Dynamic Resolution: Fast Flux DNS |
+| Log Sources to Investigate | Investigate DNS logs for unusual patterns of domain resolution with rapid changes in IP addresses associated with a single domain. Network traffic logs should be checked for connections to multiple IP addresses in a short time frame, especially with low TTL values. Firewall logs can provide information on outbound connections to the frequently changing IPs. Endpoint detection and response (EDR) logs may reveal suspicious processes or network behaviors originating from endpoints. |
+| Key Indicators | Key indicators include: a single domain resolving to multiple IP addresses with high churn rates, low TTL values in DNS queries, existence of DNS A records that change frequently, multiple distinct IP addresses used by a single endpoint when communicating with the same domain, and presence of fast-changing DNS Name Server records indicating double-flux behavior. |
+| Questions for Analysis | Is the domain in question associated with known legitimate services that use CDN or load balancing? Are the TTL values for the DNS records lower than typically observed for common domains? Do the resolved IP addresses belong to a reputable ISP or hosting provider? Have there been any past associations of these IP addresses with malicious activities? |
+| Decision for Escalation | Escalate to Tier 2 if: the domain/IP addresses are linked to known malicious activities in threat intelligence feeds, there are multiple unresolved answers to questions from the analysis indicating suspicious behavior, or if there is unusual and sustained unusual network traffic pattern beyond typical business usage. |
+| Additional Analysis Steps for L1 | Check internal knowledge base or threat intelligence platforms for information on the domain/IP. Perform a reverse DNS lookup on the IPs for additional context. Analyze past traffic records for communication patterns with the domain. Correlate the finding with current threat intelligence reports. |
+| T2 Analyst Actions | Conduct a deeper inspection of the network traffic over time for persistent C2 communications. Use deeper threat intelligence searches to gather comprehensive backgrounds on the domain and associated IPs. Deploy network monitoring tools (such as IDS/IPS) to capture detailed activity on suspect domains. Determine impact scope by identifying all affected systems/devices communicating with the domain. |
+| Containment and Further Analysis | Blacklist the identified domain/IPs on the network perimeter devices. Apply network segmentation to isolate affected systems. Perform a thorough investigation on compromised hosts for potential malware presence and any indicators of lateral movement. Update threat detection signatures with discovered artifacts. Engage with incident response to develop full remediation plan if the threat actor presence is confirmed. |

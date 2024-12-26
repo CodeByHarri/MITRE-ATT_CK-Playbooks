@@ -1,0 +1,15 @@
+# Resource_Hijacking:_Cloud_Service_Hijacking - T1496004
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Impact |
+| MITRE TTP | T1496.004 |
+| MITRE Sub-TTP | T1496.004 |
+| Name | Resource Hijacking: Cloud Service Hijacking |
+| Log Sources to Investigate | Monitor logs from cloud service providers such as AWS CloudTrail for unexpected activities within services like SES, SNS, or any reverse proxies connected to cloud-hosted AI models. Include application logs from SaaS platforms that show unnatural usage patterns, API usage logs for unexpected service invocations, and billing reports that indicate unusual resource consumption or spikes in service utilization. |
+| Key Indicators | Unusual increase in the number of API calls to cloud services like SES and SNS, sudden high-volume email or SMS sending activities, unexpected billing alerts indicating high usage, especially for AI model processing services, and reverse proxy logs showing unusual routing traffic towards AI models not typically accessed. |
+| Questions for Analysis | Are there unexpected peaks in SaaS application usage, especially in email/messaging services? Are there any unusual billing alerts or spikes in service costs? Has there been an unprecedented number of API calls or traffic activity routed through reverse proxies toward AI models? |
+| Decision for Escalation | Escalate to Tier 2 if there are confirmed unauthorized accesses to SaaS accounts, significant financial impact indicated through billing spikes, evidence of phishing campaigns using victim's cloud resources, or if unauthorized proxy traffic patterns directed towards AI models are detected. |
+| Additional Analysis Steps for L1 | Verify user credentials to check for unauthorized access attempts. Cross-reference service activity logs with known legitimate usage patterns. Review any alerts from cloud service billing dashboards for unexpected charges or usage patterns. Check for correlated incidents from network security monitoring tools suggesting email or SMS phishing operations. |
+| T2 Analyst Actions | Conduct a deeper dive into the specific credentials or accounts used for the unauthorized activity. Check for any additional indicators of compromise within the cloud provider's environment, such as altered permissions or new unauthorized resources. Collaborate with finance to analyze billing reports more thoroughly and validate any significant anomalies. Explore potential phishing content that may have been disseminated. |
+| Containment and Further Analysis | Revoke compromised credentials immediately and enforce password changes. Implement access controls or adjust permissions to prevent further misuse of cloud resources. Suspend any unauthorized SaaS applications or reverse proxy configurations involved in LLMJacking. Engage with the cloud service provider for threat mitigation support and bill analysis. Consider legal consultation if the attack has led to privacy breaches or significant financial implications. |

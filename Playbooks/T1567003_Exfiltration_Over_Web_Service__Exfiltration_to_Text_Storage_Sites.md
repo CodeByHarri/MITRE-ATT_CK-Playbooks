@@ -1,0 +1,15 @@
+# Exfiltration_Over_Web_Service:_Exfiltration_to_Text_Storage_Sites - T1567003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Exfiltration |
+| MITRE TTP | T1567.003 |
+| MITRE Sub-TTP | T1567.003 |
+| Name | Exfiltration Over Web Service: Exfiltration to Text Storage Sites |
+| Log Sources to Investigate | Network traffic logs to monitor data being sent to text storage sites (e.g., pastebin[.]com); Web proxy logs to review user access to known text storage services; Firewall logs for suspicious outbound connections and potential data exfiltration patterns; Endpoint monitoring solutions to detect processes attempting to send data to web storage sites. |
+| Key Indicators | Unusual outbound connections to text storage sites; High volume of outbound data traffic to pastebin[.]com or similar services; Encrypted data being sent to text storage sites; Access to text storage sites from an unusual geographic location considering normal user behavior. |
+| Questions for Analysis | Is the data volume and frequency of connections to the text storage site within expected parameters for business use? Does the activity coincide with known scheduled tasks or maintenance windows? Are there legitimate business needs for accessing such text storage sites from the specific source? Are there any known vulnerabilities or exposures related to the endpoint making the network connection? |
+| Decision for Escalation | Escalation to Tier 2 is required if data transfers to text storage sites are detected without legitimate business justification, if encryption is involved and cannot be explained, or if the source device is not classified for development use and security tools flag the activity as suspicious. |
+| Additional Analysis Steps for L1 | Validate the IP address and domain for legitimacy against known threat intelligence feeds; Correlate the suspicious activity with user logins and endpoint activity to determine if the user context matches legitimate use; Check if data transfer patterns align with known exfiltration techniques; Verify any history of similar events in organizational incident logs. |
+| T2 Analyst Actions | Conduct a deeper packet analysis to determine the nature of the data being transferred; Investigate the endpoint for potentially compromised credentials or unauthorized access; Review any recent changes or policy exceptions for the user or endpoint involved; Liaise with developers or IT staff to confirm whether there are any currently sanctioned projects involving the text storage site. |
+| Containment and Further Analysis | Isolate the affected system to prevent further data exfiltration; Coordinate with IT to disable unauthorized access to the web service in question; Perform a thorough review of system and network logs surrounding the event timeline; Implement blocks and filters on traffic to known text storage sites at the firewall level; Engage threat intelligence resources to identify if the event correlates with known threat campaigns. |

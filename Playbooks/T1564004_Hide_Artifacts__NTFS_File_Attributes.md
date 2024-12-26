@@ -1,0 +1,15 @@
+# Hide_Artifacts:_NTFS_File_Attributes - T1564004
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1564.004 |
+| MITRE Sub-TTP | T1564.004 |
+| Name | Hide Artifacts: NTFS File Attributes |
+| Log Sources to Investigate | Monitor file system logs for changes to NTFS file attributes, especially focusing on Alternate Data Streams (ADS). Windows Security Auditing can log access to these attributes. Utilize Endpoint Detection and Response (EDR) solutions that specifically track file metadata changes. Examples include logs from Sysmon (Event ID 1 for process creation), and Event ID 4663 which reports on object access. File integrity monitoring solutions such as Tripwire can also detect unauthorized changes. |
+| Key Indicators | Presence of files with multiple ADS. Unexpected creation or modification of ADS in non-system files. Increased file size without visible changes in the file's content. Processes accessing or creating ADS attributes non-typically, such as user processes that do not normally interact with these streams. Unusual high-frequency reads/writes of NTFS file attributes. |
+| Questions for Analysis | Are there known legitimate applications on the system that use ADS in this manner? Does the modified or created ADS contain known malicious signatures? Is there any scheduled task or process that corresponds to the modification time of the ADS? Has similar behavior been observed on multiple endpoints within the organization? |
+| Decision for Escalation | Escalate to Tier 2 if the ADS contains unrecognized executable content or if the stream's size is unusually large. Escalation is also warranted if the modification was performed by a process or user that typically does not interact with file attributes, or if similar modifications are observed across multiple endpoints simultaneously. |
+| Additional Analysis Steps for L1 | Verify if the identified NTFS attributes (ADS) modifications correspond with routine operations by cross-referencing with business applications and processes. Check for any known benign usage patterns of ADS in your environment. Gather hash values and file paths for further inspection and correlation with threat intelligence feeds. |
+| T2 Analyst Actions | Conduct a deeper analysis of contents within the suspicious ADS to identify signs of obfuscation or encoded data. Compare time of ADS creation/modification with network activity and user login/logout times. Isolate the file and perform static and dynamic analysis to detect known or unknown malware. Investigate any lateral movement or anomaly in process executions around the time of detected ADS creation. |
+| Containment and Further Analysis | Isolate the affected system to prevent further lateral spread. Remove or quarantine malicious ADS while preserving a copy for forensic analysis. Conduct a comprehensive network and log analysis to identify any potential communications with known malicious IPs. Review and enhance policies restricting the use of ADS, and conduct a security awareness session highlighting the risks associated with using ADS for legitimate purposes. |

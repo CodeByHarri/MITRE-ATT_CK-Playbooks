@@ -1,0 +1,15 @@
+# Search_Open_Websites_Domains:_Code_Repositories - T1593003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Reconnaissance |
+| MITRE TTP | T1593.003 |
+| MITRE Sub-TTP | T1593.003 |
+| Name | Search Open Websites/Domains: Code Repositories |
+| Log Sources to Investigate | Monitor logs from code repository platforms such as GitHub, GitLab, SourceForge, and BitBucket. Specifically, review access logs for unusual access patterns, especially searching or viewing activities originating from unfamiliar IP addresses or geographical locations. Also, examine webhook activity logs for signs of suspicious automated access and API call logs for unauthorized or unexpected retrieval of repository data. |
+| Key Indicators | Unusual or unauthorized access to public code repositories, especially concentrated on repositories containing sensitive data or credentials. Increases in read or clone actions on repositories not recently active, especially if followed by failed authentication attempts or multiple accesses from different IPs in a short span. |
+| Questions for Analysis | 1. Is the access pattern consistent with the normal activity of the user interacting with the repository?<br>2. Are there any known vulnerabilities or recent incidents involving the targeted code repositories?<br>3. Does the access originate from an unfamiliar or suspicious geographic location or IP address? 4. Are there any indicators of accidental data exposure, such as leaked secrets or credentials, within the repository? |
+| Decision for Escalation | Escalate to Tier 2 if there is evidence of sensitive data being accessed or copied, particularly if accompanied by suspicious authentication attempts. Also, escalate if there are signs of coordination with known cyber-attack TTPs, or if the incident involves a high-profile user or repository. |
+| Additional Analysis Steps for L1 | Verify the user identity against known employee lists, and check if there are known associations with third-party developers. Collaborate with the owner of the repository to confirm the legitimacy of the access. Conduct a preliminary review of the affected repository's content for any exposed sensitive information. |
+| T2 Analyst Actions | Perform deeper analysis on the originating IP and correlate with known threat actor infrastructure. Use threat intelligence to determine if the repository's content or user activity corresponds with known attack patterns or campaigns. Review historical access logs for the repository to identify any potential sneak-and-peek tactics used by the adversary. |
+| Containment and Further Analysis | If unauthorized access is confirmed, revoke any exposed credentials and keys immediately. Consider implementing additional access controls, such as multi-factor authentication for repository access. Collaborate with IT and security teams to evaluate and adjust public access settings to minimize exposure. Conduct a full content review to understand the impact of any data leakage, and engage with legal or compliance teams as necessary. |

@@ -1,0 +1,15 @@
+# Trusted_Developer_Utilities_Proxy_Execution - T1127
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1127 |
+| MITRE Sub-TTP | T1127 |
+| Name | Trusted Developer Utilities Proxy Execution |
+| Log Sources to Investigate | To investigate T1127, focus on logs that monitor the execution of developer utilities and their parent-child process relationships. Examples include: Process Monitoring logs to track execution paths of utilities like MSBuild, CDB, and WinDbg; Application Execution logs that show command-line arguments and scripts invoked by these tools; Sysmon logs for Event ID 1 (Process creation) to identify parent-child relationships; and Digital Signature verification logs to check if the executables are signed with legitimate certificates. |
+| Key Indicators | Key indicators of T1127 include unusual execution of developer utilities without typical accompanying development activities, execution of unexpected payloads or scripts through these utilities, and anomalous parent-child process relationships, especially when a developer utility spawns a process not typically associated with its normal use cases. |
+| Questions for Analysis | 1. Is there any abnormal frequency or sequence of execution of developer utilities observed?<br>2. Are there known legitimate use cases for these utilities on the affected systems?<br>3. Do the command-line arguments or related scripts appear suspicious or deviate from the norm? 4. Does the executable in question have a valid and expected digital signature? |
+| Decision for Escalation | Escalate to Tier 2 if the developer utility execution includes unknown or potentially malicious payloads, originates from an unexpected process or account, or if there are correlating indicators of compromise such as alerts from network traffic analysis or endpoint protection solutions. |
+| Additional Analysis Steps for L1 | 1. Verify if the execution of utilities aligns with regular user activity patterns.<br>2. Check if there are recent legitimate software development or debugging activities.<br>3. Analyze command-line arguments for known malicious scripts or payload patterns. 4. Review digital signatures of executed utilities and payloads. |
+| T2 Analyst Actions | 1. Examine historical activity of affected user accounts and workstations for patterns or anomalies.<br>2. Conduct a deeper inspection of executed scripts and payloads for signs of obfuscation or known malicious signatures.<br>3. Correlate findings with threat intelligence feeds to identify known attack techniques. 4. Perform memory analysis on systems involved to detect injected code or anomalies. |
+| Containment and Further Analysis | 1. Isolate affected systems from the network to prevent lateral movement.<br>2. Revoke tokens and reset credentials associated with access if compromised.<br>3. Analyze complete execution paths and network connections of the affected utilities. 4. Implement application control enhancements to restrict unintended use of developer utilities. 5. Perform a comprehensive forensic analysis to understand the attack scope and timeline. |

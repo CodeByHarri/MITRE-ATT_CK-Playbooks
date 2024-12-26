@@ -1,0 +1,15 @@
+# Server_Software_Component:_Terminal_Services_DLL - T1505005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence |
+| MITRE TTP | T1505.005 |
+| MITRE Sub-TTP | T1505.005 |
+| Name | Server Software Component: Terminal Services DLL |
+| Log Sources to Investigate | Monitor Windows Security Event Logs for events related to DLL modifications, particularly 4688 (Process Creation), 7045 (Service Installation), and 4657 (Registry Modification) for changes to the ServiceDll entry in HKLM\System\CurrentControlSet\services\TermService\Parameters\. Additionally, review Sysmon logs for Event ID 7 (DLL Loaded) and Event ID 10 (Process Access) for unusual activities related to termsrv.dll. Network traffic logs capturing unusual Remote Desktop Protocol connections should also be analyzed. |
+| Key Indicators | Unexpected changes to the 'ServiceDll' registry key for Terminal Services. Hash changes or unauthorized modifications to the termsrv.dll file. Unusual 'svchost.exe' process behavior, especially launching termsrv.dll. Increased or anomalous RDP session activity, particularly concurrent sessions in a non-server environment. Network traffic logs indicating remote connections via RDP from anomalous IPs or to uncommon ports. |
+| Questions for Analysis | Has there been a recent modification to the termsrv.dll file or the ServiceDll registry entry for Terminal Services? Are there any unexplained RDP sessions being initiated? Is there evidence of concurrent RDP sessions on a machine that typically doesn't support them? Which users or processes initiated the suspicious actions detected? |
+| Decision for Escalation | Escalate to Tier 2 if any unauthorized modifications to termsrv.dll or the ServiceDll registry entry are confirmed, especially if accompanied by unusual RDP session activity. Also, escalate if connections are being established from unknown or blacklisted IP addresses. |
+| Additional Analysis Steps for L1 | Verify the hash of the current termsrv.dll file against known good versions. Review recent process creation logs involving 'svchost.exe' for anomalies. Check event logs for signs of unusual RDP-related activities. Compile a list of recently established RDP connections and identify any that deviate from the norm. |
+| T2 Analyst Actions | Conduct a deeper analysis of changes in the termsrv.dll file, possibly reverse-engineering or comparing against backup versions. Investigate the origin of unauthorized RDP sessions, including examining login attempts and verifying user credentials. Validate the legitimacy of modified DLLs and check for persistence mechanisms. Correlate findings with threat intelligence to identify potential malicious activity. |
+| Containment and Further Analysis | Immediately revert any unauthorized changes to the registry or DLL files using verified backups. Disable or isolate affected systems from the network to prevent further unauthorized access. Conduct a full threat hunt on the affected systems. Engage in a review of RDP settings and audit logs across all systems to harden security against similar attacks in the future. |

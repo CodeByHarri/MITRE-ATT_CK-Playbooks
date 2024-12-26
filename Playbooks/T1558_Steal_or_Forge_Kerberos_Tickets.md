@@ -1,0 +1,15 @@
+# Steal_or_Forge_Kerberos_Tickets - T1558
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access |
+| MITRE TTP | T1558 |
+| MITRE Sub-TTP | T1558 |
+| Name | Steal or Forge Kerberos Tickets |
+| Log Sources to Investigate | Investigate logs from Windows Event Logs, specifically Security Logs for Event ID 4769 (A Kerberos service ticket was requested), 4770 (A Kerberos service ticket was renewed), and 4768 (A Kerberos authentication ticket (TGT) was requested). Additionally, analyze logs from authentication systems that intersect with Kerberos, such as Domain Controller logs, and collect logs from Endpoint Detection and Response (EDR) tools to detect abnormal processes accessing LSASS memory or using tools like mimikatz. |
+| Key Indicators | Unusually high volume of Kerberos ticket requests in a short period of time, use of 'klist' or other ticket management tools from non-standard user accounts or machines, access to LSASS memory by unauthorized processes, tickets with unusually long lifetimes or anomalies indicating they are forged, and failed authentication attempts associated with Kerberos tickets. |
+| Questions for Analysis | Are there repeated instances of unusual Kerberos activity from a single account or host? Were the Kerberos tickets issued for a domain admin or sensitive accounts? Do the logs show evidence of unauthorized access to sensitive services following the suspicious ticket activity? Is there evidence of known malicious tools like Mimikatz being used on the system? |
+| Decision for Escalation | Escalate to Tier 2 if any ticket forgery is detected, if there is a consistent pattern of suspicious Kerberos activity, or if any domain admin accounts are involved. Also, escalate if there are indicators of compromised LSASS memory or usage of known credential dumping tools. |
+| Additional Analysis Steps for L1 | Check for correlated alerts or logs showing both anomalous login activity and Kerberos ticket manipulation. Verify the legitimacy of the user's requests for Kerberos tickets by comparing them with known work patterns and privileged accesses. |
+| T2 Analyst Actions | Perform deeper forensic analysis on affected systems to confirm ticket forgery, such as examining LSASS memory dumps for presence of Mimikatz or similar artifacts. Cross-reference Kerberos ticket activity with network traffic logs to detect lateral movement or data exfiltration. Coordinate with IT to enforce password resets and multifactor authentication as needed. |
+| Containment and Further Analysis | Isolate affected systems from the network to prevent further malicious activity. Work with IT to reset passwords for affected accounts, especially those with sensitive privileges. Conduct a thorough review of all Kerberos ticket requests and relevant account activities across the domain to identify any other potentially compromised accounts. Implement stricter Kerberos policy settings, such as ticket lifetime adjustment, and monitor for post-event anomalies suggestive of persistent threats. |

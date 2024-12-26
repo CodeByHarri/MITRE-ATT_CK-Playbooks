@@ -1,0 +1,15 @@
+# Application_Layer_Protocol:_DNS - T1071004
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Command and Control |
+| MITRE TTP | T1071.004 |
+| MITRE Sub-TTP | T1071.004 |
+| Name | Application Layer Protocol: DNS |
+| Log Sources to Investigate | Investigate DNS logs from your DNS servers as they contain query and response records. Examples include BIND, Windows DNS Server logs, or Cisco Umbrella logs. Network traffic logs capturing DNS traffic, such as PCAPs or flow data from network devices, should also be examined. Additionally, security information and event management (SIEM) solutions can aggregate DNS activity and help identify anomalies. Finally, endpoint detection and response (EDR) tools can provide insights into DNS requests made by specific applications on endpoints. |
+| Key Indicators | Look for DNS requests with unusually long domain names, which can be indicative of data encoding. High volumes of requests to a single, external domain over short periods. DNS queries with consistent TTL values across multiple requests, and DNS requests for non-existing or newly registered domains. Furthermore, observe amplification of DNS traffic from an endpoint with regular intervals that may suggest encoding of messages. |
+| Questions for Analysis | Is the volume of DNS requests abnormally high from this host compared to its baseline activity? Do the DNS queries contain unusual characteristics, such as length or obfuscation? Are these queries going to domains outside of usual business needs or known destinations? Are the domains newly registered or flagged by threat intelligence sources? |
+| Decision for Escalation | Escalate if the DNS traffic includes unusually long or repetitive domain name queries, high frequency of requests to a specified external domain, or if there is contextual threat intelligence identifying the involved domains as malicious. Additionally, escalate when endpoint behavior indicates usual processes querying domains unnecessarily or unusually. |
+| Additional Analysis Steps for L1 | Verify if the queried domains or IPs are present in any threat intelligence feeds. Cross-reference user activity over the network for unusual behavior. Check the host activity for any anomaly or correlation with known malware campaigns, including reviewing historical DNS traffic for patterns. |
+| T2 Analyst Actions | Conduct threat intelligence analysis to profile any identified suspicious domains. Utilize sandboxing to simulate communication possibilities by the suspected adversarial payloads. Analyze outgoing DNS traffic in-depth, including packet sizes and timings, to verify tunneling signals. Develop and deploy DNS-based detections for similar suspicious activity. |
+| Containment and Further Analysis | Block identified malicious or suspicious domains/IP addresses on firewalls or network security appliances. Isolate infected hosts for further forensic analysis. Review and enhance DNS filtering policies to prevent future occurrences. Initiate outreach with the affected users and revoke suspicious process privileges. Perform incident impact assessment and document findings. |

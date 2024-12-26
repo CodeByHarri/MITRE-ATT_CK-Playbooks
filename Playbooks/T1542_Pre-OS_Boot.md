@@ -1,0 +1,15 @@
+# Pre-OS_Boot - T1542
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion, Persistence |
+| MITRE TTP | T1542 |
+| MITRE Sub-TTP | T1542 |
+| Name | Pre-OS Boot |
+| Log Sources to Investigate | Review logs from system firmware checks, BIOS, and UEFI scans. Examples include: 1) Logs from firmware integrity verification tools (e.g., CHIPSEC, UEFI Firmware Checker) which may show unauthorized changes or anomalies.<br>2) Logs from hardware monitoring tools indicating flash or firmware updates (e.g., Intel AMT or Dell Lifecycle Controller logs).<br>3) Security Information and Event Management (SIEM) systems for collected data on boot processes and any unusual startup firmware activity. |
+| Key Indicators | 1) Unusual modifications or logs indicating changes to BIOS/UEFI.<br>2) Inconsistent firmware versions or checksums not matching known good values.<br>3) Alerts or errors during Power-On Self Test (POST) or boot process commonly linked with inexplicable settings alterations. 4) Detected persistence mechanisms in firmware scanning that cannot be traced back to legitimate updates or vendor actions. |
+| Questions for Analysis | 1) Was there a legitimate, authorized firmware update recently performed on this machine?<br>2) Do the detected changes align with known attack patterns or documented firmware-based TTPs?<br>3) Are the detected modifications congruent with baseline security policies and expected configurations for the device's firmware? |
+| Decision for Escalation | Escalate to Tier 2 if: 1) Unauthorized firmware changes are detected and cannot be explained by IT management tasks.<br>2) Anomalies in firmware cannot be reconciled with documented change management logs or security baselines.<br>3) If there are signs of persistence that align with known Pre-OS Boot threat actors or methods. |
+| Additional Analysis Steps for L1 | 1) Correlate potential firmware alterations with scheduled maintenance or updates logged in IT management systems.<br>2) Verify checksum or version information of BIOS/UEFI against known baselines.<br>3) Review system security policies concerned with firmware integrity and audit logs for any breach of protocol. |
+| T2 Analyst Actions | 1) Conduct deeper forensic analysis using advanced tools like firmware analyzers to ascertain the legitimacy of modifications.<br>2) Engage vendor support for firmware verification or suspected tampering.<br>3) Investigate any anomalous network traffic patterns post-boot that could indicate persistence or lateral movement. |
+| Containment and Further Analysis | 1) Use firmware restore capabilities to revert to trusted versions, ensuring backups are updated consistently.<br>2) Implement enhanced monitoring on affected systems and segment from main network to limit adversarial reach.<br>3) Work with incident response teams to examine potential subsequent stages of attack, such as lateral movement or data exfiltration, emphasizing on network logs and endpoint activity since the pre-OS boot persistence. |

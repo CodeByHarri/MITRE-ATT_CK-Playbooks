@@ -1,0 +1,15 @@
+# Office_Application_Startup:_Add-ins - T1137006
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence |
+| MITRE TTP | T1137.006 |
+| MITRE Sub-TTP | T1137.006 |
+| Name | Office Application Startup: Add-ins |
+| Log Sources to Investigate | Investigate logs related to Microsoft Office application startup events, specifically for unusual activities related to add-ins. Windows Event Logs, specifically Application logs (Event Viewer -> Applications and Services Logs) may show execution of unexpected or new Office add-in components. Also, monitor Office 365 audit logs (if applicable) for any suspicious patterns. Additional relevant sources include File creation and modification logs in typical Office add-in locations such as the `%APPDATA%\Microsoft\AddIns` directory. |
+| Key Indicators | Presence of new or unusual Office add-ins loaded at startup, especially if the files originate from suspicious paths or are unsigned. Rapid change in add-in configurations or settings, and add-ins with non-standard or rarely seen file extensions such as `.wll`, `.xll`, or `.vsto`. Anomalies in user actions related to Office applications shortly after startup, indicating unsanctioned behavior. |
+| Questions for Analysis | Is the add-in recently installed or modified, and if so, does this align with known deployment activities? Are there users or devices that do not typically use Office add-ins showing activity? Does the originating location of the add-in file appear legitimate or does it come from a suspicious path or domain? Are there any associated alerts or indicators related to recent exploits targeting Office applications? |
+| Decision for Escalation | Escalate to Tier 2 if the add-in is unsigned, originates from an unknown or suspicious source, or if there is corroborating evidence of other anomalous activities on the host. Additionally, escalate if there's a repeated pattern of the behavior, indicating potential automated persistence attempts. |
+| Additional Analysis Steps for L1 | Validate the legitimacy of the add-in by checking against a list of approved add-ins. Use threat intelligence to cross-reference add-in file hashes for known malicious signatures. Review the user's recent activity and past behaviors to identify any discrepancies. |
+| T2 Analyst Actions | Conduct deeper file analysis on the add-in files (e.g., static and dynamic analysis) to ascertain the intent. Check network traffic from the affected machine for anomalous communication patterns. Perform a review of system logs to identify any lateral movement or privilege escalation attempts post office startup activity. |
+| Containment and Further Analysis | Disable or remove the suspicious add-in from Office applications following validated detection. Isolate the affected system to prevent further spread. Conduct a comprehensive forensic investigation on the system to understand the scope and mitigate any further risk of persistence mechanisms. If part of a larger compromise, review additional system backups or snapshots to restore to a secure state. |

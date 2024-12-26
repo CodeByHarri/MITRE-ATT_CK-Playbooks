@@ -1,0 +1,15 @@
+# Phishing:_Spearphishing_via_Service - T1566003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Initial Access |
+| MITRE TTP | T1566.003 |
+| MITRE Sub-TTP | T1566.003 |
+| Name | Phishing: Spearphishing via Service |
+| Log Sources to Investigate | Review email gateway logs for communications involving external and personal webmail addresses, social media platform logs for unusual communication with external accounts, and endpoint activity logs for unusual file downloads or execution originating from these services. Additionally, consider web proxy logs for any suspicious link clicks from social media or webmail services. Examples include Office 365 for email activities, Facebook and LinkedIn APIs for social media interactions, and endpoint detection and response (EDR) solutions for file execution traces. |
+| Key Indicators | Unusual communications from social media platforms; personal webmail accounts receiving unexpected job opportunity messages; unusual file downloads via personal webmail accounts or social media links; newly constructed or unusual social media profiles engaging in targeted messaging; presence of known malicious URLs or file hashes in downloaded content. |
+| Questions for Analysis | Is the communication from a known and verified person? Does the email/webmail header or social media message show signs of spoofing or abnormality? Are there indicators of compromise present in the links or attachments? Has the target user interacted with, or reported, any such messages before? Is there any related abnormal behavior in network or endpoint activity logs corresponding to this communication? |
+| Decision for Escalation | Escalate to Tier 2 if any confirmed malicious indicators are found in the emails or social media messages, if files contain known malware signatures, unusual out-of-policy access patterns are detected, or if multiple users report similar suspicious messages. |
+| Additional Analysis Steps for L1 | Verify sender authenticity by checking the legitimacy of the social media profiles and email headers. Analyze links and attachments for known malicious signatures. Check for any other users who might have received similar communications. Assess if there are any rapid follow-up communications that attempt to further compromise the system. |
+| T2 Analyst Actions | Conduct deeper inspection of the implicated messages or profiles. Perform behavioral analysis on any downloaded content or executed files. Correlate the user's network activities with other intrusion detection alerts and known malicious IP or domain lists. Evaluate any potential data exfiltration attempts or lateral movements. |
+| Containment and Further Analysis | Advise affected users to avoid interactions with suspicious messages and change passwords if access is suspected compromised. Quarantine malicious files and reported suspicious messages within the email and social media environments. Implement any necessary blocks on the identified URLs/domains/IPs involved. Conduct a full threat hunt to ensure no latent threat actors remain in the network, and re-train users on identifying social engineering attacks. |

@@ -1,0 +1,15 @@
+# Exfiltration_Over_Alternative_Protocol:_Exfiltration_Over_Asymmetric_Encrypted_Non-C2_Protocol - T1048002
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Exfiltration |
+| MITRE TTP | T1048.002 |
+| MITRE Sub-TTP | T1048.002 |
+| Name | Exfiltration Over Alternative Protocol: Exfiltration Over Asymmetric Encrypted Non-C2 Protocol |
+| Log Sources to Investigate | Focus on network traffic logs and firewall logs to detect unusual data flows. Analyze logs from IDS/IPS for encrypted traffic signatures that do not correspond to known C2 channels. Examine host-based logs from EDR/XDR solutions for non-standard ports usage and excessive data transfer activities. Ensure collection and examination of TLS/SSL certificates used during the communication for anomalies, potentially using logs from tools like Zeek or Splunk. |
+| Key Indicators | Look for large volumes of data being transferred over intermittent, unexpected, or new encrypted channels. Unusual asymmetric encryption certificate exchanges that are not regular for the observed traffic. Data exfiltration attempts that utilize ports commonly associated with unconventional services. Persistent connections to external IPs not whitelisted by the organization's IT policies. |
+| Questions for Analysis | Is there excessive data transfer occurring over new or rarely used encrypted channels? Do logs show SSL/TLS handshakes with external IPs not typically associated with business operations? Are there asymmetric keys being used that do not match organizationally approved certificates? Is there a deviation from the organization’s baseline for network traffic? |
+| Decision for Escalation | Escalate to Tier 2 if there is confirmation of sustained data transfer over unknown asymmetric encryption protocols. Escalate if host-based anomalies match known exfiltration techniques or if network traffic analysis shows ties to blacklisted or high-risk geographic locations. |
+| Additional Analysis Steps for L1 | Look for patterns of activity within the same timeframe across multiple hosts. Cross-reference with known threat intelligence sources to identify if the IP addresses, domains, or certificates involved are recognized as malicious. Verify with IT if network changes were authorized or expected. |
+| T2 Analyst Actions | Perform a thorough deep packet analysis on suspect traffic to confirm the nature of data being transferred. Review metadata from SSL/TLS traffic for inconsistencies. Use threat intelligence tools to correlate network activity with known threat actor tactics. Validate the legitimacy and intent of the certificates used, potentially misconfigured legitimate services. |
+| Containment and Further Analysis | Isolate affected machines from the network to prevent further exfiltration. Work with IT to block suspicious IP addresses and ports associated with unapproved protocols. Conduct a root cause analysis to determine initial infection vector. If necessary, apply encryption policies via DLP solutions to mitigate future risks. Conduct a post-incident review to improve detection mechanisms against similar threats. |

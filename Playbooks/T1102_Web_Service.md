@@ -1,0 +1,15 @@
+# Web_Service - T1102
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Command and Control |
+| MITRE TTP | T1102 |
+| MITRE Sub-TTP | T1102 |
+| Name | Web Service |
+| Log Sources to Investigate | Monitor network traffic logs to identify unusual patterns indicating communication with web services not typically utilized by the organization, particularly beyond business hours. Inspect proxy logs for repetitive or large data transfers to external web services such as Google, Microsoft, and Twitter. Analyze cloud service logs to detect anomalies in API call rates, which might suggest misuse for C2 purposes. Security information and event management (SIEM) alerts regarding abnormal SSL/TLS traffic could indicate hidden C2 communications. |
+| Key Indicators | Frequent access to web services from hosts not typically using such services. Unusual increase in data volumes being sent to known web services, especially encrypted traffic. Regular intervals in API requests that suggest automated, rather than manual, activity. Changes in the types of HTTP methods employed, such as an increase in POST requests leading to data exfiltration. |
+| Questions for Analysis | Is the web service access pattern typical for the application and user base in question? Are there any users or systems suddenly showing increased web service interactions outside of regular usage patterns? Does the data volume match expected usage trends? Is there any intelligence or previous alerts regarding similar behavior associated with potential threats? |
+| Decision for Escalation | Escalate to Tier 2 if there is unexplained data transmission to web services during unusual times, paired with user anomalies or access to web services that are not part of standard operations. Any identified links between current activities and known threat indicators should also prompt escalation. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of user accounts and systems involved in suspicious web service interactions. Cross-reference the IP addresses and domains partnered in the communication against known threat intelligence databases. Investigate historical data transmission trends for deviations. |
+| T2 Analyst Actions | Conduct a deeper analysis of SSL/TLS encrypted traffic and inspect the payload if possible. Assess any anomalous OAuth token usage or API key access linked to the activity. Review endpoint logs for any signs of malware suggesting data exfiltration or unauthorized access. Correlate activities with any recent phishing or other attack vectors that might have led to a compromise. |
+| Containment and Further Analysis | If malicious activity is confirmed, isolate the affected system(s) to prevent further data exfiltration. Reset credentials and update API keys associated with the suspicious activity. Conduct a detailed forensic investigation to assess the full scope and method of intrusion, and develop an alerting model for similar patterns in the future. Enhance web service interaction monitoring to include anomaly detection based on behavior. |

@@ -1,0 +1,15 @@
+# Acquire_Infrastructure:_Malvertising - T1583008
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Resource Development |
+| MITRE TTP | T1583.008 |
+| MITRE Sub-TTP | T1583.008 |
+| Name | Acquire Infrastructure: Malvertising |
+| Log Sources to Investigate | Examine web proxy logs for unusual redirections and domains accessed shortly after ad clicks. Check DNS logs for resolution of domains known for hosting malicious content. Inspect user endpoint logs, particularly browser histories and processes starting after a web browsing session. Analyze network traffic logs for unusual outbound traffic patterns or connections to suspicious IP addresses associated with ad clicks. |
+| Key Indicators | Increased traffic to known malicious domains shortly following ad interactions. Redirection patterns indicating multiple hops before reaching a final destination, especially if the path includes unfamiliar or suspicious domains. DNS queries for domains that have recently been associated with malware distribution or are not typically accessed within the organization. Browser process launches followed by the execution of unexpected or unusual scripts. |
+| Questions for Analysis | Did users report any suspicious ads or unexpected redirects? Are there recent changes in ad traffic patterns or unexplained network connections? Were there any alerts from security tools indicating connections to known malicious sites? Are any legitimate software sites accessed via ads, but the downloaded content displays unexpected behavior? |
+| Decision for Escalation | Escalate if there are confirmed interactions with known malicious domains or if ad pathways result in malware downloads or exploitation attempts. Immediate escalation is warranted if automated scans reveal trojanized software installations or if unusual traffic patterns align with a known attack methodology. |
+| Additional Analysis Steps for L1 | Gather additional information on the domains involved, including recent threat intelligence reports or reputation scores. Review historical data for repeat occurrences of similar ad-related traffic. Investigate user reports regarding ads and cross-reference with known indicators of compromise. |
+| T2 Analyst Actions | Conduct a deeper forensic analysis of affected systems to identify any persistent threats or backdoors. Use threat intelligence feeds to correlate accessed domains with known campaigns or threat actors. Simulate ad click paths to replicate and observe any malicious behavior or domain redirection chains. Develop detection mechanisms for future identification of malvertising patterns. |
+| Containment and Further Analysis | Block known malicious domains and IP addresses at the network perimeter and update web filtering policies to restrict access. Quarantine impacted endpoints and perform a full malware scan with appropriate remediation steps. Notify affected users and educate them on safe browsing practices and ad awareness. Enhance monitoring for suspected domain patterns to prevent future incidents. |

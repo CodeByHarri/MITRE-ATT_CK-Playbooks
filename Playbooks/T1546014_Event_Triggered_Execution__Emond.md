@@ -1,0 +1,15 @@
+# Event_Triggered_Execution:_Emond - T1546014
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence, Privilege Escalation |
+| MITRE TTP | T1546.014 |
+| MITRE Sub-TTP | T1546.014 |
+| Name | Event Triggered Execution: Emond |
+| Log Sources to Investigate | Investigate logs from macOS Event Monitor Daemon (emond) related activities. Key log files to check include /var/log/system.log for details related to emond rule execution, any relevant logs in /var/db/diagnostics to correlate activities tied to event monitoring, and changes to the /etc/emond.d/rules/ directory. Additionally, inspect logs accessible via Unified Logging System using the 'log' command and consider file integrity logs or monitoring for changes in emond rule files. |
+| Key Indicators | Presence of unexpected or recently modified files in /etc/emond.d/rules/ implies potential tampering. Execution of unusual or unauthorized commands triggered by emond rules, especially those not typically associated with system startup or user authentication events. Any system command executions from emond on system logs that align with typical malicious activity patterns. |
+| Questions for Analysis | 1. Are there any newly created or modified rule files in the /etc/emond.d/rules/ directory?<br>2. Do the rule files contain commands or actions that are unusual or unauthorized for the system context?<br>3. Has there been any recent error or alert about suspicious activity from the emond service in system logs? |
+| Decision for Escalation | Escalate to Tier 2 if any rule files are newly created or modified without proper authorization or documentation. If the content of the rule files includes actions or commands that appear potentially harmful or anomalous, escalate immediately. Also, escalate if the system logs show unauthorized execution of commands triggered by these emond rules. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of rule modifications by checking against documented changes within IT change management records. Correlate the timestamps of rule changes with user activity logs to identify potential unauthorized access or actions. Check for any recent file integrity alerts for the /etc/emond.d/rules/ directory. |
+| T2 Analyst Actions | Deep-dive into the content of the rule files to understand their logic and actions being triggered. Correlate rule executions with historical attack patterns or threat intelligence. Utilize advanced tools to detect any privilege escalation attempt facilitated through emond, such as analyzing process trees and tracing command executions. |
+| Containment and Further Analysis | Disabling or quarantining suspicious rule files temporarily to prevent further execution of malicious actions. Conduct a comprehensive audit of all rule files to ensure all are legitimate and necessary, followed by deploying patches or updates as necessary. Perform root cause analysis to understand the method of initial access and educate the IT team on preventive measures. Employ EDR solutions to scan for potential lateral movement within the network and offer system hardening recommendations post-evaluation. |

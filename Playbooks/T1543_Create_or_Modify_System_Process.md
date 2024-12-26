@@ -1,0 +1,15 @@
+# Create_or_Modify_System_Process - T1543
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence, Privilege Escalation |
+| MITRE TTP | T1543 |
+| MITRE Sub-TTP | T1543 |
+| Name | Create or Modify System Process |
+| Log Sources to Investigate | Investigate system logs such as Windows Event Logs, specifically the System log for event IDs indicating service creation or modification (e.g., Event ID 4697 - A service was installed in the system). On Linux, review systemd journal logs and audit logs for service start/stop events. For macOS, check launchd logs and configuration files in directories such as /Library/LaunchDaemons and /Library/LaunchAgents. |
+| Key Indicators | New or modified entries in service, daemon, or agent configuration files that were not previously present. Corresponding administrative user actions occurring shortly before or after the service creation or modification. Event logs indicating changes to system services or unusual process execution patterns. Presence of suspicious binary paths or scripts associated with the new/modified service. |
+| Questions for Analysis | Is the change in service/daemon/agent configuration expected and approved? Does the service name and path match known benign services, or do they appear random or suspicious? Are there any related alerts or logs indicating suspicious behavior from the process associated with the service? Were corresponding network activities, such as connections to known malicious IPs/domains, observed? |
+| Decision for Escalation | Escalate to Tier 2 if the analysis reveals unauthorized changes to critical services, signs of privilege escalation attempts, presence of known malware signatures, or if the legitimacy of changes cannot be verified through official change management records or contact with system administrators. |
+| Additional Analysis Steps for L1 | Verify the change against the organization's change management database to identify approved modifications. Check the reputation of any executable files associated with the new/modified service using threat intelligence feeds. Scan the affected system for malware using the organization's antivirus or endpoint detection tools. |
+| T2 Analyst Actions | Perform a deeper investigation into the historical context of the event, reviewing past logs and changes. Conduct a full forensic analysis of suspicious binaries or scripts associated with the modified service. Correlate this activity across other systems in the network to identify potential lateral movement or other indicators of compromise. |
+| Containment and Further Analysis | If confirmed as malicious, disable or remove the unauthorized service or daemon. Reset credentials that may have been compromised due to privilege escalation. Implement additional logging or monitoring for unusual behavior related to the affected systems. Patch any vulnerabilities exploited during this attack vector. Conduct a root cause analysis to determine how the adversary gained the initial access. |

@@ -1,0 +1,15 @@
+# Event_Triggered_Execution:_Trap - T1546005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence, Privilege Escalation |
+| MITRE TTP | T1546.005 |
+| MITRE Sub-TTP | T1546.005 |
+| Name | Event Triggered Execution: Trap |
+| Log Sources to Investigate | 1. Shell History Logs - Check bash history files for presence of 'trap' command usage.<br>2. Process Creation Logs - Monitor for processes started with specific arguments indicating 'trap' command usage (ex: in Linux, use auditd to track processes).<br>3. File Integrity Monitoring (FIM) Logs - Look for changes to scripts or cron jobs that add or modify trap commands. 4. Configuration Management Logs - Examine changes in shell configuration files (.bashrc, .bash_profile) for trap command entries. |
+| Key Indicators | 1. Presence of 'trap' command in shell scripts or shell configurations (e.g., .bashrc).<br>2. Unusual or unexpected trap mechanisms set in scripts that are not part of normal operations.<br>3. Specific commands or routines associated with trap signals that do not align with typical script usage. 4. Execution of processes triggered by uncommon signals (e.g., a high frequency of 'trap' commands associated with critical system signals). |
+| Questions for Analysis | 1. Is the 'trap' command usage consistent with normal or expected operations?<br>2. Who executed the script or command, and was it an authorized user or automated process?<br>3. Are the commands triggered by 'trap' aligned with legitimate system administration activities? 4. Is this behavior occurring on critical servers or systems where it is less expected? |
+| Decision for Escalation | 1. Escalate if there is no documented or authorized reason for the trap commands.<br>2. Escalate if the trap command attempts to start, stop, or alter processes critical to security or operations.<br>3. Escalate if similar commands are found across multiple hosts, suggesting potential propagation or wider compromise. |
+| Additional Analysis Steps for L1 | 1. Collect and review the context around when the 'trap' command was added or executed.<br>2. Verify the hash and integrity of any script or binary that contains 'trap' usage.<br>3. Determine if the 'trap' commands align with any recent IT or developer deployments or updates. |
+| T2 Analyst Actions | 1. Validate the legitimacy of the scripts or binaries using the trap commands with system or application owners.<br>2. Conduct deeper forensic analysis to discover other affected areas, such as lateral movement or data exfiltration.<br>3. Review related network traffic for indicators of external command and control linked to the event. |
+| Containment and Further Analysis | 1. Isolate affected systems to prevent further malicious execution.<br>2. Disable or remove unauthorized trap configurations from affected scripts or shell settings.<br>3. Implement host-based intrusion prevention systems (HIPS) to monitor and block further unauthorized trap usage. 4. Schedule a comprehensive review of all custom scripts to prevent lingering threats and improve script integrity controls. |

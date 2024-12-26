@@ -1,0 +1,15 @@
+# Gather_Victim_Host_Information - T1592
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Reconnaissance |
+| MITRE TTP | T1592 |
+| MITRE Sub-TTP | T1592 |
+| Name | Gather Victim Host Information |
+| Log Sources to Investigate | Collect and analyze logs from web servers to examine User-Agent strings, network traffic logs for unusual patterns or interactions with suspicious domains, DNS query logs for domains that gather host information, and endpoint security logs for file creation or modification that may indicate collection of host information. Example sources include Apache access logs, proxy logs, IDS/IPS alerts, and DNS logs. |
+| Key Indicators | Unusual or newly observed User-Agent strings in web server logs; repeated or atypical accesses to endpoints known for gathering host information; DNS queries to new or suspicious domains; detection of scripts or executables on hosts that attempt to enumerate system details (OS, IP address, hostname); unexpected outbound traffic to suspicious or newly resolved IP addresses. |
+| Questions for Analysis | Is the source IP of the request known and authorized within our environment? Are there patterns of repeated access from the same IP using distinct User-Agents? Does the DNS query log show lookups for known malicious domains? Have any endpoint defenses triggered on suspicious scripts or executables that could be used for host information gathering? |
+| Decision for Escalation | Escalate to Tier 2 if there is evidence of repeated access attempts from external actors combined with suspicious User-Agent strings, particularly if there is an attempt to communicate with known malicious domains or IP addresses, or if host-based alerts indicate anomaly indicative of potential reconnaissance activity. |
+| Additional Analysis Steps for L1 | Review web server logs for any unusual or new User-Agents between known and unknown entities interacting with critical systems. Analyze frequency and timing of DNS queries for any unusual patterns. Verify endpoint security alerts and check for any scripts or executables that appear anomalous. |
+| T2 Analyst Actions | Further investigate source IP addresses that display repetitive or distinct User-Agent access patterns. Cross-reference these with threat intelligence feeds for known malicious indicators. Evaluate the behavior of DNS query patterns and check for correlations with known malicious infrastructure. Assess any endpoint alerts for indicators of compromise related to host information gathering, such as changes in system configuration files or unauthorized scripts running. |
+| Containment and Further Analysis | If malicious activity is confirmed, initiate containment measures such as blocking identified IP addresses, domains associated with reconnaissance activities, and remove fraudulent User-Agents from allowed lists. Strengthen monitoring on affected hosts and analyze any captured malware samples or network traffic for further indicators of compromise. Consider deploying additional security controls aimed at identifying similar reconnaissance behaviors in real-time. |

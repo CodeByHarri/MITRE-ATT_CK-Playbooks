@@ -1,0 +1,15 @@
+# Modify_Authentication_Process:_Password_Filter_DLL - T1556002
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access, Defense Evasion, Persistence |
+| MITRE TTP | T1556.002 |
+| MITRE Sub-TTP | T1556.002 |
+| Name | Modify Authentication Process: Password Filter DLL |
+| Log Sources to Investigate | 1. Windows Security Event Logs: Specifically look for changes or additions to registry keys related to password filters, such as those found in 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa'.<br>2. System Change Logs: Tracking DLL registrations and modifications.<br>3. File Access Logs: Monitoring access and modification of DLL files related to password filters. 4. Sysmon: Track and log DLL load activities and process creation that might be suspect. 5. Endpoint Detection and Response (EDR) Tools: Look for suspicious processes or DLL injections. |
+| Key Indicators | 1. Modifications or additions to registry paths related to password filters (e.g., HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa).<br>2. Unusual DLL files being registered as password filters.<br>3. Unexpected processes interacting with LSA (Local Security Authority). 4. Requests for password validation that do not correlate with known user or system behavior. |
+| Questions for Analysis | 1. Is there a recent change in the registry paths typically associated with password filters?<br>2. Are there any unusual DLLs present in the password filter list?<br>3. Do the time and source of the DLL registration correlate with any known legitimate administrative activities? 4. Are there any irregular or unexpected patterns in password-related system events? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. A newly registered password filter DLL does not match known or expected files.<br>2. There is evidence of unauthorized or suspicious access to the LSA.<br>3. Uncorrelated password validation requests with any legitimate user or admin activities. |
+| Additional Analysis Steps for L1 | 1. Verify the checksum and digital signature of recently registered DLLs to check for legitimacy.<br>2. Check timestamps of registry key changes against known patches or software deployments.<br>3. Query user accounts that interacted with the modified DLLs or related registry keys. |
+| T2 Analyst Actions | 1. Conduct a deep-dive analysis of the suspect DLLs for any malicious code or anomalies.<br>2. Perform behavioral analysis on systems with suspicious DLL modifications to detect any credential harvesting activities.<br>3. Coordinate with IT teams to confirm any legitimate changes that may have been mistaken for adversarial activity. |
+| Containment and Further Analysis | 1. Immediately isolate affected systems to prevent potential credential leakage.<br>2. Work with IT to remove malicious DLLs and restore legitimate password filters.<br>3. Conduct a comprehensive forensic analysis to identify any other modifications or malicious activities. 4. Examine network traffic around the time of compromise for signs of data exfiltration or command-and-control communication. |

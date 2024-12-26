@@ -1,0 +1,15 @@
+# Unused_Unsupported_Cloud_Regions - T1535
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1535 |
+| MITRE Sub-TTP | T1535 |
+| Name | Unused/Unsupported Cloud Regions |
+| Log Sources to Investigate | Monitor cloud provider management event logs (e.g., AWS CloudTrail, Azure Activity Logs, GCP Audit Logs) for unusual activity in less commonly used regions. Look for creation of cloud resources such as virtual machines, databases, and storage in regions that are not typically utilized by your organization. Also track IAM activity for signs of unauthorized access or configurations that enable usage of new regions. |
+| Key Indicators | 1. Resource creation events in regions not typically used by the organization.<br>2. Anomalies in login activities, such as new geolocations for logins by privileged accounts.<br>3. Significant changes in billing that indicate unexpected resource usage. 4. Increase in compute resources without business justification. 5. Access attempts or configurations made by accounts outside their usual operating boundaries or times. |
+| Questions for Analysis | 1. Is there a legitimate business reason for using new cloud regions?<br>2. Were the resources in these regions provisioned by known authorized personnel?<br>3. Has there been a sudden increase in cost linked to cloud services in unused regions? 4. Is there an anomaly in the geographic origin of access attempts? 5. Are there configurations or permissions altered recently related to the cloud management accounts? |
+| Decision for Escalation | Escalate to Tier 2 if any unexpected resource creation or unauthorized access attempts are detected in typically unused regions, especially if linked to high-risk accounts. Also escalate if a sudden spike in resource consumption or cost is observed without a direct business justification. |
+| Additional Analysis Steps for L1 | Verify the resource creation logs and identify the originating account. Check recent changes in IAM policies related to region permissions. Review billing alerts and resource consumption patterns for anomalies. Confirm whether there were any pre-approved changes or projects that justify the new resource usage. |
+| T2 Analyst Actions | Investigate the compromised account for additional signs of unauthorized activity. Review historical access logs to identify when unauthorized changes began. Work with cloud security architects to assess the security posture and configurations in newly used regions. Perform threat hunting to detect any other indicators of compromise. |
+| Containment and Further Analysis | Disable newly created resources in unauthorized regions immediately if no justification is provided. Reset credentials and restrict access for the compromised account. Monitor network traffic for signs of data exfiltration. Review cloud provider security settings to ensure compliance with best practices across all regions. Conduct a comprehensive audit of all cloud resources to identify potential security gaps. |

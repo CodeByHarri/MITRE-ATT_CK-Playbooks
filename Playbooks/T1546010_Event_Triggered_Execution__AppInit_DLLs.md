@@ -1,0 +1,15 @@
+# Event_Triggered_Execution:_AppInit_DLLs - T1546010
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence, Privilege Escalation |
+| MITRE TTP | T1546.010 |
+| MITRE Sub-TTP | T1546.010 |
+| Name | Event Triggered Execution: AppInit DLLs |
+| Log Sources to Investigate | Investigate Windows Registry logs for changes to 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs' and 'HKEY_LOCAL_MACHINE\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Windows\AppInit_DLLs'. Look for file creation events, especially DLL files, in commonly accessed directories such as System32 or SysWOW64 using file system monitoring logs. Additionally, monitor process creation logs for unusual child processes originating from legitimate parent processes. |
+| Key Indicators | Modifications to the AppInit_DLLs registry keys, especially values not commonly seen or recently added. Presence of unexpected DLLs in system directories. Consistent loading of a suspicious DLL across multiple processes which regularly load user32.dll. Absence of expected secure boot features that may disable AppInit DLLs. |
+| Questions for Analysis | Are there recent modifications to the AppInit_DLLs keys? Is there an unexpected or uncommon DLL being referenced within the AppInit_DLLs registry value? Is the affected machine running Windows 8 or later with secure boot disabled? Are there known good processes loading unexpected DLLs continuously? |
+| Decision for Escalation | Escalate if there are modifications to AppInit_DLLs that cannot be accounted for by legitimate software updates or administrative changes. Escalate if there's an unexplained presence of a DLL in the AppInit_DLLs list being loaded by multiple processes. Especially escalate if the AppInit DLLs feature should be disabled but is active, indicating potential security setting issues. |
+| Additional Analysis Steps for L1 | Review any recent or pending software installations or updates that could have modified the AppInit_DLLs. Examine logs for any shell or scripting activity around the time of the registry changes. Check for any alerts from installed antivirus/endpoint detection systems concerning the suspect DLLs. |
+| T2 Analyst Actions | Conduct a deeper forensic analysis of the suspicious DLL files, including comparing their hash values with known malware signatures. Analyze network activity for communications that could correlate with malicious DLL operations. Evaluate endpoint configurations concerning secure boot or related security measures that could abate this tactic. |
+| Containment and Further Analysis | Remove or rename the suspicious DLLs identified in the AppInit_DLLs. Backup the current registry state and restore from prior to the compromise if safe to do so. Consider enabling secure boot if not already active and reshuffle loaded applications to eliminate redundant or unnecessary executables. Review the full system for additional persistence mechanisms or compromised software elements. |

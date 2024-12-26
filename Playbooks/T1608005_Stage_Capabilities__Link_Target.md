@@ -1,0 +1,15 @@
+# Stage_Capabilities:_Link_Target - T1608005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Resource Development |
+| MITRE TTP | T1608.005 |
+| MITRE Sub-TTP | T1608.005 |
+| Name | Stage Capabilities: Link Target |
+| Log Sources to Investigate | 1. Web Proxy Logs: Monitor requests to newly registered or uncommon domains, especially those resembling legitimate domains (e.g., homoglyphs, typosquatting).<br>2. DNS Logs: Track queries for suspicious domains or known malicious URL patterns.<br>3. Email Gateway Logs: Identify emails containing potentially malicious links, especially those with shortened URLs or links pointing to unfamiliar domains. 4. Network Traffic Logs: Detect unusual outbound connections or IP addresses associated with newly resolved domains. 5. Endpoint Logs: Check for browser activity associated with downloading scripts or executable files from untrusted sources. |
+| Key Indicators | 1. DNS requests to newly registered domains or domains that mimic legitimate ones.<br>2. Unusual web requests to link shortening services followed by redirects to suspicious destinations.<br>3. Email alerts containing suspicious links, especially with high-risk indicators like recently registered domains. 4. Detected download of malware or suspicious scripts from URLs present in spearphishing attempts. |
+| Questions for Analysis | 1. Is the domain or URL being accessed known to be malicious or newly registered?<br>2. Does the link seem to mimic a legitimate service or organization?<br>3. Are there any user-reported incidents related to the emails containing hyperlinks? 4. Is there evidence of executable downloads or suspicious activity following the access of the link? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. The domain is confirmed to be involved in prior phishing or malware campaigns.<br>2. User credentials appear to have been harvested or compromised shortly after the interaction with the link.<br>3. There is evidence of a download and execution of files from the suspicious domain. |
+| Additional Analysis Steps for L1 | 1. Correlate the suspicious domain with threat intelligence feeds for any known malicious activities.<br>2. Verify the URL or domain against past incidents or current threat trends.<br>3. Check for any corresponding alerts triggered by endpoint protection tools following the domain access. |
+| T2 Analyst Actions | 1. Conduct a thorough threat intelligence search on the domain and URL to identify associated campaigns.<br>2. Analyze the network traffic to determine if there are any repeated patterns of access attempts.<br>3. If phishing is suspected, conduct a deep email header and URL analysis to trace its origin and potential spread. |
+| Containment and Further Analysis | 1. Isolate machines that have interacted with malicious links until a full assessment is done.<br>2. Block the malicious domain/IP addresses on network firewalls and update email security solutions.<br>3. Perform forensic analysis on affected endpoints to determine the extent of potential compromises. 4. Instruct users on how to identify similar phishing attempts in the future. |

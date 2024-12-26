@@ -1,0 +1,15 @@
+# Endpoint_Denial_of_Service:_OS_Exhaustion_Flood - T1499001
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Impact |
+| MITRE TTP | T1499.001 |
+| MITRE Sub-TTP | T1499.001 |
+| Name | Endpoint Denial of Service: OS Exhaustion Flood |
+| Log Sources to Investigate | Network traffic logs, Firewall logs, Intrusion Detection System (IDS) logs, and System logs should be examined. Look for excessive SYN and ACK packet activity in network traffic logs. Firewall logs might reveal blocked connections that match the pattern of TCP floods. IDS logs could provide alerts on potential flood attacks such as SYN flood anomalies or unusual ACK packets without matching SYN requests. System logs on the affected endpoint may also show signs of resource exhaustion or TCP connection issues. |
+| Key Indicators | A significant and sustained increase in SYN packets without corresponding ACK responses, rapid increase in half-open connections, numerous ACK packets without established connections, logs showing dropped connections due to resource limits, and degraded system performance metrics following traffic spikes. |
+| Questions for Analysis | Is there a sudden increase in TCP connection attempts compared to baseline traffic? Are the source IP addresses for these packets consistent or numerous? Do logs show incomplete TCP handshakes (SYNs without ACKs)? Is the system showing signs of increased resource consumption or sluggish performance? Are there IDS alerts indicating potential SYN or ACK flood activity? |
+| Decision for Escalation | Escalate to Tier 2 if there is confirmation of resource exhaustion indicated by system and network logs, significant negative impact on service availability, or clear patterns of anomalous behavior in network traffic consistent with a denial of service attack. |
+| Additional Analysis Steps for L1 | Verify the time window of abnormal traffic. Check if the source IP addresses are known or flagged in threat intelligence feeds. Compare traffic patterns against historical baselines to discern anomalies. Verify if any protective measures (e.g., rate limiting, firewalls) have been triggered. |
+| T2 Analyst Actions | Conduct a deeper investigation into network flow data to identify the scale and scope of the attack. Analyze compromised system's performance metrics and current active connections. Employ packet analysis tools like Wireshark for in-depth inspection. Engage in threat intelligence correlation to check for known actors. Consider using tools to safely mirror traffic for further investigation. |
+| Containment and Further Analysis | Implement rate-limiting rules on network equipment to mitigate excessive traffic. Engage cloud-based DDoS mitigation services, if available. Adjust firewall rules temporarily to drop traffic from malicious sources. Monitor systems post-mitigation for indicators of further attacks. Perform a post-attack system audit to identify potential causes and implement improvement measures to enhance resilience against future attacks. |

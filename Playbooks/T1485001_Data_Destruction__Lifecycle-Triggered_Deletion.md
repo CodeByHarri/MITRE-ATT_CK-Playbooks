@@ -1,0 +1,15 @@
+# Data_Destruction:_Lifecycle-Triggered_Deletion - T1485001
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Impact |
+| MITRE TTP | T1485.001 |
+| MITRE Sub-TTP | T1485.001 |
+| Name | Data Destruction: Lifecycle-Triggered Deletion |
+| Log Sources to Investigate | Investigate cloud platform audit logs and specifically look for lifecycle policy changes on storage buckets. Examples include AWS CloudTrail logs for `PutBucketLifecycle` API calls, Google Cloud Audit Logs for storage bucket lifecycle management activities, and Azure Activity Logs for policy changes on storage accounts. Review associated IAM policy logs to see who made these changes and if they have the appropriate permissions. |
+| Key Indicators | Look for API calls related to the modification of lifecycle policies such as AWS `PutBucketLifecycle`, Google Cloud `storage.objects.changeLifecycle`, or Azure equivalent. Suspicious changes in lifecycle policies, especially those set to delete all objects or shorten retention periods drastically, are key indicators. Anomalous activities by IAM users who typically do not perform these actions should be flagged. |
+| Questions for Analysis | 1. Is there a legitimate reason or request for changing the lifecycle policy of the bucket?<br>2. Has the API call to modify lifecycle policies been made during unusual hours for your organization?<br>3. Is the user who performed the action known, and do they have a history of such actions? 4. Are there any other concurrent or related suspicious activities involving the same bucket or IAM user? |
+| Decision for Escalation | Escalate if: There is no legitimate business reason for the lifecycle change. The user who made the change does not have the appropriate permissions according to IAM policy logs. The change coincides with other suspicious activities or anomalies, such as a spike in failed login attempts. No response from the user when attempting contact for verification. |
+| Additional Analysis Steps for L1 | Verify with the user or relevant department if there was an authorized request for a lifecycle policy change. Check recent change management records or requests supporting this activity. Examine IAM policies and permissions associated with the user responsible for the changes. |
+| T2 Analyst Actions | Conduct a deeper investigation into the IAM activity logs to ensure there is no indication of compromised credentials or privilege escalation. Cross-reference the timeframe of API calls with any possible incidents of unauthorized access or alerts from intrusion detection systems. Consider using anomaly detection tools to analyze the affected bucket's usage patterns. |
+| Containment and Further Analysis | If suspicious activity is confirmed, revoke or adjust IAM permissions immediately to prevent further unauthorized actions. Restore affected lifecycle policies to previous, secure configurations. Review backup and recovery options to restore any deleted or compromised data. Perform a broader security audit to assess potential impacts across other cloud resources and ensure no further unauthorized changes have been made. |

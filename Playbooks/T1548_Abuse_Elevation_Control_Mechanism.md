@@ -1,0 +1,15 @@
+# Abuse_Elevation_Control_Mechanism - T1548
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion, Privilege Escalation |
+| MITRE TTP | T1548 |
+| MITRE Sub-TTP | T1548 |
+| Name | Abuse Elevation Control Mechanism |
+| Log Sources to Investigate | Collect logs from system security events, particularly those tracking privilege escalation attempts. This includes Windows Event Logs such as Event ID 4673 (Sensitive Privilege Use) and Event ID 4674 (Operation Attempted by a Non-Privileged User). On Unix/Linux, examine logs from /var/log/auth.log or /var/log/secure for suspicious sudo or su activities. Also, review application logs for any anomalies related to privilege escalation mechanisms like UAC on Windows or sudo on Unix/Linux systems. |
+| Key Indicators | Look for repeated or unauthorized attempts to execute commands with sudo on Unix/Linux or bypass User Account Control (UAC) on Windows. Specific indicators include unusual activity from users who normally don't perform administrative tasks, changes to the sudoers file, or unexpected entries related to UAC bypass methods. |
+| Questions for Analysis | 1. Does the activity involve an account with limited privileges attempting privileged operations?<br>2. Is there a pattern of failed attempts before a successful privilege escalation?<br>3. Are there any legitimate reasons for the account in question to require elevated privileges at the time of the detection? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. The user attempting the escalation does not normally require administrative rights.<br>2. There is evidence of repeated failed attempts to elevate privileges before succeeding.<br>3. The method used for privilege escalation aligns with known adversarial techniques without any legitimate justification. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of the user accounts involved by checking with Human Resources or IT if the user is authorized to perform such actions. Look for correlated events around the time of escalation, such as network connections to external IPs or execution of unfamiliar processes. Review recent changes to user roles or permissions that could justify the activity. |
+| T2 Analyst Actions | Conduct a deeper investigation into the affected systems by analyzing user session activity, including login/logout times and remote access patterns. Cross-examine the context of the events with potential insider threat indicators. Validate whether the system was compromised using forensic techniques such as hash comparisons of relevant executables and configuration files. |
+| Containment and Further Analysis | If unauthorized elevation is confirmed, immediately restrict the involved account and isolate affected systems from the network. Conduct a full malware scan to identify any backdoors or persistence mechanisms. Update and enforce strict access controls, conducting a review of privilege management policies to prevent future occurrences. Perform a full incident report and consider notifying senior management if sensitive data was potentially exposed. |

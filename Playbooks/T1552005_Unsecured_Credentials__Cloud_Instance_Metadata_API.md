@@ -1,0 +1,15 @@
+# Unsecured_Credentials:_Cloud_Instance_Metadata_API - T1552005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access |
+| MITRE TTP | T1552.005 |
+| MITRE Sub-TTP | T1552.005 |
+| Name | Unsecured Credentials: Cloud Instance Metadata API |
+| Log Sources to Investigate | Investigate logs related to virtual instances and network traffic. Specific log sources include cloud provider access logs (such as AWS CloudTrail, Azure Activity Logs, and GCP Audit Logs), network traffic logs from the virtual instances, and web server logs if SSRF is suspected. Also, consider monitoring IAM logs for unusual activity related to the creation or use of instance credentials. |
+| Key Indicators | Key indicators include requests to the IP address 169.254.169.254, especially those originating from application services or unauthorized sources. Look for unusual patterns of metadata API access or errors in the logs that show access attempts. Anomalous traffic originating from web applications or proxies that access internal resources could also indicate SSRF attempts. |
+| Questions for Analysis | 1. Are access attempts to the metadata API coming from authorized applications or systems?<br>2. Is the frequency or volume of requests to the instance metadata API unusual?<br>3. Are there any error logs indicating failed, potentially unauthorized, access to the metadata service? 4. Are there any external IP addresses making requests indicative of SSRF? |
+| Decision for Escalation | Escalate to T2 if access to the metadata API is detected from unauthorized sources, if unauthorized credentials are being used, or if there are indications of an SSRF attack from unexpected external sources. Additionally, any access patterns differing significantly from normal operations warrant escalation. |
+| Additional Analysis Steps for L1 | Conduct a preliminary investigation of logs to confirm whether accesses to the metadata API were authorized or part of an expected pattern. Cross-reference the access times with known application deployments or updates. Verify the roles and permissions associated with any detected credential usages to ensure they match legitimate needs. |
+| T2 Analyst Actions | Perform a deeper inspection of network traffic patterns, focusing on unusual requests and new traffic flows. Examine the origin of potentially malicious requests to determine if SSRF was likely. Conduct a thorough review of IAM roles to ensure no elevation of privilege occurred and verify integrity and compliance of deployed instance configurations. |
+| Containment and Further Analysis | Block any unauthorized IPs or applications from accessing the metadata API. Update security group rules to restrict access further. Conduct a full credential rotation if compromised access is suspected. Implement additional monitoring for SSRF attacks and ensure web applications/web proxies are configured to prevent SSRF. Perform a retrospective analysis to determine how long the compromise has been occurring and assess any potential exfiltration events. |

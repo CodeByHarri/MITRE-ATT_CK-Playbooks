@@ -1,0 +1,15 @@
+# Phishing:_Spearphishing_Link - T1566002
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Initial Access |
+| MITRE TTP | T1566.002 |
+| MITRE Sub-TTP | T1566.002 |
+| Name | Phishing: Spearphishing Link |
+| Log Sources to Investigate | Email logs to track incoming and outgoing emails for patterns indicative of spearphishing links. Web proxy logs to review URLs accessed, focusing on unusual or obfuscated URL patterns. Endpoint detection and response (EDR) systems for evidence of executed payloads or processes spawned from web browsers. Authentication logs to identify unusual login activities that could result from compromised credentials or consent phishing incidents. Additionally, DNS logs to observe domain resolution requests for suspicious or known malicious domains. |
+| Key Indicators | Emails containing unusual senders with a sense of urgency and links. URLs with obfuscated elements, such as hexadecimal or integer-based hostnames. Requests from web browsers to known phishing domains or new/unusual domains. OAuth consent requests navigating from links in emails. Unusual login activities linked to authorized OAuth tokens or device code authorizations. |
+| Questions for Analysis | Does the email originate from a legitimate and expected sender? Are there any obfuscations in the URLs present in the email? Has the user accessed any dubious domains recently, as seen in web or DNS logs? Are there unexpected OAuth or device authorization consent requests linked to the user's account? |
+| Decision for Escalation | Escalate if the URL shows clear signs of manipulation or obfuscation that bypass normal protections. If login activities are stemming from unauthorized locations or are followed by failed login attempts. When confirmed unauthorized OAuth consents have been granted from the user's account. If there's evidence of malware execution following an email link click. |
+| Additional Analysis Steps for L1 | Cross-reference suspicious emails against known malicious email repositories or threat intelligence feeds. Verify URL reputation using trusted URL scan and reputation services. Analyze user logs for evidence of atypical OAuth consent interactions. Review recent web browsing history and DNS logs for domains associated with malicious activity. |
+| T2 Analyst Actions | Conduct a deeper investigation into the origin of URLs and domains for established associations with known attack vectors. Review OAuth and device authorization logs carefully for signs of unauthorized access or tokens. Perform a comprehensive review of endpoint activities that might stem from spearphishing emails. Use tactical threat intelligence to verify the context of the detected activity. |
+| Containment and Further Analysis | Disable or remove any unauthorized OAuth tokens or device authorizations from the user's accounts. Quarantine affected endpoints for deeper forensic analysis if malware deployment is confirmed. Monitor network traffic for communications with unexpected external IP addresses or domains. Review similar user accounts or endpoint metadata/signatures for signs of related intrusion attempts. |

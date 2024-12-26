@@ -1,0 +1,15 @@
+# Data_Encrypted_for_Impact - T1486
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Impact |
+| MITRE TTP | T1486 |
+| MITRE Sub-TTP | T1486 |
+| Name | Data Encrypted for Impact |
+| Log Sources to Investigate | Security Information and Event Management (SIEM) logs, endpoint detection and response (EDR) logs, file integrity monitoring (FIM) logs, network traffic logs, Windows Event Logs (especially related to file access and system changes), authentication logs (for unusual login behavior), cloud provider logs (for cloud environments, monitor for abnormal storage operations), and firewall logs (for unusual outbound connections). |
+| Key Indicators | Sudden and extensive file modifications or renaming (particularly if common file types like .docx, .pdf, .jpg); the presence of unusual file extensions after alteration; ransom notes left in multiple directories; abnormal increase in file write operations; abnormal outbound network traffic patterns possibly communicating with known suspicious IPs; changes to user permissions or unauthorized user account accesses; unusual system shutdowns or reboots. |
+| Questions for Analysis | Are there unusually high numbers of file operations within a short time span? Have any files been encrypted or renamed to include unexpected extensions? Is there evidence of ransomware notes left on systems? Are there failed login attempts or signs of credential harvesting? Are internal file permissions being altered? Is there unexpected outbound traffic potentially indicating communication with a C2 server? |
+| Decision for Escalation | Escalate to Tier 2 if there is confirmed presence of encrypted files matching known ransomware extensions, ransom notification evidence, or system-wide irregular file access patterns. Also, escalate if there are signs of compromised admin accounts being used, suspicious outbound network connections, or presence of malware propagation behavior. |
+| Additional Analysis Steps for L1 | Validate the legitimacy of file modifications and user access patterns; cross-reference file hash or ransom note details with known ransomware signatures; analyze endpoint protection alerts for relevant indicators; verify recent administrative tasks and changes in access permissions. |
+| T2 Analyst Actions | Conduct a deeper investigation into impacted systems; corroborate attack indicators with threat intelligence sources; assess the scope of file encryption across the network; identify and analyze malware samples if available; investigate potential security gaps like unpatched systems or vulnerable credentials. |
+| Containment and Further Analysis | Isolate affected systems from the network to prevent further propagation; back up unaffected systems and data immediately if possible; work toward decryption or recovery using backups if ransom is not to be paid; review and reinforce file access permissions; implement endpoint security measures; conduct a post-incident forensic analysis to understand attack vectors and strengthen defenses accordingly. |

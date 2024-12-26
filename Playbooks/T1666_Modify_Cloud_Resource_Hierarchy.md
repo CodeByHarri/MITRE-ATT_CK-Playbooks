@@ -1,0 +1,15 @@
+# Modify_Cloud_Resource_Hierarchy - T1666
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1666 |
+| MITRE Sub-TTP | T1666 |
+| Name | Modify Cloud Resource Hierarchy |
+| Log Sources to Investigate | Investigate cloud service provider logs related to resource management and API calls. For AWS, look into CloudTrail logs for the 'LeaveOrganization' and 'CreateAccount' API calls. In Azure, audit logs related to subscription management and global admin activities should be analyzed. Additionally, check billing reports and alerts for any unexpected account or subscription changes. |
+| Key Indicators | Key indicators include API calls like 'LeaveOrganization' or 'CreateAccount' in AWS and subscription changes or new subscription creation under a Global Administrator account in Azure. Also, observe changes in hierarchical structures, unexpected movement of accounts, and alterations in billing methods and service control policies. |
+| Questions for Analysis | 1. Are there API calls related to organization modification logged at unusual times or from unknown IP addresses?<br>2. Have there been any recent permissions changes that might allow such activity?<br>3. Do the API Caller IDs match known personnel or system accounts? 4. Is there any unusual activity in billing or subscription management logs? |
+| Decision for Escalation | Escalate to Tier 2 if multiple indicators are present, such as unauthorized subscription or account creation and significant changes in resource hierarchy without corresponding planned activities. Also escalate if suspicious API calls are made from locations or IP addresses not typically associated with your environment. |
+| Additional Analysis Steps for L1 | 1. Review associated user accounts for any recent changes or anomalies.<br>2. Analyze network traffic to identify the source locations of the API calls.<br>3. Check for any recent alerts related to resource management and investigate their resolution status. 4. Confirm with the account owner or related project manager if the changes were planned and authorized. |
+| T2 Analyst Actions | 1. Perform a deeper investigation into the API calls and identify who performed these actions.<br>2. Utilize threat intelligence to check if the activity corresponds to known malicious actor TTPs.<br>3. Analyze the context of the changes, such as timing and associated user activity in the period leading up to the incident. 4. Review historical logs to determine if similar activities have occurred previously. |
+| Containment and Further Analysis | 1. Revoke access or privileges of suspicious accounts immediately.<br>2. Ensure that the changes made are rolled back or revalidated through legitimate processes.<br>3. Conduct a full audit of permissions and account activities in the affected cloud environment. 4. Implement stricter service control policies and consider enabling additional security measures like Multi-Factor Authentication (MFA) to prevent unauthorized changes. 5. Follow up with a detailed incident report for root cause analysis and improve the incident response process for future occurrences. |

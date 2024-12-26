@@ -1,0 +1,15 @@
+# Data_from_Information_Repositories - T1213
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Collection |
+| MITRE TTP | T1213 |
+| MITRE Sub-TTP | T1213 |
+| Name | Data from Information Repositories |
+| Log Sources to Investigate | Investigate logs from collaboration platforms like SharePoint, Confluence, Slack, and Microsoft Teams for unusual access patterns. Check access logs for cloud storage services (AWS, Azure, Google Cloud) and databases (RDS, Redis, ElasticSearch) for unauthorized access attempts. Monitor network traffic for data exfiltration signs, such as large outbound file transfers to unusual destinations. Examine authentication logs for failed access attempts or access from unusual IP addresses or geolocations. |
+| Key Indicators | Unusual access to information repositories outside of normal business hours. Repetitive access to sensitive documents without a clear business need. Large data downloads involving sensitive information. External sharing of documents to unauthorized recipients outside the organization. Access to repositories from new or rare devices or IP addresses. Alterations in user permissions or repository settings. |
+| Questions for Analysis | Has there been a recent increase in access volume to the repositories? Are there signs of credential misuse, such as access from suspicious locations? Have there been any changes to the access controls or sharing settings of sensitive documents? Is there evidence of large amounts of data being transferred out of the network? |
+| Decision for Escalation | Escalate to Tier 2 if there are multiple signs of atypical access to critical repositories, evidence of data exfiltration attempts, or if initial findings suggest possible credential compromise. Additionally, escalate if unauthorized document sharing with external recipients is detected. |
+| Additional Analysis Steps for L1 | Verify access details such as user accounts, IP addresses, and time stamps against known patterns for the organization. Check for concurrent login events from different locations for the same user account. Look at prior access logs to determine if the access pattern is an anomaly for the user involved. |
+| T2 Analyst Actions | Conduct a deeper dive into user activity and comparison against baseline behaviors. Analyze IP addresses and devices for any correlation with known malicious entities. Correlate events across different log sources for more context. Collaborate with IT to check for potential security policy misconfigurations that might have been exploited. |
+| Containment and Further Analysis | Disable or limit access to affected information repositories for the compromised accounts. Work with IT to amend permissions and rectify any discovered access control issues. Verify that external sharing settings are correctly configured to restrict unauthorized sharing. Follow open incident protocols to document and track progress, and apply findings to enhance existing security policies and user awareness training. |

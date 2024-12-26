@@ -1,0 +1,15 @@
+# System_Binary_Proxy_Execution:_CMSTP - T1218003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1218.003 |
+| MITRE Sub-TTP | T1218.003 |
+| Name | System Binary Proxy Execution: CMSTP |
+| Log Sources to Investigate | Examine Windows Event Logs focusing on execution events like Event ID 4688, which logs a new process creation, particularly for CMSTP.exe. Check Security and Application Logs for unusual usage patterns. Also, review AppLocker logs (if enabled) and PowerShell/Script logs for execution of INF files or remote SCT/DLL loading. Network logs should be checked for connections to remote servers associated with CMSTP.exe commands, highlighting any unusual external IP addresses. |
+| Key Indicators | Look for the execution of CMSTP.exe without corresponding legitimate activity. Key indicators include infrequent use on typical user systems, the appearance of unusual command-line parameters referencing INF files, outbound network connections immediately after execution, and any file or registry modifications correlated with CMSTP.exe activity. |
+| Questions for Analysis | Is CMSTP.exe commonly used on this device or by this user? Are there any recent Windows updates or legitimate software installations that might explain the CMSTP.exe activity? Does the command line used by CMSTP.exe contain unusual parameters or reference INF files from untrusted locations? |
+| Decision for Escalation | Escalate to Tier 2 if CMSTP.exe execution is linked with suspicious command-line arguments, network connections to unrecognized external IPs, changes in system settings, or if the INF file or scriptlet originates from an unusual, unauthorized source. |
+| Additional Analysis Steps for L1 | Verify the hash and reputation of the involved INF files or scriptlets. Check for any associated files or network destinations against threat intelligence feeds. Attempt to correlate the time of CMSTP.exe execution with other system activities. Ensure to capture the context of use, such as which user account initiated the process and any accessed resources. |
+| T2 Analyst Actions | Perform a deeper file analysis of the INF or scriptlet with tools like Yara or a sandbox environment. Conduct network forensics to trace the origin and potential exfiltration points. Correlate findings with threat intelligence sources for known malicious indicators. Evaluate bypass techniques used against system defenses like AppLocker and UAC, and determine the scope of potential compromise. |
+| Containment and Further Analysis | Isolate affected systems to prevent further unauthorized access or exfiltration. Delete or quarantine malicious INF files or associated artifacts. Employ network segmentation to contain potential spread. Conduct a comprehensive scan for any backdoors or persistence mechanisms introduced by the threat. Review and enhance endpoint security configurations to detect and block similar activities in the future. Brief relevant teams for post-incident analysis and remediation steps. |

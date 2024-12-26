@@ -1,0 +1,15 @@
+# Use_Alternate_Authentication_Material:_Application_Access_Token - T1550001
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion, Lateral Movement |
+| MITRE TTP | T1550.001 |
+| MITRE Sub-TTP | T1550.001 |
+| Name | Use Alternate Authentication Material: Application Access Token |
+| Log Sources to Investigate | Begin with Cloud Service Provider logs such as AWS CloudTrail, Azure Activity Logs, and GCP Audit Logs, as they provide information about API calls and token requests. Monitor OAuth authorization server logs for unusual token issuances or refresh requests. Review application logs for API accesses performed using tokens, especially those indicating 'create', 'list', 'update', or 'delete' operations. Include SaaS application logs for unauthorized access patterns. |
+| Key Indicators | Look for anomalies in the source IP addresses used for token access, unusual times of access, or access from geographical locations that do not match typical user behavior. Monitor signs of mass API access requests, particularly those directed at sensitive resources or using elevated privileges. Pay attention to any 'sts:GetFederationToken' or equivalent API calls in cloud environments, particularly those creating permissions that are broader than the original user's permissions. |
+| Questions for Analysis | Did the token access occur from an unfamiliar IP address or geographical location? Are there multiple failed access attempts or unusual patterns prior to successful access? Is the token usage aligned with known malicious patterns, such as unusual API calls or mass data extraction? |
+| Decision for Escalation | Escalate to Tier 2 if there is evidence of a token being used from unfamiliar or risky locations, patterns of API use that are inconsistent with the user’s profile, or if multiple accounts are affected in a similar manner indicating potential widespread compromise. |
+| Additional Analysis Steps for L1 | Correlate suspicious token activity with recent login attempts to identify if there was a brute force or phishing attempt prior to token use. Check for new or unusual applications authorized by users that could be malicious. Verify legitimate user access patterns against the suspicious activity timeline. |
+| T2 Analyst Actions | Conduct deeper analysis of the unusual API requests to determine the scope and impact. Check if additional users or tokens are similarly compromised. Investigate any anomalies in the user's privilege escalation attempts that align with suspicious activities and assess if attacker lateral movement can be correlated with token use. |
+| Containment and Further Analysis | Revoke compromised access tokens immediately and force re-authentication of impacted accounts with MFA enabled. Work with cloud service teams to review IAM and token policies to ensure they limit actions as intended. Conduct a thorough audit of permissions and token handling policies, and enhance monitoring for anomaly detection in API access patterns. |

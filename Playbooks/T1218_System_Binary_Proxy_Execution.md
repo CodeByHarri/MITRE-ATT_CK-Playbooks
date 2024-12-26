@@ -1,0 +1,15 @@
+# System_Binary_Proxy_Execution - T1218
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1218 |
+| MITRE Sub-TTP | T1218 |
+| Name | System Binary Proxy Execution |
+| Log Sources to Investigate | Monitor Windows Event Logs, particularly Application, Security, and System logs. Collect and analyze logs from Windows Management Instrumentation (WMI) and Event Tracing for Windows (ETW) to detect anomalies in process executions. Use Sysmon logs to track and record process creations, command-line parameters, and parent-child process relationships. Investigate security solutions logs such as those from Endpoint Detection and Response (EDR) tools for abnormal use of signed binaries. |
+| Key Indicators | 1. Execution of binaries known for proxy executions, such as mshta.exe, regsvr32.exe, or rundll32.exe, especially with unusual or suspicious command-line arguments.<br>2. High frequency of signed binaries launching PowerShell scripts.<br>3. Unusual parent processes spawning these binaries. 4. Command lines attempting to access external resources or unknown scripts. |
+| Questions for Analysis | 1. Is the signed binary executing commands or scripts that are inconsistent with normal behavior?<br>2. What is the usual activity pattern for the user or system where this execution is observed?<br>3. Is the binary execution associated with known software installations or regular administrative actions? 4. Does the process tree show any suspicious ancestry leading up to the execution? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. The signed binary is used in conjunction with tools or scripts known for malicious activity.<br>2. Network connections are made to unverified external IPs or domains during or after the binary execution.<br>3. There is an unusual volume or variety of processes spawned by the binary. 4. Indicators of compromise (IoCs) correspond to known threat actors utilizing this technique. |
+| Additional Analysis Steps for L1 | Verify command line arguments and cross-reference them with known malicious patterns. Check for recent changes in system settings or configurations that may have occurred concurrently. Identify and validate user activity and access patterns in the timeframe surrounding the execution. |
+| T2 Analyst Actions | Perform deep-dive analysis on the command line and scripts executed. Use available threat intelligence to correlate activity with known threat actors or campaigns. Examine network traffic for suspicious connections, especially to the command and control (C2) infrastructure. Investigate whether legitimate binaries are being replaced or renamed to mimic trusted applications. |
+| Containment and Further Analysis | Isolate the affected endpoints from the network. Conduct a comprehensive scan for additional indicators of compromise. Use forensic tools to acquire and analyze disk, memory, and registry snapshots. Implement monitoring rules in security tools to alert on further attempts. Deploy behavioral analytics to recognize similar patterns in other parts of the organization. |

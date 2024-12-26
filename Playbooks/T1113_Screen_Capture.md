@@ -1,0 +1,15 @@
+# Screen_Capture - T1113
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Collection |
+| MITRE TTP | T1113 |
+| MITRE Sub-TTP | T1113 |
+| Name | Screen Capture |
+| Log Sources to Investigate | Monitor system logs, specifically those related to screen capture activities. Relevant log sources include Windows Event Logs (for .NET applications usage), system call logs (especially those referencing graphics or display APIs), application logs for any remote access software (e.g., logs for commonly used RATs), and macOS unified logs if suspecting xwd or screencapture usage. Additionally, consider reviewing VDI session logs or third-party monitoring application logs used within the organization. |
+| Key Indicators | Look for the invocation of commands or API calls like 'CopyFromScreen', 'xwd', or 'screencapture'. Unusual out-of-hours usage or repeated screen capture attempts within a short time span are also key indicators. Abnormal remote access sessions with log entries showing screen capture commands, or unusual file creation patterns in directories typically used for storing screen captures (like temporary directories). |
+| Questions for Analysis | Is there an unusually high frequency of screen capture events by the same user? Are there any concurrent unknown new processes running alongside these events? Was there a spike in network traffic after these events? Is the user linked to these activities aware of such screen capture operations? Is the timing of the event outside normal business hours? |
+| Decision for Escalation | Escalate if screen capture events are frequent and attributed to unknown or suspicious processes, if tied to suspicious remote access activities, or if the user is unaware of these actions. Escalate immediately if there are signs of data exfiltration such as new outbound connections shortly after screen captures. |
+| Additional Analysis Steps for L1 | Verify the originating process of the screen capture activity. Correlate timestamps with user activity logs to establish if they were active during the capture. Review recent login attempts or remote access logs for suspicious activity. Check for any recent software installations or scripts that might have been deployed on the systems. |
+| T2 Analyst Actions | Conduct deep dive investigations into the specific processes involved. Review process trees and associated files. Analyze network logs to identify any data exfiltration attempts immediately after screen captures. Cross-reference with threat intelligence feeds for known patterns or indicators of compromise (IOCs). |
+| Containment and Further Analysis | If compromise is confirmed, isolate the affected system from the network. Thoroughly inspect for additional malicious payloads or persistence mechanisms. Conduct a comprehensive review of GPOs and other security controls to ensure no unauthorized modifications were made. Implement updates and patches for any vulnerabilities exploited and run an organization-wide scan to check for similar activity across other systems. |

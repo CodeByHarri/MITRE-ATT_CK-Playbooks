@@ -1,0 +1,15 @@
+# System_Services - T1569
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Execution |
+| MITRE TTP | T1569 |
+| MITRE Sub-TTP | T1569 |
+| Name | System Services |
+| Log Sources to Investigate | Investigate system event logs that track service and daemon activities, such as Windows Event Logs (e.g., Security Event ID 4697 - Service installation), Linux syslogs (e.g., /var/log/syslog, /var/log/auth.log), and logs from endpoint detection and response (EDR) solutions. PowerShell logs (Event ID 4103) can also provide insight into script-based service manipulations. Additionally, review logs from SIEM (Security Information and Event Management) solutions for correlations and patterns. |
+| Key Indicators | Creation or modification of services without proper change management processes. Unusual or suspicious service names or paths. Scripts or executables (e.g., powershell.exe, cmd.exe) being executed as services. Services installed from directories typically associated with users or temporary files (e.g., %TEMP%). Rapid proliferation of service creation events across multiple systems indicating potential lateral movement. |
+| Questions for Analysis | Is the service name or executable path known and authorized? Does the service originate from a legitimate source and align with our change control process? Are there any known hash values or filenames associated with the service that indicate it is malicious? Has this service been observed on other systems, indicating potential lateral movement or spread? |
+| Decision for Escalation | Escalate to Tier 2 if the service name/path is unknown and originates from suspicious directories, there are associated unauthorized account usage, or if there's evidence of potentially malicious scripts or commands within the service configuration. Cross-reference against threat intelligence for known indicators of compromise (IOCs). |
+| Additional Analysis Steps for L1 | Verify the legitimacy of the service through documentation or change control records. Check if the service runs from non-standard directories. Review execution logs for any out-of-the-norm behavior or system process interactions associated with this service. Look for any network connections initiated by the service that connect to suspicious IPs or domains. |
+| T2 Analyst Actions | Conduct a deeper forensic analysis involving artifact collection and examination of the system image related to the suspicious service. Utilize threat intelligence resources to correlate any findings with known threat actors or malware. Perform a historical search within the EDR or SIEM systems to identify if similar activities were observed previously. |
+| Containment and Further Analysis | If malicious activity is confirmed, isolate the affected systems to prevent any further lateral movement. Terminate the malicious service and remove any files associated with it. Apply patches or updates to fix any vulnerabilities exploited during the attack. Conduct a thorough investigation to determine the scope and vector of the attack. Implement additional monitoring and alerting mechanisms to detect similar activities in the future. |

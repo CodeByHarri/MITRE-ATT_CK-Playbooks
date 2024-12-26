@@ -1,0 +1,15 @@
+# Gather_Victim_Network_Information:_DNS - T1590002
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Reconnaissance |
+| MITRE TTP | T1590.002 |
+| MITRE Sub-TTP | T1590.002 |
+| Name | Gather Victim Network Information: DNS |
+| Log Sources to Investigate | Examine DNS server logs for unusual query patterns or AXFR requests. Network monitoring tools (e.g., Zeek or Suricata) and passive DNS collection that captures details about DNS requests and responses. Investigate SIEM systems for alerts related to DNS zone transfers and large DNS queries. Firewall and IDS/IPS logs for unexpected DNS-related activity originating from suspicious IP addresses. |
+| Key Indicators | Unusual DNS AXFR (zone transfer) requests from unauthorized IPs, large volumes of DNS queries to specific domains in a short period, DNS queries related to well-known cloud and SaaS providers indicating reconnaissance, anomalous access patterns toward DNS information indicative of enumeration, and increased frequency of non-recursive DNS lookups or queries using DNS lookup tools. |
+| Questions for Analysis | Are there unauthorized systems performing DNS zone transfers? Are the sources of these DNS queries recognizable and authorized? Does the DNS query pattern deviate from the normal baseline? Are these DNS activities linked to known threat actor TTPs? Has there been a recent increase in DNS queries targeting specific zones or domain hierarchies? |
+| Decision for Escalation | Escalate to Tier 2 if unauthorized or suspicious DNS activity is linked to known threat actors, if zone transfer requests are detected from unauthorized IP addresses, if the queries reveal a pattern indicative of further malicious reconnaissance, or if there's any indication of initial compromise based on correlated intelligence. |
+| Additional Analysis Steps for L1 | Cross-reference IPs performing DNS reconnaissance against threat intelligence databases for known malicious behavior. Verify if the domain names queried have relevance to internal infrastructure. Review firewall logs to easily identify suspicious external connections correlating with the DNS queries. |
+| T2 Analyst Actions | Perform in-depth threat intelligence analysis on detected IP addresses and domains. Dive deeper into DNS records and monitor any changes in DNS settings. Use network analysis tools to track and visualize the potential attack chain. Correlate findings with any new threat intelligence feeds and contextually analyze data with previously seen attack patterns. |
+| Containment and Further Analysis | Restrict the source of malicious DNS requests via firewall rules and access controls on DNS servers. Conduct a comprehensive security assessment to ensure DNS servers are not misconfigured for zone transfers. Continue monitoring for related indicators across the network, and perform penetration testing to evaluate the organization's exposure to DNS-related threats. Implement DNS logging improvements and educate stakeholders on proper configuration practices. |

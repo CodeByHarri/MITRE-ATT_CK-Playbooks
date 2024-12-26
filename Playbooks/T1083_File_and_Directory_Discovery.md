@@ -1,0 +1,15 @@
+# File_and_Directory_Discovery - T1083
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Discovery |
+| MITRE TTP | T1083 |
+| MITRE Sub-TTP | T1083 |
+| Name | File and Directory Discovery |
+| Log Sources to Investigate | Monitor process creation logs (e.g., Sysmon or Windows Event ID 4688 for Windows environments) for commands such as 'dir', 'tree', 'ls', 'find', and 'locate'. Network device CLI logs should be reviewed for commands like 'show flash' and 'nvram'. File access logs or filesystem audit logs can provide insights into accessed or manipulated directories. Endpoint Detection and Response (EDR) solutions can also be configured to detect and alert on these types of activities. |
+| Key Indicators | Unusual command execution of file and directory discovery utilities (e.g., 'dir', 'ls', 'find') by non-admin users or systems. Execution of command-line tools that aggregate file system information, especially outside normal administrative activities or scheduled scripts. High frequency of these commands can indicate potential automated discovery tools or scripts. Access logs showing unexpected access patterns to sensitive directories. |
+| Questions for Analysis | 1. Is the command executed from a known and trusted application or script?<br>2. Is the command executed by an admin user, or does it match the role and responsibilities of the user?<br>3. Have there been similar commands executed within the same period or from the same user/IP address? 4. Does this system have a history of such file and directory discovery activities? |
+| Decision for Escalation | Escalate to Tier 2 if unusual discovery commands are found executed by a non-admin user, especially if from sensitive or critical systems. Also, escalate if there is unusual activity outside of standard operating procedures or during non-business hours, or if these activities are associated with other suspicious behaviors like lateral movement or data exfiltration indicators. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of the processes and the context of their execution. Check whether the commands are part of scheduled tasks, maintenance scripts, or conducted by IT personnel. Review the frequency of such actions in the network to determine if it's a repeated or rare event. Assess user behavior and account activity for anomalies. |
+| T2 Analyst Actions | Conduct a deeper investigation into file system changes and access following the discovery activity. Correlate with network activity logs to identify potential lateral movement. Check user authentication logs for unusual access or failed login attempts. Engage with the system owner to determine if activities were authorized or business-justified. |
+| Containment and Further Analysis | Isolate potentially compromised systems from the network to prevent further exploration or exfiltration. If malicious intent is confirmed, conduct a full filesystem audit to verify the integrity of sensitive files and directories. Implement stricter access controls and monitoring solutions to prevent recurrence. Review and update security policies around file and directory permissions. |

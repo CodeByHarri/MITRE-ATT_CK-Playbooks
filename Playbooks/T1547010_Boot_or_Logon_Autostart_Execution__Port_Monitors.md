@@ -1,0 +1,15 @@
+# Boot_or_Logon_Autostart_Execution:_Port_Monitors - T1547010
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence, Privilege Escalation |
+| MITRE TTP | T1547.010 |
+| MITRE Sub-TTP | T1547.010 |
+| Name | Boot or Logon Autostart Execution: Port Monitors |
+| Log Sources to Investigate | Examine Windows Event Logs specifically System and Security logs for Event ID 4697 (A service was installed in the system) to identify unexpected changes. Check the Windows Registry logs for modifications in HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors. File integrity monitoring (FIM) logs can be essential for detecting unauthorized modifications of DLLs in C:\Windows\System32. Additionally, investigate print spooler service logs and Process Creation logs to trace the execution of any unexpected DLLs by spoolsv.exe. |
+| Key Indicators | Unusual DLL files in C:\Windows\System32 that are not recognized as part of legitimate software. Registry modifications in HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors that were not authorized or expected changes. Execution of DLL files by spoolsv.exe not typically associated with printing activities. |
+| Questions for Analysis | Was the AddMonitor API call made by an account with administrative privileges unexpectedly? Are there known and authorized port monitors installed on this machine? Do the timestamps of any modified files or registry values coincide with user activity or legitimate software updates? Was there any user account activity that seems out of place prior to the registry changes? |
+| Decision for Escalation | Escalate to Tier 2 if unauthorized DLLs have been loaded via port monitors, especially if associated with spoolsv.exe. Also, escalate if there is any indication of privilege escalation attempts or if the source of registry changes cannot be confirmed as legitimate. |
+| Additional Analysis Steps for L1 | Verify the author of the registry changes and correlate with authorized change management records. Use checksums and compare DLLs against a known good baseline or threat intelligence feeds to identify potentially malicious alterations. Investigate other suspicious activity around the times of potential intrusion indications. |
+| T2 Analyst Actions | Perform deeper forensic analysis on the system to identify the cause and entry point of the unauthorized changes. Correlate findings with any known adversary behavior patterns using threat intelligence resources. Engage in network analysis to detect command and control traffic or data exfiltration attempts possibly connected to the unauthorized DLL execution. |
+| Containment and Further Analysis | Immediately isolate the infected machine from the network to prevent lateral movement or further impact. Revert any unauthorized registry changes and restore original files from backup, if possible. Conduct a thorough audit of user privileges to prevent further abuse. Consider redeveloping parts of the system to a known clean state and implementing additional monitoring on critical registry paths and system DLLs. |

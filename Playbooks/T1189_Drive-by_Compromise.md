@@ -1,0 +1,15 @@
+# Drive-by_Compromise - T1189
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Initial Access |
+| MITRE TTP | T1189 |
+| MITRE Sub-TTP | T1189 |
+| Name | Drive-by Compromise |
+| Log Sources to Investigate | Investigate web server logs to identify unusual requests or script injections. Review proxy logs to see traffic from users visiting suspicious websites. Analyze web browser logs for any indication of script execution or anomalous browser behavior. Monitor intrusion detection system (IDS) alerts related to browser exploit attempts. Consider endpoint detection and response (EDR) data for signs of unusual processes starting as a result of browser exploitation. |
+| Key Indicators | Unusual web page requests that include suspicious parameters or script injections. Execution of unexpected JavaScript or the presence of iFrames not typical for the visited site. Frequent redirects or if a site triggers multiple requests to external domains immediately after access. Known exploit kits often have unique network patterns or payload signatures. Increase in blocked scripts or plugin warnings in browser logs. |
+| Questions for Analysis | Did the user access a site known for previous compromise incidents? Are there any IDS alerts correlating to the timeframe of the visit? Does the URL or the referrer seem suspicious or mismatched? Are there any reports or signatures associated with the visiting domain? Was there any anomalous network traffic, like communication to known malicious IPs? |
+| Decision for Escalation | Escalate to Tier 2 if there is detected network communication with known malicious addresses post-visit. Elevate if multiple users report similar incidents or if IDS/IPS records indicative exploitation activity. Escalate if suspicious executable or script files are detected as dropped or executed on the endpoints. |
+| Additional Analysis Steps for L1 | Correlate web traffic logs with known malicious URLs and patterns. Verify the file integrity of system and web server files to detect injected scripts. Check for incident response threat intelligence on recently reported drive-by attacks. |
+| T2 Analyst Actions | Conduct a deeper investigation into correlated logs (web, endpoint, and proxy) to establish the full timeline of events. Use threat intelligence to contextualize indicators found during L1 analysis with known campaigns. Verify if there are subsequent exploitation attempts or secondary payloads downloaded. Conduct forensic analysis on a representative sample of affected systems if necessary. |
+| Containment and Further Analysis | Isolate affected systems from the network to prevent further malicious activity. Patch and update any identified vulnerabilities in the browser and plugins. Use a sandbox to analyze any dropped payloads and determine their function. Apply relevant threat intelligence feeds to update detection systems and improve future detection. Implement monitoring for attempted access to the known compromised sites. |

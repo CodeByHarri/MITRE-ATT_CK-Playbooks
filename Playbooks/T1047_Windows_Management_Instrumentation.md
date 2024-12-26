@@ -1,0 +1,15 @@
+# Windows_Management_Instrumentation - T1047
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Execution |
+| MITRE TTP | T1047 |
+| MITRE Sub-TTP | T1047 |
+| Name | Windows Management Instrumentation |
+| Log Sources to Investigate | Investigation should primarily focus on Security Event Logs, Windows Management Instrumentation (WMI) logs, and Sysmon logs if available. Key Event IDs include Sysmon Event ID 11 for WMI command-line activities and Sysmon Event ID 20 for WMI activity involving providers and consumers. Windows Event ID 4688 for process creation could reveal abnormal usage of `wmic.exe` or `wbemtool.exe`. PowerShell logs (Event ID 4104 and 4103) should be checked for WMI-related script executions. |
+| Key Indicators | Unusual invocation of `wmic.exe` or `wbemtool.exe`, especially with parameters for remotely interacting with systems or deleting shadow copies. High volume of WMI-related commands executed within a short timeframe, WMI usage outside normal administrative hours, and command execution from non-administrator accounts. Network connections to port 135, 5985, or 5986 from unusual IP addresses or user accounts. |
+| Questions for Analysis | Is there a legitimate need for WMI activity in the observed context? Does the user or process have a history of executing WMI commands? Are there any concurrent alerts or signals suggesting malicious activity from the same source or target? What are the patterns of network communication associated with the WMI events? |
+| Decision for Escalation | Escalate if WMI commands are executed by unauthorized or non-privileged accounts, if WMI usage correlates with other malicious activities (like Inhibit System Recovery), or if there's any indication of lateral movement attempts via WMI. Also, escalate if unusual remote executions are observed that indicate potential compromise. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of the WMI commands and the context in which they were observed. Correlate with other logs to identify any anomalies related to the host or user in question. Check for any established suspicious network connections during the timeframe. Assess whether the WMI commands coincide with any other administrative tasks or updates. |
+| T2 Analyst Actions | Perform a deeper dive into the user history and behavior patterns associated with the WMI events. Utilize threat intelligence sources to check if there have been similar activities linked to known adversaries. Monitor network traffic for any signs of data exfiltration or C2 communication. Review recent system changes or updates that coincide with detected WMI activity. |
+| Containment and Further Analysis | Isolate affected hosts from the network to prevent further execution or data exfiltration. If evidence suggests compromise, change passwords for affected accounts and disable them temporarily. Conduct a forensic analysis to gather more evidence of potential adversary activities. Restore systems from a clean backup if necessary and ensure patches are up-to-date to mitigate any exploited vulnerabilities. |

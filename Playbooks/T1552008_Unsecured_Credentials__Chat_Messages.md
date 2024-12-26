@@ -1,0 +1,15 @@
+# Unsecured_Credentials:_Chat_Messages - T1552008
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access |
+| MITRE TTP | T1552.008 |
+| MITRE Sub-TTP | T1552.008 |
+| Name | Unsecured Credentials: Chat Messages |
+| Log Sources to Investigate | Monitor logs from communication applications such as Slack, Microsoft Teams, Email, Jira, and Trello. This includes both access logs and message logs. Specific examples include: Slack Audit Logs, Microsoft Teams Log Activity, Email server access logs, and integrations or plugins that have access to message content. Cloud service provider logs for any administrative actions and third-party application integration logs should also be examined. |
+| Key Indicators | Unusual access patterns to communication platforms such as logins from unknown or unexpected locations. High volumes of data accessed or downloaded from communication services. Unexpected installation or usage of bots or integration tools that have access to message content. Messages containing plaintext usernames, passwords, API keys, or other credentials. |
+| Questions for Analysis | Is there an unexpected increase in message access or downloads from communication services? Are there logins or access attempts from unusual geographical locations or outside normal working hours? Are unauthorized or newly added apps or bots accessing messages or data within these communication tools? |
+| Decision for Escalation | Escalate to Tier 2 if multiple key indicators are detected, especially if there are unauthorized integrations or bots accessing sensitive data. If there is evidence of message content or files being accessed that contain credentials, escalate immediately. Consider escalating if access attempts are from blacklisted IP addresses or locations with known malicious activity. |
+| Additional Analysis Steps for L1 | Validate any anomalous logins with the user to rule out legitimate use. Verify if the access patterns align with typical business operations or workflows. Check for any recent changes to security configurations of communication tools or unexpected enabling of integrations. Collect details of the potentially compromised credentials. |
+| T2 Analyst Actions | Conduct deeper investigation into the source of the anomalous activity, correlating with other logs such as identity management, endpoint security, and network activity. Review historical data for any patterns or previous occurrences. Engage with IT or users to confirm the legitimacy of any large-scale data access. Analyze the risky integrations or bots for their access scopes and permissions. |
+| Containment and Further Analysis | Deactivate any suspicious integrations or bots immediately. Reset passwords or revoke tokens for any potentially compromised credentials. Strengthen security configurations, including enforcing multi-factor authentication for all communication platforms. Work with affected teams to identify the scope of the compromise and educate users on credential security best practices. Consider a broader threat hunt to identify any signs of lateral movement or further exploitation. |

@@ -1,0 +1,15 @@
+# Obfuscated_Files_or_Information:_HTML_Smuggling - T1027006
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1027.006 |
+| MITRE Sub-TTP | T1027.006 |
+| Name | Obfuscated Files or Information: HTML Smuggling |
+| Log Sources to Investigate | 1. Web Proxy Logs: Examine requests and responses for suspicious HTML/JS content and unusual MIME types.<br>2. Endpoint Detection and Response (EDR): Monitor for execution of scripts and creation of new files related to blob functions.<br>3. Network Traffic Analysis: Look for data exfiltration patterns or unusual communication following HTML downloads. 4. Email Gateway Logs: Inspect messages for links or attachments containing HTML files. Examples include emails with attachments labeled as .html and web traffic that involves downloading content with text/plain MIME types. |
+| Key Indicators | 1. HTML files in email or web downloads with inline scripts embedding large data.<br>2. Usage of JavaScript Blob functions such as msSaveBlob to create files.<br>3. HTML5 download attributes present in network traffic. 4. Data URLs embedded within HTML files. 5. Unusual volume of outbound connections following receipt of HTML content. 6. Drops of unexpected file types by browsers or mail clients on local disk. |
+| Questions for Analysis | 1. Is there a recent download of HTML files with embedded JavaScript?<br>2. Do proxy logs show unusual or unexpected MIME types in web requests?<br>3. Are there recent spikes in outbound connections that coincide with suspicious HTML downloads? 4. Has endpoint security detected new files being written to disk after HTML content was received? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. HTML contents contain embedded scripts with large obfuscated data blobs.<br>2. There is a pattern of unexpected file creation on endpoints after accessing suspicious HTML documents.<br>3. Data exfiltration patterns or unexpected network connections are observed after interacting with HTML content. |
+| Additional Analysis Steps for L1 | 1. Correlate the timeline of HTML downloads with file creation on endpoints.<br>2. Review user activity logs to determine if suspicious HTML files were accessed knowingly.<br>3. Validate proxy and DNS logs for communication with known malicious IPs or domains shortly after HTML files were accessed. |
+| T2 Analyst Actions | 1. Conduct deep packet inspection of historical network traffic to identify data exfiltration.<br>2. Analyze the downloaded HTML content for obfuscated or deobfuscated payloads.<br>3. Investigate endpoint behaviors specifically targeting script executions and file creation. |
+| Containment and Further Analysis | 1. Quarantine affected machines by restricting network access.<br>2. Block malicious domains/IPs associated with the threat on firewalls and web proxies.<br>3. Run a full antivirus/EDR scan on potentially affected hosts. 4. Review and strengthen email and web content filtering policies to prevent HTML smuggling techniques. |

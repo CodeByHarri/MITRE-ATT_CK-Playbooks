@@ -1,0 +1,15 @@
+# Internal_Spearphishing - T1534
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Lateral Movement |
+| MITRE TTP | T1534 |
+| MITRE Sub-TTP | T1534 |
+| Name | Internal Spearphishing |
+| Log Sources to Investigate | Email server logs to check for unusual email activity, such as high volume of outgoing emails or emails with attachments from a single user. Network traffic logs to find communication with known malicious domains or IPs. Endpoint detection and response (EDR) logs to identify unusual activity on compromised devices, such as script execution or file downloads. Chat application logs (e.g., Microsoft Teams) to see messages containing suspicious links or attachments. |
+| Key Indicators | Unusual increase in the number of emails sent by a user. Emails containing attachments or links from previously benign accounts. Access to internal resources by compromised accounts at odd hours. Anomalies in network traffic, particularly toward external sites mimicking legitimate services. Uncommon processes or tasks running on endpoints potentially linked to phishing payload execution. |
+| Questions for Analysis | Has there been an abnormal volume of emails sent from an internal account? Do any emails from internal accounts contain suspicious attachments or links? Are there any login attempts to login interfaces that failed with common passwords? Are there any communication patterns with known malicious domains or IPs? Have there been any reports from users about unexpected chat messages or emails? |
+| Decision for Escalation | Escalate if there is evidence of credential submission to suspicious sites, if multiple users report similar phishing emails or chat messages, or if there are detected connections to known malicious infrastructure. Particularly, escalate if there is a pattern of activity suggesting lateral movement attempts. |
+| Additional Analysis Steps for L1 | Verify any malicious domain and link indicators using threat intelligence feeds. Cross-reference timestamps of suspicious emails with employee login logs to validate legitimacy. Review user-reported phishing messages for consistent indicators. Check if suspicious emails were opened and interacted with by other internal users. |
+| T2 Analyst Actions | Conduct a deeper forensic analysis of compromised accounts to determine the source of the breach. Analyze email headers for indicators of spoofing or relay abuse. Investigate compromised user devices using EDR tools for any unusual artifacts or scripts. Correlate data from various log sources to map out the extent of the internal spearphishing campaign. |
+| Containment and Further Analysis | Isolate affected systems from the network to prevent further compromise. Reset passwords and implement multi-factor authentication (MFA) on affected accounts. Notify all potentially impacted users and provide awareness training on identifying phishing attempts. Consider implementing additional email security solutions to filter out malicious attachments or links. Conduct a full security audit of email configurations and permissions. |

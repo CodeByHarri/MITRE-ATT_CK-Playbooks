@@ -1,0 +1,15 @@
+# Scheduled_Task_Job:_Systemd_Timers - T1053006
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Execution, Persistence, Privilege Escalation |
+| MITRE TTP | T1053.006 |
+| MITRE Sub-TTP | T1053.006 |
+| Name | Scheduled Task/Job: Systemd Timers |
+| Log Sources to Investigate | Investigate logs from /var/log/syslog and /var/log/messages to detect any scheduling of unexpected or unauthorized .timer or .service files. Monitor systemd service logs, which can be assessed using journalctl, to track creation and execution of any timers. Check the SSH logs typically found in /var/log/auth.log or equivalent, to trace any remote invocations potentially related to systemd timers. |
+| Key Indicators | Creation or modification of .timer files within /etc/systemd/system/ or ~/.config/systemd/user/. Unexpected or unauthorized .timer and corresponding .service file pairs appearing in these directories. Execution logs in systemd or process logs (via ps or systemctl) revealing the invocation of suspicious or novel services. SSH access correlating temporally with new timer installations. |
+| Questions for Analysis | Are there any .timer files scheduled that are not documented or familiar as part of expected system operations? Do the corresponding .service files execute commands or scripts that are unusual or not recognized as part of legitimate system functions? Is there any recent suspicious SSH activity that aligns with the creation of these timers? |
+| Decision for Escalation | Escalate to Tier 2 if a .timer or .service file discovered involves running non-standard executables, particularly those located in uncommon directories. Escalate if there are indications of SSH access with known malicious IP ranges or unusual access times correlating with the installation or execution of these timers. |
+| Additional Analysis Steps for L1 | Verify the integrity of identified .timer and .service files using hashes or checksums against known good values. Cross-reference any scripts or programs executed by these services against a database of known malware or unwanted software. Review user accounts and privileges associated with any modifications to the systemd configuration. |
+| T2 Analyst Actions | Conduct a deeper inspection of Code execution triggered by the .service files, analyzing any downloaded or executed programs for signs of compromise. Investigate the origin of the systemctl commands found in SSH logs, correlating with any changes to timer files. Perform host-based forensics on affected systems to ensure no further compromise or persistence mechanisms remain. |
+| Containment and Further Analysis | Disable and isolate affected .service and .timer files to prevent further execution or persistence. Reset credentials and reinforce security measures on user accounts involved in SSH incidents, including reconfiguring SSH settings for enhanced security. Continually monitor for reappearance or further attempts, possibly involving network-based monitoring for malicious communications. |

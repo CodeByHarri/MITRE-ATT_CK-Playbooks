@@ -1,0 +1,15 @@
+# Proxy - T1090
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Command and Control |
+| MITRE TTP | T1090 |
+| MITRE Sub-TTP | T1090 |
+| Name | Proxy |
+| Log Sources to Investigate | Network traffic logs, proxy server logs, DNS logs, firewall logs, IDS/IPS alerts, endpoint security logs, and CDN access logs. Examples include Palo Alto Networks firewall logs, Cisco Umbrella DNS logs, and AWS CloudFront CDN logs. |
+| Key Indicators | Unusual outbound connections to known proxy ports or proxy services, sudden changes in usual communication patterns, connections to IPs/domains linked to known CDN networks without corresponding legitimate application traffic, and unusual proxy chain patterns that increase the hop counts markedly compared to normal behavior. |
+| Questions for Analysis | Are there connections to external IPs/domains not typically accessed by the organization? Are there unusual outbound connections to ports commonly associated with proxying (e.g., 1080, 8080)? Is there a spike in traffic through CDN infrastructure from systems that don't typically use CDN services for normal operations? Is there evidence suggesting multiple proxy hops indicative of proxy chaining? |
+| Decision for Escalation | Escalate if there are confirmed connections to known malicious proxy services or tools, or if the unusual network activity is consistent across multiple hosts in the environment, suggesting coordinated activity. Also escalate if analysis reveals traffic obfuscation techniques that strongly align with known adversarial tactics. |
+| Additional Analysis Steps for L1 | Correlate detected proxy or command and control traffic with recent threat intelligence for known malicious IPs/domains. Validate suspected malicious IP addresses against internal white and blacklists. Enrich network traffic data with geolocation information to assess the legitimacy of external connections. Review endpoint logs for related suspicious activity, such as the presence of unauthorized tunneling software. |
+| T2 Analyst Actions | Conduct deeper packet analysis of suspicious connections to understand the nature of data being transmitted. Cross-reference findings with MITRE ATT&CK TTPs to identify potential adversary behavior. Review historic data to identify when the potentially malicious connections began and any corresponding events or anomalies. Reach out to peer analysts or teams to determine if similar patterns have been observed in other parts of the network. |
+| Containment and Further Analysis | Block identified malicious IP addresses, domains, or ports on network perimeter devices. Perform network segmentation to isolate infected hosts and restrict their network access. Conduct a comprehensive review of affected systems for any installed malware and execute removal procedures. Update firewalls and IDS/IPS rules to detect and block similar proxy activities in the future. Report findings to broader security teams to refine detection capabilities and share threat intelligence. |

@@ -1,0 +1,15 @@
+# Use_Alternate_Authentication_Material - T1550
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion, Lateral Movement |
+| MITRE TTP | T1550 |
+| MITRE Sub-TTP | T1550 |
+| Name | Use Alternate Authentication Material |
+| Log Sources to Investigate | Investigate logs from Windows Security Logs, especially Event ID 4624 (Logon) and 4672 (Special Logon), which can show logins using alternate methods. Review authentication logs from Kerberos Key Distribution Center (KDC) for unusual ticket-granting-ticket (TGT) or ticket-granting-service (TGS) issuance, as well as logs from any identity provider (IdP) systems for any unexpected authentication token generation or anomalies. |
+| Key Indicators | Presence of Kerberos tickets (e.g., TGT or TGS) being used from unusual locations, reuse of service tickets in short succession, lateral movement patterns using alternate authentication like token replay activities, irregular access to high-value resources without corresponding interactive logon events. Monitoring PASS-THE-TICKET Event IDs such as 4769 (A Kerberos service ticket was requested) and 4770 (A Kerberos service ticket was renewed). |
+| Questions for Analysis | Is there any unusual pattern in authentication i.e., timestamps, source IPs, or user agents? Are there expired or reused tokens or tickets being utilized? Is there evidence of authentication from a location or device not typically associated with the account? Is there a sudden spike in authentication requests for specific accounts? |
+| Decision for Escalation | Escalate to Tier 2 if alternate authentication artifacts such as token replay or unexpected Kerberos ticket requests are identified, if there is lateral movement to sensitive systems without normal proof of credentials, or if there are multiple anomalies in normalized authentication patterns. |
+| Additional Analysis Steps for L1 | Review associated user account behavior around the time of suspicious activity, including account logins, privilege use, and access patterns. Check for recent password changes or resets. Validate the legitimacy of accessed resources during the suspicious timeframe. Correlate with network traffic logs to verify potential exfiltration routes. |
+| T2 Analyst Actions | Conduct a deeper investigation into impacted systems for any signs of malicious or unauthorized access. Cross-reference with threat intelligence for known related TTPs. Analyze end-user device endpoints for additional signs of credential dumping or abnormal ticket use. Validate and potentially isolate compromised accounts to prevent further misuse. |
+| Containment and Further Analysis | Invalidate stolen authentication material such as passwords or Kerberos tickets through force password resets and password changes. Review and alter authentication policies for impacted accounts, ensuring they are required to use MFA where possible. Consider invalidating active sessions for compromised accounts, and continue to monitor traffic for unusual patterns post-incident. |

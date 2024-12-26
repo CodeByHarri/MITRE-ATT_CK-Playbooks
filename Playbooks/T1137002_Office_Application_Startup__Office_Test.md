@@ -1,0 +1,15 @@
+# Office_Application_Startup:_Office_Test - T1137002
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence |
+| MITRE TTP | T1137.002 |
+| MITRE Sub-TTP | T1137.002 |
+| Name | Office Application Startup: Office Test |
+| Log Sources to Investigate | Registry changes logs, specifically focusing on paths like HKEY_CURRENT_USER\Software\Microsoft\Office test\Special\Perf and HKEY_LOCAL_MACHINE\Software\Microsoft\Office test\Special\Perf. Monitor for any modification events. Endpoint Detection and Response (EDR) solutions that track process execution could be informative as well, providing insight into unexpected DLLs being loaded by Office applications. Additionally, monitor application logs for Office suite applications (Word, Excel) for anomalies upon startup, as these might indicate rogue DLL injections. |
+| Key Indicators | Creation or modification of the specified Office Test Registry keys with any new entries pointing to DLLs, especially ones not residing in standard or expected locations. Unusual DLL files being loaded when Office applications launch, which could be captured through process injection logs or command-line execution that includes these files. |
+| Questions for Analysis | Has the Registry entry for Office Test been modified recently? Is there a new DLL specified in the Office Test Registry key? If a DLL is specified, is it located in a non-standard directory, or does it have an anomalous file name? Is there any history of similar activity from this user or on this machine? |
+| Decision for Escalation | Escalate if a non-standard or potentially malicious DLL is specified in the Office Test Registry key, especially if this suspicion can be corroborated with execution logs showing the DLL being invoked. Escalate if there's associated suspicious activity in application logs such as failed or unusual document opens in Office applications. |
+| Additional Analysis Steps for L1 | Verify the existence of the Registry key if logs indicate its creation or modification. Compare the DLL names and paths against known-good baselines and threat intelligence databases. Check if the DLL is signed and if the signature is trusted. Correlate with user and network activity during the timespan of the changes. |
+| T2 Analyst Actions | Perform a deeper dive into the origin and hash of the DLL for known malware signatures. Analyze the DLL file in a sandbox environment to understand its behavior. Review historical data on registry keys and process creation events for patterns or repeated suspicious activity. Threat hunt across other systems for similar indicators. |
+| Containment and Further Analysis | Isolate the affected system to prevent further execution of the malicious DLL. Remove the identified Registry key entry, and replace it with a known good configuration or alert IT security teams. Conduct a full antivirus/EDR scan for any other signs of compromise. Engage the user to determine if they were aware of any anomalies or recent issues. |

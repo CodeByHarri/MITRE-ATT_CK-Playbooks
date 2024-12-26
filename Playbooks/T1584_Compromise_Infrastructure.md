@@ -1,0 +1,15 @@
+# Compromise_Infrastructure - T1584
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Resource Development |
+| MITRE TTP | T1584 |
+| MITRE Sub-TTP | T1584 |
+| Name | Compromise Infrastructure |
+| Log Sources to Investigate | Network traffic logs, DNS query logs, web server access logs, and cloud service access logs should be investigated. Look specifically for unusual traffic patterns, such as unexpected outbound connections to foreign IP addresses, increased DNS traffic to external resolvers, or access to compromised domains. Analyzing firewall logs and intrusion detection system (IDS) alerts can also provide insights into potential infrastructure compromise. |
+| Key Indicators | Unusual communication with high reputation domains that are not typically accessed by the organization, irregular DNS queries indicating potential command and control (C2) activity, unauthorized access attempts on cloud infrastructures, and presence of unexpected digital certificates used during communication. Evidence of changes in domain name records or unauthorized API calls to cloud services. |
+| Questions for Analysis | 1. Is the traffic from legitimate internal sources or known malicious IPs?<br>2. Are the observed DNS queries or domain access patterns typical for the organization?<br>3. Are there any signs of data exfiltration or anomalies in data volume transfer? 4. Is there any indication of digital certificate misuse in the communication logs? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. There is confirmed evidence of unauthorized changes to DNS settings.<br>2. Unresolved anomalies are linked to known compromised infrastructure or botnets.<br>3. The initial analysis suggests potential data exfiltration or unauthorized external connections to cloud services. 4. There are confirmed indicators of malicious digital certificate usage. |
+| Additional Analysis Steps for L1 | 1. Verify the legitimacy of the domains and IP addresses in the network traffic logs.<br>2. Cross-reference observed IPs with threat intelligence feeds for known bad actors.<br>3. Review access logs for any deviations in access patterns to cloud resources. 4. Conduct a preliminary assessment of the digital certificates involved to identify any anomalies. |
+| T2 Analyst Actions | 1. Conduct a deeper analysis of compromised domains and IP addresses.<br>2. Utilize threat intelligence to assess the risk of identified infrastructure.<br>3. Perform a root-cause analysis of any unauthorized DNS or domain changes. 4. Coordinate with network teams to trace suspicious network traffic and correlate with other security incidents. |
+| Containment and Further Analysis | 1. Isolate potentially compromised infrastructure to prevent further malicious activities.<br>2. Update firewall and DNS configurations to block malicious IPs and domains.<br>3. Conduct a full forensic investigation of affected systems to identify breach scope and techniques used by adversaries. 4. Collaborate with cloud service providers to investigate unauthorized access or API calls. |

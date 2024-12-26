@@ -1,0 +1,15 @@
+# Web_Service:_One-Way_Communication - T1102003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Command and Control |
+| MITRE TTP | T1102.003 |
+| MITRE Sub-TTP | T1102.003 |
+| Name | Web Service: One-Way Communication |
+| Log Sources to Investigate | Network traffic logs to capture outbound connections to known web services and social media platforms (e.g., Twitter, Google). Web proxy logs to analyze HTTP/HTTPS activity for unusual patterns or high-frequency requests to specific endpoints. DNS query logs to identify abnormal domain resolutions associated with web services commonly used for C2. Endpoint security logs for evidence of processes establishing network connections to web service URLs or IPs. |
+| Key Indicators | Unusual HTTP/HTTPS requests to popular web services not consistent with typical user behavior. Persistent connection attempts or data transfers to social media APIs or web services without corresponding user activity. Abnormal DNS queries resolving to known C2 infrastructure or atypical web service domains. SSL/TLS-encrypted traffic anomalies where expected patterns do not align with legitimate business needs. |
+| Questions for Analysis | Are there repeated or unusually timed requests to web services or social media that do not correlate with user activity? Do network traffic patterns suggest possible covert communication with external services? Are there any indicators of compromise on endpoints that match known hashes or behavior patterns for communicating with web services? |
+| Decision for Escalation | Escalate to Tier 2 if there are multiple instances of unexplained outbound connections to web services, especially from systems with no legitimate reason for such traffic. If key indicators consistently match known C2 techniques via web services. If any internal security tools provide heuristic alerts tied to C2 activity using web services. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of the web service requests by cross-referencing with legitimate business usage patterns. Analyze endpoint security logs for unusual process behavior linked to network connections. Use network flow analysis to detect unexpected data exfiltration or communications. |
+| T2 Analyst Actions | Conduct deep packet inspection (DPI) where possible to verify the content or nature of suspicious communications. Correlate data from multiple sources (proxy, DNS, endpoint) to build a comprehensive understanding of the potential threat. Utilize threat intelligence feeds to identify any overlap with known malicious infrastructure. |
+| Containment and Further Analysis | Isolate affected systems identified as communicating with unauthorized web services. Initiate steps for forensic analysis of compromised endpoints to determine the breadth and specifics of the intrusion. Block and monitor identified malicious IP addresses or domains at the network perimeter to prevent further C2 connectivity. Engage incident response team to comprehensively assess and remediate the impact of the threat. |

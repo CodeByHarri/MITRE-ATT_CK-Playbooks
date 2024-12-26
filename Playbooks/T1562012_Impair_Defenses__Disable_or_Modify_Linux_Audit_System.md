@@ -1,0 +1,15 @@
+# Impair_Defenses:_Disable_or_Modify_Linux_Audit_System - T1562012
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1562.012 |
+| MITRE Sub-TTP | T1562.012 |
+| Name | Impair Defenses: Disable or Modify Linux Audit System |
+| Log Sources to Investigate | Review logs from the Linux Audit System, specifically focusing on log entries from `auditd`. Check for missing or abnormal entries in `/var/log/audit/audit.log`. System logs under `/var/log/messages` or `/var/log/syslog` may also provide indications of service disruptions. Additionally, examine system service logs for any `systemctl` activity, especially related to starting, stopping, or disabling the `auditd` service. Command-line history files such as `.bash_history` could reveal command usage relating to `auditctl`, `systemctl`, or direct alterations to configuration files like `/etc/audit/audit.rules` and `audit.conf`. |
+| Key Indicators | Audit logs unexpectedly ceasing or being sparse. Commands executed by root or high-privilege users to stop or disable auditd (`systemctl stop auditd`, `kill` commands targeting auditd), or changes to the `audit.rules` or `audit.conf` files. Unusual file modification timestamps on `/etc/audit/audit.rules`. Suspicious entries in shell history indicating tampering with audit configurations. |
+| Questions for Analysis | Were there any recent legitimate system updates or changes that might justify modifications to audit configurations? Are there any patterns in user logins or IP addresses associated with the configuration changes? Have other alerts or indicators of compromise been detected on the same host or user? |
+| Decision for Escalation | Escalate the incident to Tier 2 if there is evidence of unauthorized changes to audit configurations, unexpected termination of the `auditd` process, or if this activity coincides with other suspicious or malicious behavior in the environment. |
+| Additional Analysis Steps for L1 | Verify the integrity of audit configuration files by reviewing change logs or backups. Cross-reference any suspicious IP activity using network logs or SIEM solutions. Compare timestamps of configuration changes with user login activity records to identify unexpected behavior. |
+| T2 Analyst Actions | Further analyze the system for rootkits or malicious code that may have been used to disable logging. Employ file integrity checking tools to assess unauthorized changes to system files. Conduct user behavioral analysis to determine if the activity fits known patterns of attack. Consider engaging with threat intelligence to check for known malicious signatures or patterns. |
+| Containment and Further Analysis | If malicious activity is confirmed, isolate the affected system to prevent further compromise. Restore audit settings from backup and re-enable auditing services. Perform full malware and rootkit scans on the system. Review access permissions and ensure only authorized users have root access. Implement additional monitoring and alerting for changes to audit configurations. |

@@ -1,0 +1,15 @@
+# Financial_Theft - T1657
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Impact |
+| MITRE TTP | T1657 |
+| MITRE Sub-TTP | T1657 |
+| Name | Financial Theft |
+| Log Sources to Investigate | Log sources should include financial transaction logs to track unauthorized transfers, email logs for identification of phishing and BEC attempts, login/access logs for unauthorized access attempts, ransomware alerts from security tools, and data transfer logs to identify large or unusual data transfer activities. Notable examples: SWIFT transaction logs, Microsoft 365 email logs, VPN access logs, IDS/IPS alerts, and SIEM alerts on data exfiltration attempts. |
+| Key Indicators | Unusual financial transactions, emails requesting changes in payment details, multiple failed login attempts, evidence of encryption tools being executed on corporate endpoints, and sudden changes in user behavior. Other indicators include creation of new accounts with elevated privileges and the presence of known ransomware hash signatures. |
+| Questions for Analysis | Are there any unusual or unauthorized financial transactions? Were there any recent suspicious email communications requesting financial actions? Has there been any unusual login activities or access from foreign IPs? Is there evidence of file encryption occurring on systems? Are any known ransomware signatures detected in recent scans? |
+| Decision for Escalation | Escalate to Tier 2 if there is evidence of unauthorized financial transactions, verified phishing attempts leading to financial actions, ongoing ransomware activity, data exfiltration alerts, or if limitations in L1 analysis capabilities are reached. Immediate escalation if critical financial accounts or data are compromised. |
+| Additional Analysis Steps for L1 | Review the financial transaction logs for unusual patterns. Verify the authenticity of emails requesting financial changes with the supposed sender through alternative communication channels. Check endpoint security alerts for encryption activity. Audit user login attempts for anomalies and verify the hashes of suspicious executables. |
+| T2 Analyst Actions | Conduct thorough investigation of flagged financial transactions by correlating them with authorized transaction logs. Perform in-depth forensics on compromised systems, focusing on any encrypted files and unauthorized modifications. Utilize threat intel to identify and confirm if known TTPs align with observed activities. Engage with the affected departments to understand the business impact and potential recovery strategies. |
+| Containment and Further Analysis | Isolate infected endpoints immediately to prevent further spread of ransomware. Block any unauthorized financial transactions at the bank's end. Begin remediation by restoring from backups where possible and resetting credentials for compromised accounts. Conduct a root cause analysis to understand the entry vectors and improve defenses against financial theft. Collaborate with legal teams and authorities for further action if necessary. |

@@ -1,0 +1,15 @@
+# Acquire_Infrastructure:_Serverless - T1583007
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Resource Development |
+| MITRE TTP | T1583.007 |
+| MITRE Sub-TTP | T1583.007 |
+| Name | Acquire Infrastructure: Serverless |
+| Log Sources to Investigate | Investigate cloud service provider logs such as AWS CloudTrail, Google Cloud Operations, and Cloudflare logs. Network traffic logs, specifically focusing on outbound connections to cloud provider subdomains (e.g., *.cloudfront.net, *.googleapis.com). Inspect application logs from cloud services running serverless functions. |
+| Key Indicators | Unusual traffic patterns to cloud provider subdomains, especially from non-web application hosts. Repeated accesses to a single or a small set of serverless functions without corresponding legitimate service requests. DNS requests resolving to cloud provider resources followed by unexpected data traffic. Observed changes in configuration or execution frequency of serverless functions without corresponding legitimate development activities. |
+| Questions for Analysis | Is there a legitimate business process or application that should be accessing these serverless endpoints? Has there been recent legitimate configuration or deployment of serverless applications by IT? Are the observed patterns or behaviors consistent with normal activity? Is there evidence of data exfiltration or unusual data flows associated with these functions? |
+| Decision for Escalation | Escalate to Tier 2 if there is no documented legitimate use of serverless functions for the accessed resources, or if there are signs of malicious command and control communications or data exfiltration. |
+| Additional Analysis Steps for L1 | Review logs for patterns or scripts frequently accessing cloud functions. Verify if the IP addresses involved belong to known or trusted networks. Cross-reference with IT and developer teams to confirm any recent deployments or changes in serverless operations. Capture and evaluate any observable payloads or command responses between client systems and serverless functions. |
+| T2 Analyst Actions | Conduct a deeper log analysis and identify the full scope of network interactions with suspect serverless functions. Engage with the cloud service provider's security tools to monitor or isolate suspicious activity further. Use threat intelligence to correlate with known malicious serverless infrastructure usage patterns. Collaborate with internal cloud infrastructure owners for detailed session/activity reviews where necessary. |
+| Containment and Further Analysis | Block suspicious IP addresses or domains used by the threat actor. Disable or put under strict monitoring any unidentified or unverified serverless functions. Review and, if necessary, change access controls and permissions for serverless deployments. Conduct a retrospective analysis of past cloud infrastructure usage. Plan a communication strategy to inform any potentially affected users or systems within the organization. Regularly review cloud service usage policies and ensure strict compliance and monitoring. |

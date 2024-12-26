@@ -1,0 +1,15 @@
+# Trusted_Relationship - T1199
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Initial Access |
+| MITRE TTP | T1199 |
+| MITRE Sub-TTP | T1199 |
+| Name | Trusted Relationship |
+| Log Sources to Investigate | Analyze logs from external network connections specifically focusing on connections from IP addresses associated with third-party providers. Investigate authentication logs for unusual access patterns, especially those involving accounts of vendors or partners. Review cloud service provider activity logs, such as those from Office 365, for changes in delegated administrator permissions or new delegated administrator requests. Inspect endpoint security logs for anomalies on systems accessed by third parties. |
+| Key Indicators | Unusual authentication attempts from third-party IP ranges, changes in permissions or account delegations, new administrative roles or privileges assigned in cloud environments, increased login activity from vendor or partner accounts, especially outside of normal business hours or from unusual locations. |
+| Questions for Analysis | 1. Are there unusual geolocations or times for access attempts from third-party accounts?<br>2. Have there been any unexpected changes in permissions or roles for accounts associated with third-party providers?<br>3. Is there a spike in activity from accounts that generally have limited access or inactive accounts? 4. Has there been any anomalous data transfer activity that aligns with known third-party vendor access? |
+| Decision for Escalation | Escalate to Tier 2 if there are indications of unauthorized access to sensitive systems, unexpected privilege escalations, anomalies in administrator roles granted, or multi-factor authentication failures by known third-party providers that can't be explained by legitimate business operations. |
+| Additional Analysis Steps for L1 | Verify whether observed IPs are legitimately associated with third-party vendors. Check the availability of security measures such as MFA for critical third-party accounts. Correlate login attempts with known third-party vendor access schedules. Review any incident tickets or maintenance windows that may explain increased access activity. |
+| T2 Analyst Actions | Conduct a deeper investigation into the source and intent of the suspicious activities. Review the affected accounts and systems for any signs of compromise or data exfiltration. Analyze previous patterns in access to determine if the activity is part of a larger trend or isolated. Collaborate with the vendor management team to confirm if suspicious activity aligns with authorized maintenance or incidents. |
+| Containment and Further Analysis | If unauthorized access is confirmed, revoke or limit the affected third-party access credentials immediately. Enforce or enhance security measures such as MFA and logging for third-party access points. Conduct a full audit of system and account activities to assess potential damage and secure vulnerabilities. Communicate with the third-party vendor to ensure they are aware and have resolved any security issues on their end. |

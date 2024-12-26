@@ -1,0 +1,15 @@
+# Resource_Hijacking:_SMS_Pumping - T1496003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Impact |
+| MITRE TTP | T1496.003 |
+| MITRE Sub-TTP | T1496.003 |
+| Name | Resource Hijacking: SMS Pumping |
+| Log Sources to Investigate | Review logs from SMS gateway services such as Twilio, AWS SNS, or Amazon Cognito to monitor unusual spikes in message volume. Web server logs should be checked for high-frequency access to OTP or account verification APIs. Billing and usage logs from telecommunications providers can also reveal unusual cost spikes or traffic patterns. Check access logs for new or unusual IP addresses or user agents accessing SMS-related APIs. |
+| Key Indicators | 1. Sudden and unexplained spike in SMS message volume. <br>2. Anomalous billing or cost increases associated with SMS services. <br>3. Repeated requests to web forms triggering SMS generation, particularly from the same IP address or user agent. <br>4. Traffic directed to specific sets of phone numbers disproportionally, indicating harvesting attempts. |
+| Questions for Analysis | 1. Is there evidence of a large number of SMS messages being sent to a specific set of phone numbers over a short period? <br>2. Are there new or unusual IP addresses or user agents that have accessed the OTP or account verification API? <br>3. Have there been any reports from legitimate users indicating issues with receiving expected SMS communications? <br>4. Are the costs associated with SMS services higher than expected for the period in question? |
+| Decision for Escalation | Escalate to Tier 2 if: <br>1. There is confirmation of high-volume SMS traffic anomalies linked to non-legitimate number sequences. <br>2. Unusual access patterns are identified from IP addresses or user agents not previously associated with regular operations. <br>3. Cost anomalies cannot be correlated with known business activities and persist after initial inquiry. |
+| Additional Analysis Steps for L1 | 1. Correlate SMS logs with known legitimate business activities to rule out false positives. <br>2. Verify if the IP addresses detected are part of any previous malicious activity or known bad networks. <br>3. Check for any deviation in normal usage patterns or sudden access to SMS-related APIs. |
+| T2 Analyst Actions | 1. Perform deep packet analysis if available to understand the traffic pattern and origin. <br>2. Investigate further into the suspicious IPs through threat intelligence databases or by checking historical interactions. <br>3. Contact the affected business unit to understand any ongoing campaigns or legitimate use cases that might explain the behavior. |
+| Containment and Further Analysis | 1. Temporarily block or rate-limit API endpoints being misused to prevent further SMS traffic spikes. <br>2. Implement additional logging or alerting mechanisms for anomalous SMS traffic or cost spikes. <br>3. If rogue IP addresses or user agents are identified, apply network blocks and monitor for reoccurrence. <br>4. Coordinate with telecommunications providers to screen suspicious numbers and assist in blocking fraud campaigns. |

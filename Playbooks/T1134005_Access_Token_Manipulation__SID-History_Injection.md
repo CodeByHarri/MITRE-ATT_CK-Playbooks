@@ -1,0 +1,15 @@
+# Access_Token_Manipulation:_SID-History_Injection - T1134005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion, Privilege Escalation |
+| MITRE TTP | T1134.005 |
+| MITRE Sub-TTP | T1134.005 |
+| Name | Access Token Manipulation: SID-History Injection |
+| Log Sources to Investigate | Investigate Active Directory logs, specifically focusing on changes to attributes like SID-History. Windows Security Event Logs are critical, particularly Event ID 4738 (a user account was changed) and Event ID 5136 (a directory service object was modified). Logs from identity management solutions and any SIEM (Security Information and Event Management) solutions that aggregate Active Directory data are also crucial for historical changes and real-time monitoring. |
+| Key Indicators | Look for unusual or unauthorized changes to the SID-History attribute in Active Directory. Creation or modification of user accounts that include additional SIDs not commonly found in legitimate administrative activities. Monitor for any access tokens that include SIDs from well-known administrative groups unexpectedly. |
+| Questions for Analysis | Did the SID-History changes originate from a known administrative account and location? Are there multiple changes to SID-History attributes in a short timeframe? Is there any correlation with other suspicious activities in the network, such as unexpected logins or data access by the affected account? |
+| Decision for Escalation | Escalate to Tier 2 if SID-History modifications were made without a corresponding legitimate domain administration request. Escalate if there's evidence of concurrent suspicious network behavior, such as lateral movement attempts or high-privileged logins from unusual locations. |
+| Additional Analysis Steps for L1 | Verify if the changes to SID-History were documented and approved changes related to account migration. Cross-reference the source of changes with known and scheduled administrative tasks. Check if there are other indicators of compromise in the timeframe of the modification. |
+| T2 Analyst Actions | Perform a deeper investigation into the administrative privileges used to make the changes. Review endpoint security logs from the system where the change originated. Verify if the SID-History attribute change aligns with any business-justified activities. Examine network traffic for associated lateral movement or data exfiltration. Conduct threat hunting for similar patterns across other accounts. |
+| Containment and Further Analysis | If unauthorized SID-History injection is confirmed, immediately remove the unauthorized SIDs. Disable affected accounts where appropriate to prevent further misuse. Conduct a full audit of recent administrative account activities. Consider isolating affected machines to prevent further compromise. Review and reinforce account management processes to prevent recurring issues. Implement continuous monitoring solutions to detect future unauthorized changes. |

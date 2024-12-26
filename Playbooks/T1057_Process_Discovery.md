@@ -1,0 +1,15 @@
+# Process_Discovery - T1057
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Discovery |
+| MITRE TTP | T1057 |
+| MITRE Sub-TTP | T1057 |
+| Name | Process Discovery |
+| Log Sources to Investigate | Investigate operating system logs related to process creation and command execution. This includes Windows Event Logs, specifically Security event ID 4688 (Process Creation) and Sysmon event ID 1 (Process Creation) for detailed information. For Linux and Mac, check syslog and audit logs for commands such as `ps` and access to `/proc`. On network devices, review CLI command logs. Also consider endpoint detection and response (EDR) logs that provide visibility into command-line tool usage, such as Tasklist or Get-Process utilities. |
+| Key Indicators | Look for unusual or uncommon use of process discovery commands such as 'tasklist', 'Get-Process', 'ps', or access to '/proc'. Suspicious execution patterns include these commands running under non-administrative accounts or at high frequency, especially in combination with other discovery or lateral movement TTPs. Investigate any execution of discovery commands from unusual or unauthorized locations or IP addresses. |
+| Questions for Analysis | 1. Is the process discovery command executed by a known and trusted user or script?<br>2. Does the timing or frequency of this activity deviate from the normal behavior of the user or system involved?<br>3. Is there evidence of privilege escalation associated with this activity? 4. Are these commands running in conjunction with other suspicious activities or network connections? |
+| Decision for Escalation | Escalate to Tier 2 if the process discovery is triggered by an unexpected user or role, involves accounts or systems with elevated privileges, is accompanied by known suspicious behavior such as data exfiltration, or if there's an indication of a compromised account. |
+| Additional Analysis Steps for L1 | 1. Verify the user account executing the process discovery commands and compare against known baselines for that user's or system's behavior.<br>2. Check for any associated changes in network connectivity or external data transfers.<br>3. Look for evidence of other host-based anomalies occurring around the same timeframe. |
+| T2 Analyst Actions | 1. Conduct a deeper forensic analysis, including a timeline review of related activities around the process discovery, such as file access or changes, new service creations, and connections to external IPs.<br>2. Assess lateral movement potential by assessing access and permissions of the involved account.<br>3. Investigate other systems or endpoints using the same account for similar activities. |
+| Containment and Further Analysis | 1. If compromise is confirmed, isolate the affected systems to prevent further internal reconnaissance and movement.<br>2. Analyze the compromised host for additional payloads or malware using file integrity and AV scans.<br>3. Reset and review access credentials for any affected accounts. 4. Review network segmentation and access controls to mitigate future risks. |

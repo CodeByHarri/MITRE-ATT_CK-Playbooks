@@ -1,0 +1,15 @@
+# Compromise_Accounts - T1586
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Resource Development |
+| MITRE TTP | T1586 |
+| MITRE Sub-TTP | T1586 |
+| Name | Compromise Accounts |
+| Log Sources to Investigate | Email server logs, especially logs indicating unusual login locations, times, or IP addresses that do not match the user's normal behavior. Authentication logs across various cloud services (i.e., Google Workspace, Microsoft 365) to detect anomalous login attempts or successful logins from new devices or IPs. Social media interactions logs if accessible from corporate-supplied persona tools, looking for unexpected changes to profile information or new connections. Credential stuffing or password spraying alerts from security tools. |
+| Key Indicators | Unusual login attempts from foreign IP addresses or at improbable times for the user. Successful authentications from locations or devices not previously associated with the user. Sudden changes in email forwarding rules or delegation permissions settings on accounts. Bulk sending of emails from user accounts, suggesting possible phishing activities. Changes in social media profile details like profile picture, employment history, or contact information. |
+| Questions for Analysis | Is there a pattern of login attempts from new locations or devices for the user? Are there any changes in user behavior, such as increased email activity or altering security settings? Have similar patterns been observed in other related accounts? Are there reports of users being locked out or receiving unexpected login alerts? |
+| Decision for Escalation | Escalate to T2 if logins are from notorious or flagged IP addresses known for cybercrime. Any confirmed changes in critical account settings like password resets, or forwarding rules should also be escalated. If multiple users report unexpected MFA prompts or credential usage alerts, escalate. |
+| Additional Analysis Steps for L1 | Verify recent authentication attempts using known-good data about the user's typical login patterns (e.g., IP addresses, times, devices). Assess if MFA was bypassed or failed repeatedly. Check if new applications were granted access permissions using OAuth without user consent. |
+| T2 Analyst Actions | Conduct in-depth analysis on the potentially compromised account, including checking dark web for leaked credentials. Evaluate the scope of potential phishing activities conducted using the compromised account. Coordinate with IT to assess if accounts require resetting credentials and re-enabling security features like MFA. |
+| Containment and Further Analysis | Immediate password reset and review of account permissions and settings. Reconfigure and re-enable MFA for the compromised accounts. Review and delete any newly set forwarding rules or delegated permissions. Inform affected users and consider company-wide advisories on recent phishing attempts. Analyze if similar patterns are indicative of broader attack patterns or coordinated account takeover attempts. |

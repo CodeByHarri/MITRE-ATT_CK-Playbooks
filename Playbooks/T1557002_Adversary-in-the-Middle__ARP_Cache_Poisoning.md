@@ -1,0 +1,15 @@
+# Adversary-in-the-Middle:_ARP_Cache_Poisoning - T1557002
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Collection, Credential Access |
+| MITRE TTP | T1557.002 |
+| MITRE Sub-TTP | T1557.002 |
+| Name | Adversary-in-the-Middle: ARP Cache Poisoning |
+| Log Sources to Investigate | Network traffic logs, specifically ARP traffic logs, should be captured from network monitoring solutions or IDS/IPS systems like Wireshark, Zeek, or Snort. Router and switch logs should also be included, focusing on ARP table changes. Investigate endpoint firewall logs for suspicious or unauthorized ARP packets. Examples of logs include packets with ARP reply entries not corresponding to any initiated ARP requests or frequent updates to the ARP cache in a short time window. |
+| Key Indicators | Unexpected or rapid ARP cache updates on endpoints, multiple ARP replies for a single request, ARP packets originating from unauthorized devices, especially those claiming to own the IP of critical systems, or ARP packet count anomalies. Look for gratuitous ARP packets sent across the network and cases where ARP responses occur faster than legitimate replies could arrive from correct IP address owners. |
+| Questions for Analysis | Was the ARP entry change expected or could it have been part of legitimate network reconfiguration? Is the MAC address seen in ARP replies connected with any known malicious activity or unauthorized device? Are there any patterns of ARP cache poisoning across multiple devices in the network? Have there been any complaints from users about network connectivity issues? |
+| Decision for Escalation | Escalate if the ARP cache poisoning is confirmed across multiple endpoints or involves critical network segments. If the MAC address identified in the ARP poisoning attempt is unknown, unauthorized, or known to be malicious, escalate. Also, any correlated findings of potential credential theft or other network communication interceptions should trigger escalation. |
+| Additional Analysis Steps for L1 | Identify any legitimate network changes that may justify frequent ARP updates. Check organizational documentation for authorized devices and IP-MAC bindings. Correlate with other network events to rule out false positives. Verify the presence of known benign devices with administrators. |
+| T2 Analyst Actions | Conduct a deeper traffic analysis for the timeframe and subnet involved. Validate ARP table manipulations on key devices. Cross-check against known threat intelligence databases for MAC addresses and IP addresses. Interview network engineers to confirm the legitimacy of detected ARP traffic anomalies. |
+| Containment and Further Analysis | Isolate impacted devices from the network. Implement static ARP entries in critical areas temporarily to thwart ongoing attacks. Monitor traffic for further ARP requests or similar anomalies. Enhance network segmentation and protections (e.g., ARP spoofing protection mechanisms like Dynamic ARP Inspection). Once the immediate threat is contained, conduct a retrospective analysis on traffic logs for signs of data interception or further adversary behaviors. |

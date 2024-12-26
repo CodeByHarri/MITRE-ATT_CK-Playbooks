@@ -1,0 +1,15 @@
+# Compromise_Infrastructure:_Network_Devices - T1584008
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Resource Development |
+| MITRE TTP | T1584.008 |
+| MITRE Sub-TTP | T1584.008 |
+| Name | Compromise Infrastructure: Network Devices |
+| Log Sources to Investigate | Network traffic logs and firewall logs should be closely monitored to identify unusual traffic patterns to/from network devices, such as unexpected IP addresses or data transfers. DNS logs can help detect unusual domain lookups which might suggest command and control setups. Logs from Network Intrusion Detection Systems (NIDS) and Intrusion Prevention Systems (IPS) are also critical in spotting suspicious activities related to compromised network devices. |
+| Key Indicators | Unexplained network traffic to/from known SOHO routers or edge devices, irregular or large volumes of outbound traffic from these devices, unexpected configuration changes on network devices, and anomalous login attempts potentially harvesting credentials. Additionally, detection of known C2 domains and IPs, and unauthorized proxy server configurations, can also be key indicators. |
+| Questions for Analysis | Are there unfamiliar IP addresses communicating with the network device? Can you observe any unexpected changes in the device configuration? Have there been any unusual spikes in network activity recently? Are there suspicious domains being queried by the network device? Are there successful logins from locations not normally associated with the network device? |
+| Decision for Escalation | Escalate to Tier 2 if initial analysis reveals unusual communication activity patterns, presence of known malicious IPs domains, unexpected configuration changes, or unauthorized access attempts from unusual locations. Evidence suggesting potential proxy or C2 setups also warrants escalation. |
+| Additional Analysis Steps for L1 | Review historical logs of network device activities to identify unusual patterns or correlations not typical to the device's normal operation. Verify against threat intelligence data to check for any known indicators of compromise (IOCs). Ensure network device firmware is updated and check for default or easily guessable credentials. |
+| T2 Analyst Actions | Perform a deep packet inspection to deeply analyze the suspicious network traffic patterns. Look into the configuration and logs of compromised devices to identify the nature and extent of any compromise. Correlate information with external threat intelligence and, if possible, obtain a copy of the firmware for vulnerability analysis. |
+| Containment and Further Analysis | Isolate compromised network devices from the network to prevent further malicious operations. Force a password reset for all user accounts accessing the device. Apply any relevant patches and ensure firmware is up-to-date. Conduct a full threat hunt to uncover any other potential network devices that may be compromised. Document findings and update defensive measures to prevent recurrence. |

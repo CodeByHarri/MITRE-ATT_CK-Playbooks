@@ -1,0 +1,15 @@
+# Container_Administration_Command - T1609
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Execution |
+| MITRE TTP | T1609 |
+| MITRE Sub-TTP | T1609 |
+| Name | Container Administration Command |
+| Log Sources to Investigate | Collect and analyze logs from Docker and Kubernetes environments. Specifically: 1) Docker daemon logs for entrypoint specifications and 'docker exec' command executions, 2) Kubernetes API server and kubelet logs for signs of unauthorized access or command executions such as 'kubectl exec'. Examples include '/var/log/docker.log' for Docker and '/var/log/kube-apiserver.log', '/var/log/kubelet.log' for Kubernetes. |
+| Key Indicators | 1) Entry point changes or new commands set during Docker container deployments.<br>2) Execution of 'docker exec' or 'kubectl exec' commands.<br>3) Unusual API calls to Kubernetes API server or kubelet from unfamiliar IPs or user accounts. 4) Spikes in network activity related to container management services or unexpected modifications in container configurations. |
+| Questions for Analysis | 1) Is there a valid reason for the use of 'docker exec' or 'kubectl exec' at the observed time?<br>2) Are the commands/activities tied to known and authorized user accounts?<br>3) Did the access originate from a previously recognized and approved IP address or network segment? 4) Have there been any recent changes to permissions or roles that may affect container operations? |
+| Decision for Escalation | Escalate to Tier 2 if: 1) The executing account is unauthorized or unknown.<br>2) The commands appear malicious or are known indicators of compromise.<br>3) There's evidence of potential lateral movement or additional unauthorized actions. 4) There are unsuccessful attempts to execute further unauthorized commands or escalate privileges. |
+| Additional Analysis Steps for L1 | 1) Validate authentication events around the time of suspicious activity.<br>2) Cross-reference IP addresses performing container operations with known corporate network ranges.<br>3) Use threat intelligence sources to check if the commands or IP addresses are associated with known threat actors. 4) Gather context on the affected container's role and typical behavior. |
+| T2 Analyst Actions | 1) Perform deeper dive into historical logs to ascertain the extent of unauthorized activity.<br>2) Investigate recent changes to privileges/permissions related to container administration services.<br>3) Analyze network traffic for unusual data transfers or command-and-control communications. 4) Engage remediation resources if a breach is verified, focusing on the protection of sensitive data hosted in or accessible by compromised containers. |
+| Containment and Further Analysis | 1) Isolate affected containers to prevent further unauthorized access or data exfiltration.<br>2) Change credentials and keys associated with compromised user accounts and compute nodes.<br>3) Conduct vulnerability assessment of the affected environment to patch any exploited vulnerabilities. 4) Implement enhanced monitoring on user access patterns and container operations post-incident. |

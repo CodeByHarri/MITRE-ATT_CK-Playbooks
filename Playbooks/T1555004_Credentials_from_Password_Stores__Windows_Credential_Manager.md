@@ -1,0 +1,15 @@
+# Credentials_from_Password_Stores:_Windows_Credential_Manager - T1555004
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access |
+| MITRE TTP | T1555.004 |
+| MITRE Sub-TTP | T1555.004 |
+| Name | Credentials from Password Stores: Windows Credential Manager |
+| Log Sources to Investigate | 1. Windows Security Event Logs: Look for events related to access or manipulation of the Credential Manager.<br>2. Command-line logs: Monitor for execution of vaultcmd.exe and rundll32.exe keymgr.dll KRShowKeyMgr commands.<br>3. File access logs: Pay attention to access attempts on %Systemdrive%\Users\[Username]\AppData\Local\Microsoft\[Vault/Credentials]\*.vcrd and Policy.vpol files. 4. API call monitoring: Watch for suspicious use of CredEnumerateA API. |
+| Key Indicators | 1. Execution of vaultcmd.exe without usual user intervention.<br>2. Unusual access or modification times for Credential Manager-related files.<br>3. Use of CredEnumerateA API by unexpected processes or users. 4. Command execution involving rundll32.exe keymgr.dll KRShowKeyMgr. 5. Presence of password recovery tools scanning users' directories. |
+| Questions for Analysis | 1. Is the execution of vaultcmd.exe/ CredEnumerateA by an authorized user or expected application?<br>2. Were there any recent alerts or logs indicating lateral movement or compromised user accounts?<br>3. Is there evidence of password recovery tools presence? 4. Are the observed activities aligned with the known usage patterns of the affected user or application? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. Unauthorized or suspicious execution of vaultcmd.exe or use of CredEnumerateA API.<br>2. Detection of access to Policy.vpol or .vcrd files by unapproved accounts.<br>3. Logging of suspicious command-line activity relating to rundll32.exe or keymgr.dll. 4. Presence of potential credential theft tools on the host. |
+| Additional Analysis Steps for L1 | 1. Re-validate logs and confirm the timeline of suspicious activities.<br>2. Check for additional corresponding anomalies around the same period, like unusual login attempts.<br>3. Verify user permissions and intended use of the Credential Manager on the host. 4. Review recent system or software changes or updates which may correspond with detected activities. |
+| T2 Analyst Actions | 1. Deep dive into command-line logs to ascertain intent and scope of vaultcmd.exe usage.<br>2. Correlate suspicious Credential Manager activities with other potential indicators of compromise.<br>3. Analyze retrieved credentials' access and modification history for anomalies. 4. Conduct user interviews or contact system owners to verify legitimate use cases. |
+| Containment and Further Analysis | 1. Block further usage of identified command and API activity until investigation is complete.<br>2. Isolate the affected system if credentials are confirmed to be accessed without authorization.<br>3. Reset affected user credentials if a breach is confirmed. 4. Forensic analysis of the affected machine, focusing on credential access timelines and related suspicious processes. |

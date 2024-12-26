@@ -1,0 +1,15 @@
+# Modify_Authentication_Process:_Network_Provider_DLL - T1556008
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access, Defense Evasion, Persistence |
+| MITRE TTP | T1556.008 |
+| MITRE Sub-TTP | T1556.008 |
+| Name | Modify Authentication Process: Network Provider DLL |
+| Log Sources to Investigate | Examine Windows Security and System event logs for unexpected logon events. Monitor Registry changes particularly around Network Provider entries under `HKLM\SYSTEM\CurrentControlSet\Control\NetworkProvider\Order`. Collect logs from Endpoint Detection and Response (EDR) solutions for unusual DLL loads and modifications related to `mpnotify.exe`. Review network traffic logs for anomalous RPC activity indicative of credential capture attempts. |
+| Key Indicators | Detection of unknown or suspicious DLLs added to Network Provider registered entries. Unusual file modifications or updates in the System32 directory. High frequency of credential manager notifications from `mpnotify.exe`. Unaccounted-for writes to the Registry in Network Provider sections during logon times. |
+| Questions for Analysis | Are there any recently added DLLs in the Network Provider entries that are not recognized or whitelisted? Have there been any unexpected changes to registry values related to network providers? Is there evidence of logon credentials being handled by unknown credential manager DLLs? Are there elevated numbers of RPC calls from `mpnotify.exe`? |
+| Decision for Escalation | Escalate if unknown or unverified DLLs are found in network provider registry entries, especially if they coincide with known administrator or repeated account logon sessions across the domain. Further escalate if network traffic or EDR logs confirm credential access or suspicious `mpnotify.exe` behavior. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of new or uncommon network provider DLLs against known software installations. Check the reputation of suspect DLL files via threat intelligence sources. Review respective logon sessions to correlate unexpected behavior with specific registry changes. Filter logs to identify multiple notifications from unknown credential manager sources. |
+| T2 Analyst Actions | Perform in-depth analysis on the suspicious DLL files using static and dynamic malware analysis techniques. Investigate the origin and time frame of suspicious registry modifications. Utilize forensic tools to trace the file activity and potential lateral movement associated with the DLL. Coordinate with IT to secure potentially compromised systems for detailed analysis. |
+| Containment and Further Analysis | Isolate affected systems by removing them from the network to prevent further credential exfiltration. Conduct a full security audit of domain controller environments to ensure no widespread credential compromise. Revert any unauthorized registry changes and system modifications. Reset credentials for impacted accounts and update relevant security policies to prevent similar intrusions. Perform a threat hunt within the network to detect any other anomalies potentially related to this attack vector. |

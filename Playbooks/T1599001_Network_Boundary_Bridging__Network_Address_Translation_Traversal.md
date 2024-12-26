@@ -1,0 +1,15 @@
+# Network_Boundary_Bridging:_Network_Address_Translation_Traversal - T1599001
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1599.001 |
+| MITRE Sub-TTP | T1599.001 |
+| Name | Network Boundary Bridging: Network Address Translation Traversal |
+| Log Sources to Investigate | Collect logs from network boundary devices such as routers, firewalls, and intrusion detection/prevention systems. Examples include: 1. Router logs showing changes to NAT table configurations.<br>2. Firewall logs indicating unusual or unauthorized traffic patterns between normally segregated networks.<br>3. Network flow logs to identify any unexpected shifts in data transmission paths. 4. System logs related to firmware updates or changes on network devices. |
+| Key Indicators | 1. Unusual configuration changes to NAT settings without documented change requests.<br>2. New NAT rules added that bridge trusted and untrusted networks.<br>3. Unexpected internal IP addresses appearing in Internet-bound traffic logs. 4. Sudden increase in traffic volumes across newly configured or altered NAT rules. 5. Alerts from network monitoring tools indicating possible routing changes. |
+| Questions for Analysis | 1. Were there any recent authorized configuration changes on the network boundary device?<br>2. Are there any established procedures for NAT configuration changes, and were they followed?<br>3. Are there internal IP addresses in logs that should not appear in the network's egress traffic? 4. Do the NAT changes correspond to any known business needs or changes in architecture? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. There are unauthorized changes to NAT configurations.<br>2. Unusual or suspicious traffic patterns are identified post NAT alterations.<br>3. If administrative access logs of network devices show anomalies like unknown or malicious IP addresses accessing the configuration panel. |
+| Additional Analysis Steps for L1 | 1. Correlate timestamps of NAT changes with user activity logs to check for any internal involvement.<br>2. Review configuration change logs for any discrepancies or unauthorized access.<br>3. Monitor real-time traffic for signs of lateral movement between networks that shouldn't communicate. |
+| T2 Analyst Actions | 1. Confirm the origin of configuration changes through log correlation and verification with authorized personnel.<br>2. Use network traffic analysis tools to identify and understand the path and nature of bridged traffic.<br>3. Conduct a deeper inspection of network device logs for signs of compromise, such as unauthorized firmware changes or patching. |
+| Containment and Further Analysis | 1. If unauthorized NAT rules are detected, immediately revert changes following incident response protocols.<br>2. Quarantine affected network segments to prevent further unauthorized data flow while investigation is ongoing.<br>3. Conduct thorough forensics on compromised network devices, including malware scans and checks for backdoors. 4. Implement tighter access controls and multi-factor authentication on network device management interfaces. |

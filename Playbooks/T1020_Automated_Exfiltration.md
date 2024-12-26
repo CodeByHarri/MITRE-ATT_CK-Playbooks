@@ -1,0 +1,15 @@
+# Automated_Exfiltration - T1020
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Exfiltration |
+| MITRE TTP | T1020 |
+| MITRE Sub-TTP | T1020 |
+| Name | Automated Exfiltration |
+| Log Sources to Investigate | Network traffic logs, especially those related to outbound connections; Data transfer logs such as DLP (Data Loss Prevention) systems; Application logs for unusual script or tool execution (e.g., file transfer tools like FTP, SCP); Endpoint security logs for suspicious automated tasks scheduled around data exfiltration times; Anomaly detection alerts from SIEM systems focusing on data size thresholds or unusual patterns of data movement. |
+| Key Indicators | Unusual outbound traffic patterns indicating large or continuous data transfers; Use of non-standard ports or protocols for data transfer; Excessive data compression before transmission; Execution of automated scripts or scheduled tasks close to the time of the data transfer; Destination IPs or domains that are considered suspicious or have no prior communication history with the network. |
+| Questions for Analysis | Was there a significant increase in outbound data flow within a short period of time? Is the destination for data transfer a known and trusted entity? Was the data transfer happening outside of normal business hours? Have any scripts or automation tools been executed recently on the systems involved? Are there any anomalies in user behavior surrounding the time of automated data transfer? |
+| Decision for Escalation | Escalate to Tier 2 if the data transfer volume exceeds normal thresholds without a legitimate business reason, involves a new or unrecognized external destination, occurs during non-business hours, or if any automation scripts/tools are detected that may suggest malicious intent. Escalation is also warranted if initial analysis can't definitively rule out malicious exfiltration. |
+| Additional Analysis Steps for L1 | Review network logs for unusual outbound connection patterns and document any anomalies; Examine relevant application logs for recently triggered automation scripts, scheduled tasks, or use of file transfer tools; Verify the destination IP/domain's legitimacy through threat intelligence feeds. |
+| T2 Analyst Actions | Conduct a deep dive into the anomalous data transfer, analyzing packet captures if available; Cross-reference with current threat intelligence to identify any indicators of compromise related to the destination or transmission method; Check for lateral movement or other correlated suspicious activities in the network; Validate with legitimate users if the transfer was authorized. |
+| Containment and Further Analysis | Isolate potentially compromised systems from the network to prevent further data loss; Implement network segmentation to restrict unauthorized data flows; Conduct thorough system scans for malware or unauthorized automation tools; Post-incident, enhance DLP policies and monitoring, and report findings for continuous improvement of security practices. |

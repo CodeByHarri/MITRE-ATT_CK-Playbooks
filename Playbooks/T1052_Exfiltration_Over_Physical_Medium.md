@@ -1,0 +1,15 @@
+# Exfiltration_Over_Physical_Medium - T1052
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Exfiltration |
+| MITRE TTP | T1052 |
+| MITRE Sub-TTP | T1052 |
+| Name | Exfiltration Over Physical Medium |
+| Log Sources to Investigate | Investigate logs from USB device monitoring systems and endpoint security solutions that track the connection and disconnection of removable media. Additionally, review logs from Data Loss Prevention (DLP) systems for alerts related to sensitive data transfers to external devices. If available, analyze logs from physical security systems for unusual access patterns or badge access logs that coincide with suspicious device connections. |
+| Key Indicators | Unusual access logs from systems with no regular need for removable device usage, especially from critical or air-gapped systems. Detection of large file transfers to removable media in Data Loss Prevention (DLP) logs. Unexplained usage of USB ports or other physical media interfaces on sensitive machines. Log entries showing the consistent introduction of new or previously unseen devices, especially if labeled as generic mass storage with no clear business justification. |
+| Questions for Analysis | Is there a legitimate business need for the use of removable media by the user or within the detected environment? Has the USB device or other physical media been used previously by the user or device? What type of data was transferred to the physical medium, and is it sensitive or classified? Have there been any reports or logs of physical security breaches or unusual behaviors around the time of detection? |
+| Decision for Escalation | Escalate to Tier 2 if the data transferred is sensitive, if the usage of the physical medium is not justified by typical business operations, or if there is a pattern of repeated incidences involving the same user or machine. Escalation is also necessary if there is a potential breach of an air-gapped network or critical infrastructure. |
+| Additional Analysis Steps for L1 | Verify and document the identity of the user involved in the incident. Cross-reference the activity with known business processes and user behavior patterns to determine legitimacy. Review recent DLP rule changes or system updates that could affect the monitoring of removable media. |
+| T2 Analyst Actions | Conduct a deeper dive into user activity and network behavior leading up to and following the incident. Interview the user and relevant managers to confirm if the activity was authorized. Check for similar activity across other endpoints, and if patterns are identified, consider informing the relevant departments or forming an investigation team. |
+| Containment and Further Analysis | Limit user access to sensitive data or systems if unauthorized activity is confirmed. Revoke permissions for using removable media until further assessment. Perform forensic analysis on the suspect physical medium, including searching for sensitive files or metadata changes. Assess if similar vulnerabilities exist elsewhere in the network and initiate mitigative actions as necessary. |

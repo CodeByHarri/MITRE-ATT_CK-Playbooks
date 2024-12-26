@@ -1,0 +1,15 @@
+# Indicator_Removal:_Clear_Persistence - T1070009
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1070.009 |
+| MITRE Sub-TTP | T1070.009 |
+| Name | Indicator Removal: Clear Persistence |
+| Log Sources to Investigate | Investigate system event logs, application logs, and security logs for entries that show creation and deletion of user accounts, modifications of Registry keys, or deletions of services and executables. Examples include Windows Event Logs (specifically Security and System logs), Linux syslog, and macOS Unified Logs. Also review Application-specific logs for any evidence of plist file modifications. Ensure to check for logs of specific accounts, services, or executables tied to known suspicious activities. |
+| Key Indicators | Look for rapid succession of account creation and deletion events, modifications to critical registry keys such as those in the Run or RunOnce paths, and unexpected service deletions. Key indicators also include logs that show plist file edits or sudden absence of known persistence mechanisms without legitimate software update or system administration activity. |
+| Questions for Analysis | Does the activity coincide with any known software updates or system administration work? Are there logs indicating the existence of these artifacts before they were removed? Is there evidence of similar tactics used on multiple systems? Are the actions performed by a legitimate system administrator or an unauthorized account? |
+| Decision for Escalation | Escalate to Tier 2 if persistence removal actions are observed without a corresponding legitimate update or administration justification, especially if linked with suspicious timing, account anomalies, or if similar activities are detected across multiple systems indicating a potential widespread campaign. |
+| Additional Analysis Steps for L1 | Cross-reference removal actions with known software updates or patch schedules. Check for any anomalous user account activity tied to persistence modifications. Validate whether the operations were performed using administrator credentials, and whether these credentials have been recently compromised or are associated with unwarranted access. |
+| T2 Analyst Actions | Conduct a detailed review of the history of the affected hosts to find any signs of initial persistence and how it was established. Use forensic tools to check for remnants of deleted files or registry key remnants that might indicate what was removed. Analyze network traffic during the time of these actions to spot communication with known command and control servers. Verify if any new persistence mechanisms were subsequently created. |
+| Containment and Further Analysis | Isolate the affected systems to prevent further unauthorized changes. Perform a file integrity check to ensure no critical system files have been tampered with. Conduct a thorough malware scan and consider restoring the system from a known good backup. Ensure all accounts with administrative privileges are secure. Monitor for any similar artifacts being re-established post-containment. |

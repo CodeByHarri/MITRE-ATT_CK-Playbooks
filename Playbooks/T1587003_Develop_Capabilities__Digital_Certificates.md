@@ -1,0 +1,15 @@
+# Develop_Capabilities:_Digital_Certificates - T1587003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Resource Development |
+| MITRE TTP | T1587.003 |
+| MITRE Sub-TTP | T1587.003 |
+| Name | Develop Capabilities: Digital Certificates |
+| Log Sources to Investigate | Inspect SSL/TLS certificate issuance logs from web servers and systems managing certificates. Review network traffic logs for unusual SSL/TLS handshake patterns. Analyze firewall logs for outbound traffic using uncommon ports with SSL/TLS-related activities. Check any Certificate Authority (CA) software logs if internal CAs are in use, and examine application logs for processes related to certificate creation and their installation. |
+| Key Indicators | Creation of self-signed certificates on systems that usually don't create them. Digital certificates with unusual issuer details or those that are not signed by a recognized certificate authority. Significant increase in SSL/TLS traffic, especially if previously not common for the network. Discovery of certificates installed on systems or infrastructure under adversarial control. |
+| Questions for Analysis | Are there recent entries in the logs indicating the generation of SSL/TLS certificates? Do these certificates have unusual attributes or identifiers that differ from normal expectations? Is there evidence of new certificates being installed without corresponding changes or deployments? Has there been a recent spike in encrypted traffic from the system details in the certificate logs? |
+| Decision for Escalation | Escalate to Tier 2 if the self-signed certificate has issuer details mimicking a trusted entity, if there are multiple unrelated incidents of certificate creation within a short span, or if new certificates correlate with changes in network traffic patterns indicating potential data exfiltration or suspicious communications. |
+| Additional Analysis Steps for L1 | Validate certificate issuing authority and check if self-signed certificates match any known legitimate use case within the organization. Correlate certificate creation times with system and network usage patterns to identify potential anomalies. Query SIEM for related alerts around the time of certificate creation. |
+| T2 Analyst Actions | Deep dive into historical logs to find the origin and reason for certificate creation. Determine if there's any lateral movement or further adversarial actions following the certificate's installation. Check for repeated patterns or correlations with known threat actor behaviors associated with certificate misuse. |
+| Containment and Further Analysis | Revoke any unauthorized certificates discovered and ensure they are removed from systems. Adjust firewall and proxy settings to detect and block communications using these unauthorized certificates. Conduct a thorough forensic investigation to assess potential impacts and entry points. If necessary, strengthen policies related to certificate management and educate users on identifying and reporting suspicious SSL/TLS certificate usage. |

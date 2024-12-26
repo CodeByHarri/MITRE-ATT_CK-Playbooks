@@ -1,0 +1,15 @@
+# Hijack_Execution_Flow:_Path_Interception_by_PATH_Environment_Variable - T1574007
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion, Persistence, Privilege Escalation |
+| MITRE TTP | T1574.007 |
+| MITRE Sub-TTP | T1574.007 |
+| Name | Hijack Execution Flow: Path Interception by PATH Environment Variable |
+| Log Sources to Investigate | Monitor changes to environment variables, especially the PATH on Windows, Linux, and macOS systems. Use command line auditing on Windows (e.g., Sysmon Event ID 12 for process creation), shell history logs on Linux (e.g., ~/.bash_history), and unified logs on macOS (e.g., Monitoring PATH variable changes through the `launchd` service). Look for modification of PATH variables, particularly write access to directories located earlier in the PATH sequence. |
+| Key Indicators | Instances of executable files appearing in unusual directories specified early within the PATH variable. Unexpected PATH or $HOME modifications that include non-default directory paths, especially those writable by users. Logs showing execution of unexpectedly located binaries with similar names to legitimate executables, like 'net.exe' appearing in an unexpected directory. |
+| Questions for Analysis | 1. Has a critical environment variable such as PATH been altered recently in the logs?<br>2. Are there any binaries being executed from non-standard directories, particularly ones writable by non-privileged users?<br>3. Is there command line history or process creation evidence showing binaries executed from these PATH-manipulated locations? |
+| Decision for Escalation | Escalate to Tier 2 if there are unexplained changes to PATH or related environment variables that coincide with known suspicious behavior, especially if they involve executable files in writable directories, or if recent user activity involves abnormal directory modifications or shell configuration changes. |
+| Additional Analysis Steps for L1 | Check recent changes in PATH environment variable and correlate with process creation logs. Verify if binaries executed from suspicious directories match legitimate application names but exist outside the typical system paths. Look for user accounts with permission changes or unusual shell command sequence initiating these modifications. |
+| T2 Analyst Actions | Conduct a deeper inspection of file hashes for executables found in altered PATH directories and compare against known good baselines. Use endpoint detection and response (EDR) tools to examine the chain of events leading up to the PATH modification. Contextualize the behavior with threat intelligence to assess if this activity matches known attack patterns. |
+| Containment and Further Analysis | Isolate affected systems if unauthorized binaries are confirmed. Revert PATH changes and restore legitimate binaries in system paths. Implement monitoring for further PATH modifications. Perform a comprehensive review of user account activities to identify potential lateral movement or escalation opportunities utilized by adversaries. |

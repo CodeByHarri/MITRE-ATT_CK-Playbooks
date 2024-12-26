@@ -1,0 +1,15 @@
+# Pre-OS_Boot:_Bootkit - T1542003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion, Persistence |
+| MITRE TTP | T1542.003 |
+| MITRE Sub-TTP | T1542.003 |
+| Name | Pre-OS Boot: Bootkit |
+| Log Sources to Investigate | Collect and analyze logs related to any changes to the Master Boot Record (MBR) and Volume Boot Record (VBR). Key logs include: system logs for any boot-time errors or messages, security logs for unauthorized boot loader modifications, and event logs for anomalous boot sector writes. Consider using tools that monitor low-level disk access or integrity checking utilities. Additionally, BIOS/UEFI logs, if available, can provide insights into unauthorized changes at the firmware level. |
+| Key Indicators | Presence of unauthorized or unexpected changes to the MBR or VBR. Unusual boot errors or repeated boot failures. Anomalies in boot loader files or absence thereof. Presence of unfamiliar boot loader code or redirects. Disk integrity alerts indicating alterations in critical boot sectors. Suspicious disk writes to the boot sector by unauthorized processes. |
+| Questions for Analysis | Are there recent system logs indicating changes in the MBR or VBR? Have there been any boot errors or unusual boot cycles on the system? Are there any known safe updates or configurations that could explain changes to the boot records? Are there any alerts from disk integrity or boot record monitoring tools? |
+| Decision for Escalation | Escalate if unauthorized modifications to the MBR or VBR are confirmed or if there are unexplained anomalies in boot processes that could indicate the presence of a bootkit. If initial analysis can’t account for changes and there are other indicators of potential compromise, escalate for deeper investigation. |
+| Additional Analysis Steps for L1 | Verify system integrity using boot sector analysis tools. Cross-reference any system updates or patches that might have caused changes to the boot records. Check for known vulnerabilities or exploits that could have been leveraged by adversaries. Review BIOS/UEFI settings and logs for unauthorized changes. Collect relevant logs and prepare a summary of findings for T2 review. |
+| T2 Analyst Actions | Conduct a thorough forensic examination of the boot sectors to detect malicious code. Analyze disk sector writes and correlate with process activity on the host. Review historical system images or backups for comparison with current boot records. Use advanced malware analysis tools to detect and comprehend bootkit functionality. Coordinate with threat intelligence teams to piece together the tactics and objectives of the adversary. |
+| Containment and Further Analysis | Isolate the affected system from the network to prevent further compromise. Consider re-imaging the system and restoring from a known good backup. Provide guidance on secure boot configurations to prevent recurrence. Implement enhanced monitoring on reconfigured systems to detect any signs of re-infection. After containment, conduct a post-incident review to strengthen boot record defense mechanisms. |

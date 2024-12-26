@@ -1,0 +1,15 @@
+# Cloud_Storage_Object_Discovery - T1619
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Discovery |
+| MITRE TTP | T1619 |
+| MITRE Sub-TTP | T1619 |
+| Name | Cloud Storage Object Discovery |
+| Log Sources to Investigate | Key log sources include cloud provider logs, specifically AWS CloudTrail for AWS environments and Azure Activity Log for Azure environments. Look for API calls related to object enumeration, such as ListObjectsV2 in AWS and List Blobs in Azure. Also, consider reviewing IAM audit logs to detect suspicious account activity that might indicate unauthorized enumeration attempts. |
+| Key Indicators | Repeated or excessive 'ListObjectsV2' requests in AWS CloudTrail logs or 'ListBlobs' events in Azure Activity logs, especially from unusual IP addresses or user-agents. Sudden spikes in object enumeration API calls that deviate from normal patterns. Access attempts by users or roles that typically do not interact with cloud storage services. |
+| Questions for Analysis | Does the account making the request usually access cloud storage objects? Are there any recent changes to the permissions or access levels of the account in question? Are the API calls coming from an unusual IP address or location? Do the API calls occur during atypical hours? |
+| Decision for Escalation | Escalate if the log investigation reveals anomalous patterns such as requests from unfamiliar IP addresses, unusual user-agents, accounts making requests outside normal business hours, or high volumes of enumeration activity indicative of potential discovery activities. Also, escalate if attempts are made by high-risk accounts (e.g., service accounts) or if multiple access attempts by unauthorized accounts are detected. |
+| Additional Analysis Steps for L1 | Verify if the observed object enumeration activity matches regular business operations. Check for recent permissions changes in the affected accounts that might explain the activity. Look for any correlating alerts or activities that might suggest this is part of a larger attack pattern (e.g., failed login attempts, data exfiltration attempts). |
+| T2 Analyst Actions | Conduct deeper analysis on the source of the API calls, such as IP addresses and geolocation data. Cross-reference related log entries for any other suspicious activities. Review additional logs to identify if this activity correlates with other attack vectors (e.g., command execution, data transfer). Engage with application or infrastructure teams to confirm if the behavior is expected and document the response. |
+| Containment and Further Analysis | If unauthorized access is confirmed, immediately restrict access by disabling the involved credentials or applying network or IP-based restrictions. Conduct a full IAM review to ensure least privilege access on all accounts and services. Perform a comprehensive audit of current cloud storage permissions and access configurations. Consider deploying additional monitoring on the affected accounts or services to detect further abnormal activities. |

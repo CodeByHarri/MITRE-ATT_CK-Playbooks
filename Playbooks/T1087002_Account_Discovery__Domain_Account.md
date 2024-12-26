@@ -1,0 +1,15 @@
+# Account_Discovery:_Domain_Account - T1087002
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Discovery |
+| MITRE TTP | T1087.002 |
+| MITRE Sub-TTP | T1087.002 |
+| Name | Account Discovery: Domain Account |
+| Log Sources to Investigate | Examine Windows Security Event Logs, especially Event ID 4720 (A user account was created) and Event ID 4738 (A user account was changed) to identify account-related changes. Inspect Active Directory Domain Services logs for any unusual account enumeration activities. Review network traffic logs for LDAP (port 389) queries that may indicate domain account enumeration. Additionally, monitor PowerShell logs and command execution logs for the use of cmdlets such as Get-ADUser and Get-ADGroupMember. |
+| Key Indicators | Detection of commands like 'net user /domain', 'net group /domain', 'ldapsearch', or usage of PowerShell to enumerate users/groups, especially from non-administrative accounts or unusual sources. Unusual frequency or volume of LDAP queries originating from a single host. Suspicious timestamps or patterns in the command usage, especially during off-hours. |
+| Questions for Analysis | Does the account performing the task have a legitimate reason to enumerate domain accounts? Are there any abnormal spikes in the use of enumeration commands? Is the source IP or host associated with any known threat actors or past security incidents? Was this activity observed from a workstation outside the expected administrative network zone? |
+| Decision for Escalation | Escalate to Tier 2 if enumeration activities are performed by unauthorized or suspicious accounts, originate from non-standard network zones, or occur outside of business hours without an identified legitimate reason. Also escalate if similar patterns were observed in past incidents linked to known adversarial tactics. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of the account performing the enumeration. Compare the detected activity timestamp with normal business hours and security baselines. Check related systems for additional indicators of compromise, such as unauthorized access attempts or concurrent suspicious actions. Look for correlated alerts within SIEM. |
+| T2 Analyst Actions | Perform a thorough analysis of other potentially linked endpoints. Correlate findings with threat intelligence feeds to identify any known TTPs associated with the detected activity. Review all associated logs and execute deeper queries to find anomalies. Validate whether shared accounts were used in enumeration and assess risk impact. |
+| Containment and Further Analysis | If unauthorized enumeration is confirmed, isolate the affected endpoint and change credentials of involved accounts. Conduct a comprehensive review of the AD environment for additional unauthorized changes. Implement temporary increased monitoring of suspicious accounts and network zones. Prepare detailed reports for senior security management and conduct retrospective analysis to refine detection capabilities. |

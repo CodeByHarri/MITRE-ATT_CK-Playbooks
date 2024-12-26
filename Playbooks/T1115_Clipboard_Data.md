@@ -1,0 +1,15 @@
+# Clipboard_Data - T1115
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Collection |
+| MITRE TTP | T1115 |
+| MITRE Sub-TTP | T1115 |
+| Name | Clipboard Data |
+| Log Sources to Investigate | Monitor logs from clipboard-related processes such as 'clip.exe' and 'Get-Clipboard' on Windows. Utilize Sysmon event logs to detect clipboard access from unusual processes. On macOS and Linux, check for 'pbpaste' command executions in system logs. Look at PowerShell execution logs, specifically targeting cmdlets that might access or alter clipboard data. Review logs from security tools that flag clipboard data access or potential data exfiltration. |
+| Key Indicators | Evidence of 'clip.exe' or 'Get-Clipboard' execution in a non-standard or unexpected context. Frequent or unusual access of clipboard data, especially during off-business hours. Detection of 'pbpaste' over SSH or in unusual scripts on macOS and Linux. Correlated anomalies such as data exfiltration alerts occurring close to times of clipboard data access or alteration. |
+| Questions for Analysis | Is the accessing of clipboard data part of standard user behavior or a legitimate administrative task? Was the process accessing the clipboard expected to have such capabilities in its context and user privileges? Are there correlated alerts or anomalies that indicate possible data exfiltration or tampering? Are there repeated attempts to access clipboard data by the same process or account? |
+| Decision for Escalation | Escalate if unauthorized or unexpected processes are accessing clipboard data, especially if correlated with other suspicious activities like potential data exfiltration or credential access. Also, escalate if there is evidence of clipboard data being replaced or manipulated without user initiation. |
+| Additional Analysis Steps for L1 | Verify the user and machine context of clipboard access activities. Validate the legitimacy of the involved processes and users accessing the clipboard. Check for any recent changes in user activity or job roles that might justify such actions. Run IOC queries on suspicious process hashes or command lines. |
+| T2 Analyst Actions | Perform deeper log correlation to identify any preceding or subsequent suspicious activities linked to the clipboard access. Analyze broader user and network activity to detect patterns or other malicious behaviors. Investigate the user account's access rights and history for anomalies. Conduct checks for recent updates or changes in security software or policies that might have legitimated this access. |
+| Containment and Further Analysis | Isolate the affected systems to prevent further unauthorized clipboard access or data exfiltration. Implement enhanced monitoring on the identified users and systems for suspicious activities. Update or create detection rules to better identify clipboard access in the future. Conduct a full security review of the endpoints to identify and remediate potential vulnerabilities or footholds. |

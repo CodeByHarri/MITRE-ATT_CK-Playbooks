@@ -1,0 +1,15 @@
+# Boot_or_Logon_Initialization_Scripts:_Startup_Items - T1037005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence, Privilege Escalation |
+| MITRE TTP | T1037.005 |
+| MITRE Sub-TTP | T1037.005 |
+| Name | Boot or Logon Initialization Scripts: Startup Items |
+| Log Sources to Investigate | Investigate system logs that capture filesystem activities, particularly any writes or creations within /Library/StartupItems. This includes macOS File System Events. Additionally, macOS 'system.log' may contain startup-related messages that can help identify startup item alterations. Check for signs of new or unusual plist files within /Library/StartupItems. |
+| Key Indicators | Creation or modification of directories or files within /Library/StartupItems, especially those with unusual or non-standard names. Presence of unexpected 'StartupParameters.plist' files. Any startup items registered that are not known system applications or legitimate third-party software. Increased execution privileges or unexpected binaries/scripts set to execute during system startup. |
+| Questions for Analysis | Are there startup items listed in /Library/StartupItems that do not belong to known applications? Was there an unexpected creation or modification of items in StartupItems? Are there any associated unusual or unauthorized root-level processes running? |
+| Decision for Escalation | Escalate if there is evidence of new or modified entries in /Library/StartupItems that cannot be associated with authorized software, particularly if these entries are set to execute unknown scripts or binaries. Additionally, escalate if any suspicious changes coincide with user reports of abnormalities in system behavior or unauthorized root-level process execution. |
+| Additional Analysis Steps for L1 | 1. Verify the legitimacy of newly detected startup items by cross-referencing with known software installations.<br>2. Check file modification timestamps to see if changes occurred outside normal maintenance periods.<br>3. Look for any corresponding alerts or observations of unauthorized access or privilege escalation. |
+| T2 Analyst Actions | 1. Conduct a deeper forensic investigation of the suspicious startup items, including examining binary contents or scripts using tools like strings and detecting obfuscated or malicious code.<br>2. Correlate with user activity logs and network traffic data to identify any related unauthorized access or data exfiltration attempts.<br>3. Consult with IT admin teams to verify any newly installed or updated applications that might have added legitimate startup items. |
+| Containment and Further Analysis | 1. Quarantine the suspicious files or directories found in /Library/StartupItems.<br>2. Restore affected directories from a clean backup if verified as unauthorized.<br>3. Update security policies to prevent unauthorized additions to startup items, and apply security patches to harden the system. 4. Monitor for subsequent modification attempts or further evidence of compromise, and ensure compliance with incident response procedures for potential root system infections. |

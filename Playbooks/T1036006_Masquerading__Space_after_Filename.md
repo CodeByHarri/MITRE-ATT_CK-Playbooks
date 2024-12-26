@@ -1,0 +1,15 @@
+# Masquerading:_Space_after_Filename - T1036006
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1036.006 |
+| MITRE Sub-TTP | T1036.006 |
+| Name | Masquerading: Space after Filename |
+| Log Sources to Investigate | Monitor file system logs for rename events, particularly focusing on changes where filenames end with a space. Review logs from Endpoint Detection and Response (EDR) tools that track executable launches. Collect data from Operating System audit logs that capture file execution events, and analyze Security Information and Event Management (SIEM) tools for suspicious file renaming patterns. Additionally, scrutinize application logs for unusual process execution or launches that don't match typical user behavior. |
+| Key Indicators | Presence of file execution with filename ending in space, e.g., 'evil.txt '. Unusual renaming of files that alter the extension but end with a space. Execution of binaries in user directories that masquerade as a different file type. Abnormal file access patterns, such as text files that trigger the launch of Terminal or command prompt. |
+| Questions for Analysis | Is the file with a space after its extension executing a process? Do the execution sources or methods correspond with typical user behavior? Are there multiple instances of this behavior across different endpoints or users? Is there any correlation with known malicious activity or indicators of compromise (IOCs) in threat intelligence feeds? |
+| Decision for Escalation | Escalate if the file with a trailing space executes a suspicious process, if it coincides with other anomalies (e.g., unauthorized network access attempts or data exfiltration alerts), or if there's confirmation of similar behavior documented in threat intelligence sources. Also escalate if the activity is widespread or impacts sensitive systems. |
+| Additional Analysis Steps for L1 | Verify file properties to see if there is a trailing space, confirm execution path, and cross-reference with legitimate application paths. Check the user's typical activity patterns and correlate with any changes or anomalies. Review the origin and timestamps of the file and its modifications. |
+| T2 Analyst Actions | Conduct a deeper investigation into the associated process tree for unusual behavior. Use threat intelligence platforms to verify IOCs. Perform memory analysis and examine running processes for hidden malware. If necessary, reverse engineer the executed binary to understand its intent. Assess potential lateral movement or persistence mechanisms. |
+| Containment and Further Analysis | Isolate affected systems immediately to prevent further execution. Remove or quarantine the suspicious file and any related components identified during analysis. Issue an alert for similar behavior across the network. Conduct a full forensic investigation to determine the scope of the compromise and identify other potential impacts or entry points. Develop further detection techniques based on findings. |

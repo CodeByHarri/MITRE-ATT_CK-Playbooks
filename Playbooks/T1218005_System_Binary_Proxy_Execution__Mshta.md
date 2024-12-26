@@ -1,0 +1,15 @@
+# System_Binary_Proxy_Execution:_Mshta - T1218005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1218.005 |
+| MITRE Sub-TTP | T1218.005 |
+| Name | System Binary Proxy Execution: Mshta |
+| Log Sources to Investigate | Investigate logs from Endpoint Detection and Response (EDR) solutions for instances of mshta.exe execution. Check Windows Event Logs, particularly Security and Application logs, for unusual process creation events related to mshta.exe. Network Traffic logs should be reviewed for outbound connections initiated by mshta.exe, especially requests to external IPs or domains. Web Proxy Logs can help identify any suspicious HTTP/S requests made by mshta.exe to download .hta or script files. |
+| Key Indicators | The execution of mshta.exe with command line parameters linking to external URLs. Unusual or high frequency of mshta.exe executions on endpoints. Network connections initiated by mshta.exe to non-standard ports or suspicious IPs/domains. Embedded or linked scripts within HTA files that exhibit malicious behavior. |
+| Questions for Analysis | Is mshta.exe executing with command lines that point to external or unexpected URLs? Does the domain or IP accessed by mshta.exe match any known threat intelligence feeds or blacklists? Has mshta.exe been involved in similar alerts recently on the same or different endpoints? Are there any anomalies or spikes in network activity related to mshta.exe execution patterns? |
+| Decision for Escalation | Escalate to Tier 2 if mshta.exe is executing with suspicious arguments, especially if they contain URLs not typically accessed within the organization. Escalate if mshta.exe is responsible for downloading files from unfamiliar or blacklisted domains. Also, escalate if there is a pattern of repeated mshta.exe alerts from the same host. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of the URLs or IPs associated with mshta.exe. Cross-reference with threat intelligence platforms for known malicious indicators. Examine recent user activities linked to the affected endpoint for any phishing or social engineering attempts. Review historical data to check if mshta.exe execution patterns have changed over time. |
+| T2 Analyst Actions | Perform deeper inspection using memory forensics techniques to identify any injector processes or abnormal memory patterns linked to mshta.exe. Analyze the downloaded HTA/VBScript/JavaScript files using sandbox environments to assess potential malicious actions. Investigate the possibility of fileless malware tactics or lateral movement originating from the alert. |
+| Containment and Further Analysis | Quarantine affected hosts if mshta.exe executed confirmed malicious payloads. Block identified malicious domains and IPs on network firewalls and intrusion prevention systems. Deploy or update security controls to prevent future execution of mshta.exe with unsafe parameters. Document and integrate findings into broader threat detection and response strategies. |

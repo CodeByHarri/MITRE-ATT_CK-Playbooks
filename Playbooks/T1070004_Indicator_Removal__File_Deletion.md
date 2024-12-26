@@ -1,0 +1,15 @@
+# Indicator_Removal:_File_Deletion - T1070004
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1070.004 |
+| MITRE Sub-TTP | T1070.004 |
+| Name | Indicator Removal: File Deletion |
+| Log Sources to Investigate | Investigate file system audit logs and command execution logs. Key sources include Windows Event Logs such as Security Log (event IDs 4663 for 'File access') and PowerShell logs (event ID 4104 for 'Script Block Logging'). On Linux and macOS, check audit logs (such as those created by auditd) for file deletion commands. File integrity monitoring systems may also provide logs indicating file changes or deletions. Monitor syslog for command execution related to file operations. |
+| Key Indicators | Look for suspicious usage of file deletion commands such as 'del', 'rm', or 'unlink', especially if they occur in sequences or timeframes that correspond with other malicious activity. Unexpected file deletions on critical directories or of files that correspond to recognized security tools or logs are also red flags. Abnormal execution contexts, such as usage by non-standard users or during off-hours, can be indicators. |
+| Questions for Analysis | Is the file deletion activity consistent with regular system behavior? Was the file deletion conducted by a known and legitimate user or process? Does the timing of the deletions correlate with other suspicious activities or alerts? Are there any exceptions to company policy identified (e.g., unauthorized tools being used)? |
+| Decision for Escalation | Escalate to Tier 2 if file deletions are linked to suspicious processes or users, especially if there are correlating indicators of compromise. Also, escalate if the deletions target critical directories, system logs, or security tools, or if unusual data exfiltration activity is suspected. |
+| Additional Analysis Steps for L1 | Verify user account activity around the time of file deletions. Check for any deviations from the baseline or typical file deletion patterns. Examine other logs for correlative actions, such as unexpected file or network activity. Gather context on file or directories targeted for deletion to assess importance and potential impact. |
+| T2 Analyst Actions | Conduct a deeper forensic analysis on affected systems. Perform timeline analysis to correlate file deletions with other system and network events. Investigate suspicious user accounts and access patterns, including potential lateral movement. Validate the integrity and status of critical files and processes. |
+| Containment and Further Analysis | Consider isolating affected systems to prevent further intrusion or data exfiltration. Restore deleted files from backups if necessary. Strengthen file integrity monitoring and logging configurations. Conduct root cause analysis to determine entry vectors and strengthen defenses against similar future intrusions. Ensure all tools and scripts used by adversaries are identified and removed from the environment. |

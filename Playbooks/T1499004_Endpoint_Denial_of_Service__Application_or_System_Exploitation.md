@@ -1,0 +1,15 @@
+# Endpoint_Denial_of_Service:_Application_or_System_Exploitation - T1499004
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Impact |
+| MITRE TTP | T1499.004 |
+| MITRE Sub-TTP | T1499.004 |
+| Name | Endpoint Denial of Service: Application or System Exploitation |
+| Log Sources to Investigate | Investigate logs from Intrusion Detection Systems (IDS) and Intrusion Prevention Systems (IPS) to identify any exploitation attempts. Application logs, especially of the system or platform primarily affected (like webservers or database servers), should be reviewed for crashes or abnormal behaviors. Network logs would capture any unusual traffic patterns potentially related to exploitation attempts. Examples include high amounts of SYN packets, requests to known vulnerable services, or unusual sequences of inputs or commands sent to applications. |
+| Key Indicators | Look for signs such as repeated application crashes, unusually high frequency of service restarts, abnormal port scanning detected by IDS/IPS, and logs indicating the failure of security checks or software integrity checkers. Also, unusual error messages or exceptions in application logs, especially if they align with known vulnerability signatures, should be treated as key indicators. |
+| Questions for Analysis | Is there a consistent pattern in the application crashes? Do network patterns suggest an orchestrated attempt to exploit known vulnerabilities? Are there any known vulnerabilities in the affected systems that could be publicly exploited? Have any updates or changes been recently made to the system that coincide with the incidents? |
+| Decision for Escalation | Escalate to Tier 2 if the analysis confirms the presence of an exploit script or tool signature in the logs. Escalate if multiple systems are affected simultaneously or if a known critical vulnerability is identified in the application logs. Also, escalate if service availability is compromised significantly affecting business operations. |
+| Additional Analysis Steps for L1 | Correlate application crash logs with network traffic patterns to pinpoint any synchronously occurring events of interest. Verify against known reports or advisories for the affected software versions. Validate the service's last patch applied date and cross-check with documented vulnerabilities. |
+| T2 Analyst Actions | Perform a thorough investigation of identified exploits, analyze the payloads or scripts used in attempts. Use sandboxing techniques to replicate the crash if safe to do so. Review patches and updates for vulnerabilities noted and assess protective measures taken prior to the incident. |
+| Containment and Further Analysis | Isolate affected systems immediately to prevent further exploitation. Engage in patch management to address vulnerabilities identified. Conduct comprehensive forensic analysis to identify the exploit entry point and review access logs thoroughly to track any potential lateral movement or privilege escalation. Have a remediation plan and work closely with incident response to ensure business continuity while mitigating the effects of the DoS attack. |

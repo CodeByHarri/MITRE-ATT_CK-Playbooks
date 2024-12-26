@@ -1,0 +1,15 @@
+# Modify_Authentication_Process:_Conditional_Access_Policies - T1556009
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access, Defense Evasion, Persistence |
+| MITRE TTP | T1556.009 |
+| MITRE Sub-TTP | T1556.009 |
+| Name | Modify Authentication Process: Conditional Access Policies |
+| Log Sources to Investigate | Investigate identity and access management (IAM) logs from platforms like Entra ID, Okta, JumpCloud, AWS CloudTrail, and Google Cloud Audit Logs. These logs should capture changes to conditional access policies, multifactor authentication settings, and last-accessed IP addresses. For example, AWS CloudTrail logs would record any changes to IAM policies, while Okta system logs would capture events related to modifications in access policies. |
+| Key Indicators | Look for unauthorized changes to conditional access policies, such as the addition of new trusted IP ranges, the removal of multifactor authentication requirements, or modifications to region-specific access settings. Suspicious activity might include policy changes made outside normal business hours or by accounts not usually associated with administrative tasks. |
+| Questions for Analysis | 1. Were any conditional access policies changed recently?<br>2. Who made these changes, and do they correspond to legitimate administrator activities?<br>3. Are there any login attempts from unusual IPs or regions following the policy modifications? 4. Is there a pattern of modification attempts across multiple accounts? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. Policy changes were made by users without a clear administrative role.<br>2. Changes coincide with suspicious login activity, such as anomalous IP addresses.<br>3. There is any evidence of simultaneous changes across multiple user accounts that appear coordinated or unauthorized. |
+| Additional Analysis Steps for L1 | 1. Verify recent changes in policy logs against documented change requests or maintenance schedules.<br>2. Review the geographical locations of IP addresses associated with logins following policy changes.<br>3. Check for any other ongoing suspicious activity in user accounts that might have been targeted. |
+| T2 Analyst Actions | 1. Conduct a deeper forensics analysis of the affected accounts, including reviewing historical login patterns.<br>2. Correlate IAM logs with other security logs, such as firewall and VPN logs, to identify potential artifacts of compromise.<br>3. Consult with the IT team or the individual who purportedly made the changes to verify the legitimacy of modifications. |
+| Containment and Further Analysis | 1. Immediately revoke any unauthorized policy changes detected.<br>2. Reset credentials for affected accounts and enforce strong multifactor authentication.<br>3. Implement enhanced monitoring of IAM logs and set up alerts for any further unauthorized changes to access policies. 4. Work with the incident response team to assess the extent of the compromise and improve the organization's security posture to prevent future incidents. |

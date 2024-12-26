@@ -1,0 +1,15 @@
+# Masquerading:_Match_Legitimate_Name_or_Location - T1036005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1036.005 |
+| MITRE Sub-TTP | T1036.005 |
+| Name | Masquerading: Match Legitimate Name or Location |
+| Log Sources to Investigate | Investigate Windows Event Logs, focusing on Windows Security Logs for process creation events (Event ID 4688) to identify any suspicious executable names or paths, such as commonly targeted locations like System32. Additionally, review file system monitoring logs and endpoint detection and response (EDR) logs for anomalous file creations or modifications. In containerized environments, gather logs from Kubernetes or Docker to monitor namespace and container image activities. |
+| Key Indicators | Suspicious file names or paths that closely resemble legitimate system files, such as svch0st.exe instead of svchost.exe, or unexpected file placements in directories like System32. Altered file icons that mimic legitimate files can also be a key indicator. In container environments, unusual resource names or namespace patterns that deviate slightly from known conventions. |
+| Questions for Analysis | 1. Is the file name a close approximation or mimic of any known legitimate system file?<br>2. Does the file's location align with commonly trusted directories where it's uncommon for new files to be placed?<br>3. Are there any unusual patterns in resource or container names that deviate from standard naming conventions? 4. Are there multiple occurrences of similarly named files or resources? |
+| Decision for Escalation | Escalate to Tier 2 if: 1. The file or resource name closely matches a legitimate system or application file with unusual modification timestamps.<br>2. The process creation or file placement occurs in a sensitive or high-privilege directory unexpectedly.<br>3. Any anomaly is corroborated by historical data or other contextual information indicating potential malicious intent. |
+| Additional Analysis Steps for L1 | Validate the legitimacy of suspect file names/paths against reputable hash databases. Use tools like Sysinternals Process Explorer to examine process properties and relationships for suspicious executables. Check Active Directory logs for recently modified permissions that might suggest additional compromise efforts. |
+| T2 Analyst Actions | Perform a deeper forensic analysis on the suspect files, examining file hashes, metadata, and comparing them to established baselines. Analyze EDR telemetry to identify any linked processes. Review network logs for any outbound connections initiated by the suspicious executable, and perform memory analysis if system compromise is suspected. |
+| Containment and Further Analysis | Quarantine the compromised host or container to prevent further propagation. Use EDR solutions to block or remediate the malicious files. Conduct a review of similar systems or containers to ensure no other instances have been similarly compromised. Prepare incident reports detailing the methods and impact, and recommend updates to detection capabilities to prevent future occurrences. |

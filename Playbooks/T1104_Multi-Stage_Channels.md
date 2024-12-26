@@ -1,0 +1,15 @@
+# Multi-Stage_Channels - T1104
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Command and Control |
+| MITRE TTP | T1104 |
+| MITRE Sub-TTP | T1104 |
+| Name | Multi-Stage Channels |
+| Log Sources to Investigate | Investigate network traffic logs to identify unusual outbound traffic patterns indicative of multiple command and control stages. Look at DNS query logs for suspicious domains or rapid succession of calls to different domains. Analyze firewall logs for permitted outbound connections that bypass normal restrictions. Evaluate endpoint detection and response (EDR) logs for any process chains that spawn unusual or new processes indicative of RAT behavior. Examples include unexpected connections initiated by processes like cmd.exe or powershell.exe. |
+| Key Indicators | Unrecognized network destinations or domains demonstrating a callback pattern, particularly if they include random or subdomain-heavy URLs. DNS requests that suddenly increase in frequency or diversify in queried domains. Sequence of network traffic where an initial short burst of connection attempts is followed by more sustained communication. Observation of endpoint behavior such as downloading executable files without user interaction, or modifications in persistence mechanisms like new registry entries or scheduled tasks. |
+| Questions for Analysis | Are there multiple domains or IP addresses being contacted in rapid succession? Is there evidence of data exfiltration or unusual outbound data flow? Do the domains contacted match any threat intelligence indicators for known malicious C2 servers? Are there any anomalies in user login patterns or times consistent with known work hours? |
+| Decision for Escalation | Escalate to Tier 2 if there is definite network traffic to known malicious IP addresses or domains, signs of data exfiltration, or if sophisticated persistence mechanisms are installed on the host. Any signs that C2 traffic involves remote command execution or tool updates also warrant escalation. |
+| Additional Analysis Steps for L1 | Correlate network activity with known threat intelligence databases for potential matches. Verify endpoint behavior post-network callback; check for any changes in system configurations or presence of unusual binary files. Investigate user accounts for anomalies in activity logs that could suggest compromise. |
+| T2 Analyst Actions | Conduct deeper inspections on identified network traffics, such as packet capture analysis to understand the nature of communication. Analyze any dropped or new files on endpoints using sandboxing environments to detect malicious characteristics. Use threat intelligence feeds to correlate current findings with broader trends and patterns. |
+| Containment and Further Analysis | Isolate affected hosts to prevent further lateral movement or data exfiltration. Initiate a forensic disk and memory capture for detailed investigation. Review and update firewall rules to block identified malicious IPs and domains. Ensure resilience of systems by applying patches and verifying system integrity. |

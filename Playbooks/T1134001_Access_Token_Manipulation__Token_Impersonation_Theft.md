@@ -1,0 +1,15 @@
+# Access_Token_Manipulation:_Token_Impersonation_Theft - T1134001
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion, Privilege Escalation |
+| MITRE TTP | T1134.001 |
+| MITRE Sub-TTP | T1134.001 |
+| Name | Access Token Manipulation: Token Impersonation/Theft |
+| Log Sources to Investigate | Collect and examine Windows Security Event Logs, particularly Event ID 4648 (A logon was attempted using explicit credentials), Event ID 4672 (Special privileges assigned to new logon), and Event ID 4624 (An account was successfully logged on) for suspicious activity. Also, inspect logs from Endpoint Detection and Response (EDR) solutions for any token-related API calls like DuplicateToken, DuplicateTokenEx, ImpersonateLoggedOnUser, and SetThreadToken. Review PowerShell and command line logs for suspicious commands related to process creation and token manipulation. |
+| Key Indicators | Unusual invocation of token manipulation APIs such as DuplicateToken and DuplicateTokenEx. Anomalous command lines launching system or administrative tools with tokens not typically associated with the account executing the command. Presence of Event ID 4648 in the context of system processes or privileged accounts without user consent. An abrupt change in user session states or network activity following token duplication events. |
+| Questions for Analysis | Are there known user actions or authorized scripts that could explain the token manipulation? Did the event occur during non-business hours or involve a high-privilege account? Were there concurrent anomalies on the network, such as increased traffic from the involved user account? |
+| Decision for Escalation | Escalate to Tier 2 if token manipulation is associated with privileged accounts, occurs without a known legitimate context, or is accompanied by lateral movement indicators, unusual external communications, or attempts to access sensitive systems. |
+| Additional Analysis Steps for L1 | Verify the process and user context that attempted the token operations by correlating with known legitimate activities. Check user access or activity logs for any previous suspicious actions. Confirm process lineage to ensure the parent process matches expected behaviors. |
+| T2 Analyst Actions | Conduct a deeper audit on the affected system for signs of privilege escalation or lateral movement. Investigate correlated logs and alerts from associated systems for unusually executed processes or network connections initiated post token manipulation. Assess the persistence mechanisms or new binaries related to escalated processes. |
+| Containment and Further Analysis | Isolate the impacted system from the network to prevent further unauthorized access. Reset credentials and tokens of affected accounts. Deploy a detailed forensic examination to capture memory and disk images to understand the full scope of compromise. Implement additional monitoring and detection rules for the observed techniques and any related suspicious activities. |

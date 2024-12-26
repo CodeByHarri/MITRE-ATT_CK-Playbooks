@@ -1,0 +1,15 @@
+# Process_Injection:_VDSO_Hijacking - T1055014
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion, Privilege Escalation |
+| MITRE TTP | T1055.014 |
+| MITRE Sub-TTP | T1055.014 |
+| Name | Process Injection: VDSO Hijacking |
+| Log Sources to Investigate | Investigate logs from endpoint detection and response (EDR) tools that monitor process injection activities. Collect and examine logs from operating systems, particularly those related to process creation and termination. Evaluate syscall logs, especially those that indicate changes to the global offset table or access to shared objects. Security Information and Event Management (SIEM) systems can aggregate these logs for correlation. Example log types include Linux audit logs and process memory access logs. |
+| Key Indicators | Unusual modifications to the VDSO region in process memory. Unexpected invocations of syscalls that normally do not occur. Frequent alerts for deviation in the process memory map, particularly where VDSO is concerned. Presence of unknown or suspicious shared objects being mapped into a process space. Abnormal changes or access to the global offset table in processes. |
+| Questions for Analysis | Are there records of unauthorized or suspect shared object mappings to legitimate running processes? Has there been a change in behavior or increased alerts related to VDSo regions? Are there any anomalous processes observed in the system that are known to access syscalls indirectly? Do any execution patterns correlate with known VDSO hijacking techniques? |
+| Decision for Escalation | Escalate to Tier 2 if unauthorized mappings or changes to the VDSO region are confirmed or there is evidence of syscall redirection. Additionally, if the process involved runs with elevated privileges or if known indicators of compromise are detected. |
+| Additional Analysis Steps for L1 | Review recent process creation and execution logs, focusing on changes to global offset tables. Examine related alerts and cross-reference with known malware signatures. Perform an initial triage to identify potential patient zero for the VDSO hijacking. Check for any active network connections from suspicious processes. |
+| T2 Analyst Actions | Conduct a deeper investigation into the memory regions of suspected processes using tools like volatility or gdb. Analyze any unknown shared objects found to determine legitimacy. Investigate historical process behavior and any lateral movement within the network. Engage reverse engineering techniques if necessary to understand the purpose of injected code. |
+| Containment and Further Analysis | Isolate affected systems to prevent further compromise. Conduct thorough memory and disk forensics to capture the current state for later analysis. If suspicious shared objects are found, extract and analyze them in a secure sandbox environment. Remediate by applying security patches to mitigate VDSO hijacking vulnerabilities. Develop and deploy updated detection rules to catch similar attempts in the future. |

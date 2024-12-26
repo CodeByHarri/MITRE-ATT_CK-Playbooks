@@ -1,0 +1,15 @@
+# Hide_Artifacts:_Ignore_Process_Interrupts - T1564011
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1564.011 |
+| MITRE Sub-TTP | T1564.011 |
+| Name | Hide Artifacts: Ignore Process Interrupts |
+| Log Sources to Investigate | Investigate process creation logs from sources such as Windows Event Logs (e.g., Event ID 4688 for process creation on Windows) and Sysmon logs to capture command line arguments and processes executed. On Linux systems, review bash shell history, audit logs, and systemd journals for commands executed with 'nohup'. PowerShell logs (Operational log - Event ID 4104) should also be inspected for '-ErrorAction SilentlyContinue'. Network monitoring logs can help identify abnormal persistence of network connections suggesting C2 activity. |
+| Key Indicators | Look for instances of 'nohup' in process creation logs, commands in shell history using 'nohup', or PowerShell commands with '-ErrorAction SilentlyContinue'. Check for long-running processes that continue through user log-offs. Unexpected persistence of network connections without frequent user activity changes can also be indicative. |
+| Questions for Analysis | Were there any legitimate reasons for these commands to be executed based on user role or historical behavior? Are there any associated network connections that remain open unusually long? Is there a prior history of these types of commands being run by this user or on this system? Was the command issued by an automated system or manual user invocation? |
+| Decision for Escalation | Escalate to Tier 2 if the process using 'nohup' or PowerShell '-ErrorAction SilentlyContinue' does not align with normal business operations, lacks previous legitimate context, or if it coincides with suspicious network activity. Also, escalate if these commands are coupled with attempts to hide activity, such as clearing logs afterward. |
+| Additional Analysis Steps for L1 | Correlate the execution of these commands with user log-off events from the same system using system logs. Check if the user or system normally uses these commands. Verify network traffic patterns related to the potentially malicious process to identify if a C2 channel is continuously active despite session log-offs. |
+| T2 Analyst Actions | Investigate the origin of the utilized commands. Determine if the command usage aligns with any scheduled tasks. Analyze any related network traffic patterns for signs of data exfiltration or C2 usage. Review historical logs to check for previous abnormalities in behavior or execution of similar commands in other contexts. |
+| Containment and Further Analysis | If the actions are confirmed malicious, terminate the running process. Ensure the potential C2 connections are severed by blocking associated IPs or domains. Conduct a system-wide search for similar indicators on other endpoints. Implement more stringent monitoring of process creation and command execution across identified and potentially affected systems. Engage forensic tools to capture memory dumps and further analyze any malware present. |

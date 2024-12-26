@@ -1,0 +1,15 @@
+# Boot_or_Logon_Autostart_Execution:_Security_Support_Provider - T1547005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence, Privilege Escalation |
+| MITRE TTP | T1547.005 |
+| MITRE Sub-TTP | T1547.005 |
+| Name | Boot or Logon Autostart Execution: Security Support Provider |
+| Log Sources to Investigate | Investigate Windows Security Event Logs, particularly events related to 'System boot', 'Logon events', and 'Registry changes'. Pay attention to event ID 4657 in Windows Security Logs or any registry change monitoring logs for modifications to the 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Security Packages' and 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa\OSConfig\Security Packages'. Check any Application or System Event Logs indicating DLL injection into the LSA process. |
+| Key Indicators | Look for unusual additions or modifications in the SSP registry key locations such as unexpected new entries in 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Security Packages'. Check for DLLs that are not part of standard SSPs or ones that have uncommon file paths/names. Monitor for DLLs being loaded into the LSA process that aren't signed by a trusted publisher. |
+| Questions for Analysis | Have there been recent changes or additions to the security support provider registry keys? Are these changes correlated with any known legitimate software updates or installations? Are the DLLs registered in SSP keys signed and from known publishers? Has the system been exhibiting any abnormal behavior such as unexpected logons or access to secure areas? |
+| Decision for Escalation | Escalate if the changes to SSP registry keys cannot be attributed to legitimate administrative activity. Particularly if new DLLs are unsigned, originate from uncommon paths, or correlate with security alerts indicating unauthorized access attempts or system anomalies. |
+| Additional Analysis Steps for L1 | Cross-reference any changes in the SSP registry keys with change management records or known patch deployments. Query if any recent administrative tasks were performed at the time of detected changes. Verify the integrity and signature of DLLs loaded by the LSA process. |
+| T2 Analyst Actions | Conduct a deeper forensic analysis of the DLLs found in the SSP keys, inspecting for known malware signatures, or anomalous behavior. Correlate with other incidents across the network, and scrutinize user accounts for suspicious logon events or privilege escalations. If possible, perform memory analysis on the affected system to detect any rogue processes. |
+| Containment and Further Analysis | Immediately isolate the affected system from the network to prevent further malicious activity. Revert SSP registry keys to the last known good state if changes are deemed malicious. Implement additional logging or monitoring on similar systems to catch replication of attack methods. Consult digital forensics and incident response procedures to investigate the breadth of the compromise and report findings. |

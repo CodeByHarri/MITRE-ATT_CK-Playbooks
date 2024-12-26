@@ -1,0 +1,15 @@
+# Exfiltration_Over_Web_Service:_Exfiltration_to_Cloud_Storage - T1567002
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Exfiltration |
+| MITRE TTP | T1567.002 |
+| MITRE Sub-TTP | T1567.002 |
+| Name | Exfiltration Over Web Service: Exfiltration to Cloud Storage |
+| Log Sources to Investigate | Network Traffic Logs: Monitor for unusual data transfer volumes or connections to cloud storage services such as Dropbox or Google Docs. Endpoint Security Logs: Check for applications accessing cloud services, particularly outside of business hours or from unauthorized devices. Cloud Access Security Broker (CASB) Logs: Identify use of cloud storage services that aren't typically used within the organization. Web Proxy and Firewall Logs: Inspect for any unusual access patterns or file uploads to cloud storage from internal hosts. |
+| Key Indicators | Unusual data transfer volumes to cloud storage services observed in network traffic logs. Access to cloud storage services from IPs or devices that don't typically interact with these platforms. Sudden increase in the number or size of files uploaded to cloud storage. Access to cloud storage services during unusual hours when typically minimal business activity occurs. |
+| Questions for Analysis | Is there a legitimate business need for the data transfer to the identified cloud storage service? Are the devices involved in the data transfer authorized to access cloud storage services? Is the data transfer volume atypical compared to normal user behavior for cloud storage usage? Were there any recent changes in cloud storage usage policies that may explain the detected activity? |
+| Decision for Escalation | Escalate to Tier 2 if the data transfer is from a device not authorized to access cloud storage services, if the volume of data transferred is significantly out of norm, or if the data transfer was initiated during non-business hours without a valid business justification. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of the cloud storage URLs accessed by checking against known and approved domains. Cross-reference the involved user accounts with HR data to confirm authorization and intent. Review recent changes in system configurations or policies related to cloud storage services. |
+| T2 Analyst Actions | Perform a more in-depth analysis of the data transferred for sensitive information. Validate the authenticity of the endpoint initiating the transfer (check for signs of compromise). Collaborate with IT to confirm whether there was an intentional upgrade or pilot involving cloud storage usage. |
+| Containment and Further Analysis | If unauthorized data transfer is confirmed, disable access to cloud storage for the implicated accounts or devices. Work with the incident response team to isolate affected systems to prevent further data exfiltration. Perform a comprehensive forensic analysis of the involved endpoints to determine the extent of compromise and to identify any additional malicious activities. |

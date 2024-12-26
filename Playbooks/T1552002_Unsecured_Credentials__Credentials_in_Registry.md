@@ -1,0 +1,15 @@
+# Unsecured_Credentials:_Credentials_in_Registry - T1552002
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access |
+| MITRE TTP | T1552.002 |
+| MITRE Sub-TTP | T1552.002 |
+| Name | Unsecured Credentials: Credentials in Registry |
+| Log Sources to Investigate | Investigate Windows Event Logs, specifically security-related logs such as Event ID 4656 (Handle Open) and Event ID 4663 (File Accessed) for registry interaction. Monitor Sysmon logs for registry value set operations (Event ID 13) indicating possible query activities. Collect PowerShell logs (if available) when reg queries are run with Event ID 4104 to trace executed commands. Configuration Management Tools or EDR solutions may provide visibility on registry accesses. |
+| Key Indicators | Presence of reg query commands targeting sensitive registry keys with keywords such as 'password'. Unusual patterns of registry access, especially if occurring outside of regular business hours. Abnormal number of queries from a single source or user account within a short timeframe, which may indicate automation. Sudden access to registry keys that hold stored usernames/passwords or service accounts. |
+| Questions for Analysis | Was the registry access conducted from a known user account with legitimate administrative activities? Did the access occur from a known and expected endpoint? Are there signs of automated scripts (e.g., frequent repeated access patterns)? Are there any correlated alerts from other security systems involving the same user or endpoint? |
+| Decision for Escalation | If access is executed by unauthorized user accounts, from unfamiliar assets, or following a pattern found in known malicious scripts, escalate to Tier 2. Escalation is warranted if multiple detection alerts are generated in a short time span, indicating potential credential harvesting. |
+| Additional Analysis Steps for L1 | Verify if the user account and device are known and expected to query registry keys. Assess if the queried registry values are typically accessed on the device in question. Confirm if any scripts or scheduled tasks might justify the registry queries. Check for related login anomalies or unauthorized changes. |
+| T2 Analyst Actions | Conduct deeper investigation on user behavior patterns across logs. Analyze potentially suspicious scripts or applications that may have executed the reg query commands. Cross-reference endpoint detection logs for concurrent suspicious activities, such as unknown connections or malware signatures. Engage with the affected user to understand potential business needs behind the action. |
+| Containment and Further Analysis | Quarantine the affected system to prevent lateral movement, if necessary. Disable the account involved in unauthorized registry access until further confirmation. Perform a comprehensive scan for malware or unauthorized tools. Review and enhance existing policies to detect or block unsecured credentials in registry locations. Conduct a post-incident review and user training on secure credential storage. |

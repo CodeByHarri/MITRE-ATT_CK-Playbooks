@@ -1,0 +1,15 @@
+# Account_Discovery:_Local_Account - T1087001
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Discovery |
+| MITRE TTP | T1087.001 |
+| MITRE Sub-TTP | T1087.001 |
+| Name | Account Discovery: Local Account |
+| Log Sources to Investigate | Investigate system command logs and PowerShell logs (if on Windows) to track execution of commands like 'net user', 'net localgroup', and PowerShell scripts that could be enumerating users. On Linux and macOS, review shell history logs for commands like 'id', 'groups', and 'dscl . list /Users'. Also, check access logs for the '/etc/passwd' file on Linux. Include monitoring of alerting mechanisms like Auditd or Syslog on Linux and System.Diagnostics Event logs on Windows. |
+| Key Indicators | Detection of execution of account discovery commands: 'net user', 'net localgroup', 'id', 'groups', 'dscl . list /Users'. Access attempts or reading of the '/etc/passwd' file. Unusual frequency of enumeration or execution from unexpected accounts, IPs, or times. Anomalous process launches by non-admin users accessing these tools. |
+| Questions for Analysis | Was the command run by an authorized system administrator, or does it trace back to a typical user? Does the execution occur at an unusual time of day? Is there a history of similar activities from the same user? Do logs connect these activities to any known malicious IP or external entity? Are there any concomitant indicators of compromise pointing to malicious behavior? |
+| Decision for Escalation | Escalate to Tier 2 if the activity is not associated with a known administrative task and occurs at an unusual time or from a suspicious user account. If linked suspicious network activity or attempts to export data are found, escalate immediately. Any non-attributable or unexpected execution of these commands should be considered for further scrutiny. |
+| Additional Analysis Steps for L1 | Review historical logs to identify patterns in account enumeration. Validate the associations of the users or IPs initiating these commands. Check for concurrent suspicious activities in the network like file access or data exfiltration attempts. Look for matching TTPs across different endpoints in the same timeframe. |
+| T2 Analyst Actions | Conduct deeper forensic analysis on the host(s) involved, looking for other anomalies or signs of compromise. Reach out to users or departments that could have unlogged legitimate exceptions. Correlate with SIEM data to retrieve full context around the time of the suspicious activity. Analyze network traffic around the time of command execution, looking for unauthorized data leaving the network. |
+| Containment and Further Analysis | If confirmed as malicious, isolate the affected system to prevent further reconnaissance activities. In coordination with IT, reset involved user credentials or privileges. Conduct a thorough review of recent changes or accesses in sensitive areas. Initiate a security incident response plan to track, contain, and remediate potential breach avenues. Consider deploying additional monitoring rules and alerting for user enumeration commands across the network. |

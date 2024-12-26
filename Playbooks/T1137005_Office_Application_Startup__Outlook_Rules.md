@@ -1,0 +1,15 @@
+# Office_Application_Startup:_Outlook_Rules - T1137005
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence |
+| MITRE TTP | T1137.005 |
+| MITRE Sub-TTP | T1137.005 |
+| Name | Office Application Startup: Outlook Rules |
+| Log Sources to Investigate | Investigate email server logs to review Outlook rule changes, including creation, modification, and deletion of rules in user mailboxes. Check Windows Event Logs, specifically Application and Security logs, for the execution and related activities. Look at endpoint detection and response (EDR) logs to monitor processes initiated by Outlook. Review any DLP (Data Loss Prevention) solutions logs for unusual email transmissions and firewall or proxy logs for outgoing connections post-email reception. |
+| Key Indicators | Unusual creation of Outlook rules without user intervention. Unexpected name or description of Outlook rules. Increased network traffic to suspicious or known malicious IPs following an email receipt. Recurrent unsolicited emails from unknown or spoofed senders that trigger rule-based scripts. Execution of command line activities associated with Outlook processes beyond normal expectations. |
+| Questions for Analysis | Did the user recently create or modify any Outlook rules intentionally? Is there any history of legitimate Outlook rule changes at the detected time? Are there any contextual anomalies, such as rules having obscure names or actions leading to script execution? Does the rule modification coincide with any other suspicious activities or alerts? |
+| Decision for Escalation | Escalate to Tier 2 if the Outlook rules' modifications are not verified by the user or IT support as legitimate, if there are signs of script execution following email receipt, or if this activity is part of a broader pattern of suspicious behavior identified across the network. |
+| Additional Analysis Steps for L1 | Verify with the user if they created or modified any Outlook rules recently. Cross-check rule details against user intentions and corporate policies. Monitor for any immediate adverse effects in other systems or applications following these rule modifications. Collect logs showing the timeframe of rule creation for correlation with other incidents. |
+| T2 Analyst Actions | Perform deeper forensic analysis on any changes identified, using EDR tools to detect suspicious patterns in rule creation. Correlate findings with other ongoing alerts or threats reported in the organization. Analyze the email traffic and rule behavior using sandboxing methods to see if they can trigger a payload. Communicate with IT for potential backdoors being leveraged via Outlook. |
+| Containment and Further Analysis | Temporarily disable the impacted account and isolate the host machine from the network. Remove suspect rules from Outlook and notify users of potentially compromised actions. Conduct a detailed audit of the user's email account for any unauthorized access or irregular login attempts. Quarantine any emails used to trigger malicious rules. Update or create new alerting rules to spot future similar activities. |

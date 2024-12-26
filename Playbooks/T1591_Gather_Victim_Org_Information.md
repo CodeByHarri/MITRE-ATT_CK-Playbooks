@@ -1,0 +1,15 @@
+# Gather_Victim_Org_Information - T1591
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Reconnaissance |
+| MITRE TTP | T1591 |
+| MITRE Sub-TTP | T1591 |
+| Name | Gather Victim Org Information |
+| Log Sources to Investigate | Monitor web traffic logs for unusual access patterns to public areas of organization-owned websites. Review email logs for suspicious queries attempting to gather organizational information. Check social media monitoring tools for any mention or unusual inquiry about the organization's structure or personnel. Scrutinize DNS logs for domain enumeration behavior. |
+| Key Indicators | Unusual HTTP requests probing organizational web pages. Sudden surge in access to 'About Us' or 'Contact Us' sections of websites. Acquisition of organizational charts or employee lists. Inquiries for details on critical processes or roles via email or social media mentions. Frequent DNS queries for domains with parameters suggesting information detail lookups. |
+| Questions for Analysis | Are there repeated requests to specific web pages detailing organizational information? Is there evidence of unusual or unsolicited information-gathering attempts via email or social platforms? Did the suspicious activity originate from locations atypical for regular business operations? Is the pattern of activity consistent with known reconnaissance behavior? |
+| Decision for Escalation | Escalate to Tier 2 if there's corroborating evidence of sustained or specific targeting of organizational information through multiple channels. Consider escalation if a pattern corresponds to a known threat actor's tactics or similar reconnaissance activities observed in past incidents. |
+| Additional Analysis Steps for L1 | Correlate web and email logs to identify patterns of access or inquiry originating from common IP addresses or indicative locations. Cross-reference with threat intelligence sources to check if the observed activities match known reconnaissance signatures. Validate access legitimacy with department heads for suspected roles/areas queried. |
+| T2 Analyst Actions | Perform deep packet inspection on suspicious network traffic to identify data exfiltration attempts. Utilize threat intelligence to assess if the flagged IP addresses or domains have historical ties to malicious networks. Analyze employee reports of unsolicited contact or suspicious queries related to internal roles or procedures. Conduct a deeper review of compromised accounts suspected to be exploited for reconnaissance. |
+| Containment and Further Analysis | Implement immediate access restrictions to sensitive organizational details on publicly available platforms. Coordinate with IT to ensure heightened monitoring and alerts for any subsequent suspicious access attempts. Notify impacted departments involved in unwanted queries and advise on specific data protection measures. Consider reaching out to law enforcement if activities hint at a broader targeting campaign. Initiate a post-incident review to document findings and update security controls against future reconnaissance attempts. |

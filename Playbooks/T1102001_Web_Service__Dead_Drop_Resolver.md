@@ -1,0 +1,15 @@
+# Web_Service:_Dead_Drop_Resolver - T1102001
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Command and Control |
+| MITRE TTP | T1102.001 |
+| MITRE Sub-TTP | T1102.001 |
+| Name | Web Service: Dead Drop Resolver |
+| Log Sources to Investigate | Focus on web proxy logs, DNS logs, and application firewall logs to monitor external communications. Look for anomalous outbound connections to popular web services that serve as intermediaries for command and control (C2) activities. Examples include connections to commonly used social media and cloud services such as Twitter, Google Docs, and others where such dead drop resolvers could be hosted. |
+| Key Indicators | Unusual patterns of communication with known Web services that do not align with legitimate use cases. Look for requests or responses containing encoded or obfuscated data, particularly those sending unusual amounts of data to popular web services or using IPs/domains associated with known threat activities. Sudden spikes in traffic directed at a specific Web service that does not match typical user behavior might also be indicative. |
+| Questions for Analysis | Are communications to the suspected service within normal parameters and typical user behavior? Is there evidence of encoded or obfuscated data being transmitted to or from the external web service? Are there other signs of compromise on the affected system, such as unexpected processes, file changes, or registry modifications? |
+| Decision for Escalation | Escalate to Tier 2 if the analysis uncovers persistent, anomalous connections to Web services, particularly if there is encoded/obfuscated data involved. Escalation is also warranted if the server or source of the web service communication is associated with known malicious activity in threat intelligence databases. |
+| Additional Analysis Steps for L1 | Conduct quick threat intelligence checks against the domains and IPs involved in the communication. Utilize existing firewall and SIEM rules to alert when encoded content is detected going to or from a known Web service. Cross-reference the timestamps of web service requests with user activity logs to determine if the activity matches typical user engagement. |
+| T2 Analyst Actions | Perform deeper analysis of all communication patterns from the suspected system over a given timeframe. Engage with threat intelligence platforms to verify if the pattern of access and encoding resembles known TTPs. Use sandboxing techniques to analyze the context and metadata of any communication artifacts. Consider packet capture and analysis to inspect data payloads sent to the web service. |
+| Containment and Further Analysis | Block outgoing connections to suspicious web services from the affected systems using network firewalls. Isolate the compromised machine from the network to prevent further C2 interactions and data exfiltration. Forensically analyze the system to determine the malware infection vector and scope of compromise. Implement monitoring on network segments to detect other signs of similar behaviors and anomalies. |

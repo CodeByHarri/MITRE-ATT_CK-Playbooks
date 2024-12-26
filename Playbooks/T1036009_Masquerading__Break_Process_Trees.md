@@ -1,0 +1,15 @@
+# Masquerading:_Break_Process_Trees - T1036009
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1036.009 |
+| MITRE Sub-TTP | T1036.009 |
+| Name | Masquerading: Break Process Trees |
+| Log Sources to Investigate | Investigate system logs such as syslog, which may contain process creation and manipulation events. Security Information and Event Management (SIEM) systems like Splunk or Elastic can be configured to monitor process creation logs, specifically for process IDs, parent process IDs, and associated anomalies. Additionally, audit logs from Linux Audit Framework (auditd) can be valuable for tracking suspicious API calls related to process manipulation, such as 'fork()' and 'daemon'. |
+| Key Indicators | Key indicators include unexpected disconnection between a process and its expected parent. Look for processes that have been adopted by init (PID 1) unexpectedly or those using a double-fork technique. The occurrence of the 'fork()' system call followed by an immediate parent process termination may also indicate malicious activity. |
+| Questions for Analysis | Does the process tree disconnection match common process manipulation patterns found in legitimate software (like double-fork)? Are there any recent changes or additions to scripts or daemons on the system that could explain this behavior? Are there any correlating alerts or indicators of compromise on the host or related network behavior? |
+| Decision for Escalation | Escalate to Tier 2 if the process manipulation cannot be attributed to legitimate administrative actions. Additional suspicious activities, such as network connections from unexpected services, should also trigger escalation. Another escalation factor could be the presence of other indicators of compromise in the same time frame. |
+| Additional Analysis Steps for L1 | Review recent cron job changes, system configuration files, and startup scripts to verify if any legitimate changes have been made that could resemble double-fork or daemon-related activity. Investigate if there are any newly created suspicious child processes without a clear connection to typical administrative actions. |
+| T2 Analyst Actions | Conduct a deeper forensic analysis of the process tree, correlating with any associated file or network artifacts that may provide further context. Investigate other processes spawned by the same originating process for unusual behaviors. Analyze system artifact changes around the time of process manipulation for additional signs of compromise. |
+| Containment and Further Analysis | Identify and isolate affected hosts to prevent further unauthorized actions. Utilize endpoint detection and response (EDR) tools for a detailed examination of process execution paths, creation timestamps, and intervening scripts or cron jobs. Investigate the broader network impact to determine whether malicious actors have spread to other systems, and apply network segmentation or blocks if necessary. Implement measures to prevent similar future attacks, such as monitoring for double-fork or daemon initiation patterns. |

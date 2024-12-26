@@ -1,0 +1,15 @@
+# Gather_Victim_Network_Information:_Domain_Properties - T1590001
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Reconnaissance |
+| MITRE TTP | T1590.001 |
+| MITRE Sub-TTP | T1590.001 |
+| Name | Gather Victim Network Information: Domain Properties |
+| Log Sources to Investigate | Investigate DNS query logs for unusual patterns or sudden spikes in requests, especially those that target administrative data resources or WHOIS lookups. HTTP access logs should be reviewed for any direct visits to webpages or APIs used for reconnaissance, such as GetUserRealm or autodiscover in Office 365. Additionally, monitor network flow logs for any traffic to known reconnaissance domains or services like DNS Dumpster or WHOIS query services. |
+| Key Indicators | Unusual WHOIS queries targeting the organization’s domains, frequent access to domain registration resources, and atypical DNS queries for non-public domains. Repeated or scripted GET requests to specific APIs or endpoints that expose domain properties. Access to IPs or domains previously associated with reconnaissance tools or activities, such as DNS Dumpster. |
+| Questions for Analysis | Are the DNS queries or HTTP accesses aligning with known legitimate business operations or system behavior? Are there any internal systems making unusual queries or connections to these external services? Have the source IPs or user agents been observed before in this context? Is there a consistent pattern or timing around the queries that suggest automation or scripting? |
+| Decision for Escalation | Escalate to Tier 2 if the source IP addresses are external to the organization and are not associated with known business partners, or if the activities align with known indicators of compromise (IoCs) associated with previous reconnaissance efforts. Additionally, escalate if there are multiple indicators converging, such as unauthorized WHOIS look-ups combined with suspicious DNS queries. |
+| Additional Analysis Steps for L1 | Perform an initial assessment of the volume and source of the suspicious network activities. Cross-reference with historical data to identify any known patterns or past legitimate use. Correlate with active threat intelligence feeds to identify any matches with known threat actors or campaigns. |
+| T2 Analyst Actions | Conduct a deeper dive into the IP addresses involved in suspicious activities, including a reputation check. Review the timeline and specific details of the requests to identify any potential overlaps with maintenance windows or legitimate third-party access schedules. Utilize internal threat hunting tools to establish any relationships with active threat actor TTPs. |
+| Containment and Further Analysis | If a threat is confirmed, block the suspicious IPs and domains using network security tools. Engage with IT to ensure that any potentially compromised credentials are reset, particularly for accounts that access domain properties information. Conduct a post-mortem analysis to understand the reconnaissance scope and update network defenses and monitoring rules accordingly. |

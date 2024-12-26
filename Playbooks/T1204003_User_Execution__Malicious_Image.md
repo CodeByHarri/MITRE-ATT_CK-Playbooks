@@ -1,0 +1,15 @@
+# User_Execution:_Malicious_Image - T1204003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Execution |
+| MITRE TTP | T1204.003 |
+| MITRE Sub-TTP | T1204.003 |
+| Name | User Execution: Malicious Image |
+| Log Sources to Investigate | For User Execution: Malicious Image, logs to investigate include cloud platform activity logs such as AWS CloudTrail, Google Cloud Logging, or Azure Activity Logs which record image launches and downloads. Additionally, container orchestration logs (e.g., Kubernetes) and Docker daemon logs which track container creation and image pulls. Network traffic logs from tools like VPC Flow Logs or Azure Network Watcher can help identify unusual data transfers corresponding to image pulls. |
+| Key Indicators | Unusual or unauthorized creation and launch of instances or containers from images with unexpected names or origins. Alerts indicating crypto-mining or unusual application behavior within the containers. The use of newly downloaded images from unfamiliar repositories or public registries beyond normal operational patterns. The presence of runtime processes executing with significantly high CPU or GPU usage indicative of mining. |
+| Questions for Analysis | 1. Was the image pulled or deployed from an uncommon or suspicious repository?<br>2. Is there an unexpected spike in resource usage (CPU/GPU/network) associated with this instance or container?<br>3. Are there any unauthorized credentials or SSH keys found within the image's environment? 4. Have similar images been flagged or mentioned in threat intelligence feeds? |
+| Decision for Escalation | Escalate to Tier 2 if the image originates from unverified repositories or if unauthorized or suspicious activity is confirmed, such as execution of known malicious scripts or identification of malicious payloads. Escalate if there is a confirmed deviation from normal operational behavior or unauthorized access indicators. |
+| Additional Analysis Steps for L1 | Verify the source of the image used to spin up the container/instance. Consult repository logs and match them against known repositories. Compare the image's hash against a database of known malicious images if available. Check for any anomalous spikes in usage metrics that could suggest underlying malicious activity. |
+| T2 Analyst Actions | Conduct a deeper forensic analysis on the deployed instance or container. Examine filesystem changes and active processes for signs of malicious scripts or unexpected binaries. Utilize threat intelligence sources to verify if the image is part of any documented malicious campaigns. Cross-reference network logs against known malicious IPs and domains. |
+| Containment and Further Analysis | Isolate the affected container or instance to prevent spreading or further utilization of resources. Gather forensic data from the isolated environment for further examination. If crypto-mining activity is confirmed, shut down and remove affected images from repositories. Monitor for further attempts to deploy similar images across the environment. |

@@ -1,0 +1,15 @@
+# Event_Triggered_Execution:_Component_Object_Model_Hijacking - T1546015
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Persistence, Privilege Escalation |
+| MITRE TTP | T1546.015 |
+| MITRE Sub-TTP | T1546.015 |
+| Name | Event Triggered Execution: Component Object Model Hijacking |
+| Log Sources to Investigate | Investigate Windows Registry audit logs, specifically focusing on changes to COM object references in the registry paths such as HKEY_CLASSES_ROOT and HKEY_LOCAL_MACHINE\SOFTWARE\Classes. Monitor logs from security tools that track registry modifications, such as Sysmon Event ID 13 (Registry modifications) and Event ID 12 (Registry object changes). Consider endpoint detection and response (EDR) tool alerts that report unusual process executions involving less common or recently changed registry entries. |
+| Key Indicators | Unusual modifications to COM registry entries, such as changes to CLSID entries pointing to unexpected or unknown executable paths. High frequency of registry changes involving COM objects. Execution of unexpected processes or DLLs after a known legitimate COM-based application is launched. Absence of software updates coinciding with registry changes. |
+| Questions for Analysis | Are there any recent changes to common COM object registry paths? Is the modified COM object pointing to an unusual or unauthorized file path? Is there a known business justification for these registry changes? Are any legitimate applications failing to load properly or executing anomalies? |
+| Decision for Escalation | Escalate if registry changes were made without logged software updates or approved changes. Escalate if there is no legitimate business reason for these modifications. Escalate if unusual executables or DLLs are observed after routine executions involving the modified COM object. |
+| Additional Analysis Steps for L1 | Verify the timing of registry changes against change management records. Look for known applications associated with the changed COM objects and verify their intended behavior. Check for consistency and timing patterns—frequent changes may indicate benign behavior such as legitimate software updates. |
+| T2 Analyst Actions | Conduct a deeper investigation of network activity and parent-child process relationships related to the modified COM object. Analyze system and application logs for associated anomalous behaviors or errors. Utilize threat intelligence sources to correlate with known bad indicators, such as malicious file hashes or domain names. Consider reimaging or isolating the affected system if malicious behavior is confirmed. |
+| Containment and Further Analysis | Isolate the affected systems to prevent further execution of the malicious code. Perform reverse engineering of the suspected malicious files to confirm the malicious behavior. Restore the registry configurations to their pre-compromise state from backups. Continuously monitor for reoccurrence of activity, and consider implementing application whitelisting or stronger PAMs to prevent unauthorized registry changes. |

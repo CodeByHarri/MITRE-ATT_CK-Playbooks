@@ -1,0 +1,15 @@
+# Brute_Force - T1110
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access |
+| MITRE TTP | T1110 |
+| MITRE Sub-TTP | T1110 |
+| Name | Brute Force |
+| Log Sources to Investigate | Examine authentication logs for failed and successful login attempts, particularly focusing on systems that authenticate users such as Active Directory logs, VPN logs, and web application logs. Identify patterns of repeated login attempts from the same IP, especially with varying usernames. Additionally, network traffic logs should be analyzed for unusual authentication patterns, and application logs if a specific application is targeted for brute force attacks. |
+| Key Indicators | High volume of failed login attempts from a single IP address or to the same user account within a short time frame. Sudden increase in login attempts from multiple IPs, success after numerous attempts, login attempts at unusual hours or from geographically improbable locations for legitimate users. |
+| Questions for Analysis | Are there multiple failed login attempts from the same IP address or associated with the same account within a short timeframe? Is there a successful login following a series of failed attempts? Do the login attempts originate from unexpected geolocations or times for known accounts? Are multiple accounts targeted from the same IP address? |
+| Decision for Escalation | Escalate to Tier 2 if the analysis identifies successful logins following brute force patterns, especially from IP addresses or locations not normally associated with the legitimate user. Escalate if any privileged accounts are involved or if there is evidence of password spraying attacks across multiple accounts. |
+| Additional Analysis Steps for L1 | Verify the geolocation and time of login attempts compared to user profile information. Check whether the IP addresses involved in brute force attempts have been listed on known threat intelligence feeds. Attempt to contact the potential user accounts involved to confirm the legitimacy of the attempts. Review additional context around the login attempts, such as device information and any other associated logs like firewall or intrusion prevention system alerts. |
+| T2 Analyst Actions | Conduct a deeper forensic analysis on the affected accounts and systems, reviewing detailed logs for unusual access patterns. Correlate with other security events or incidents that may be related, such as suspicious file access or unauthorized data extraction. Utilize threat intelligence to investigate the involved IP addresses and behaviors for known attack patterns. |
+| Containment and Further Analysis | Implement account lockouts or password resets for the impacted accounts, especially those successfully accessed. Block or rate-limit IP addresses identified as attacking sources. Implement multifactor authentication if not already in place to mitigate future attempts. Monitor for any signs of lateral movement or additional compromise within the network. |

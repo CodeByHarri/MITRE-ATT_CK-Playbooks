@@ -1,0 +1,15 @@
+# System_Shutdown_Reboot - T1529
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Impact |
+| MITRE TTP | T1529 |
+| MITRE Sub-TTP | T1529 |
+| Name | System Shutdown/Reboot |
+| Log Sources to Investigate | Investigate system logs from operating systems like Windows Event Logs, specifically looking for Event ID 1074 (system restart initiated) and Event ID 6006 (event log service stopped). On Linux systems, check syslog or auth.log for shutdown or reboot command execution by users. Network device logs should also be reviewed for unexpected commands such as 'reload' on network equipment. Analyze logs from SIEM solutions that aggregate data from these sources. |
+| Key Indicators | Presence of shutdown/reboot commands executed by unusual or unauthorized user accounts, especially following disk wipe or system recovery inhibition activities. Unscheduled or unusual shutdown activities especially outside regular maintenance windows. Network device logs showing command execution for reboots without correlated change records or notifications. |
+| Questions for Analysis | Was the shutdown/reboot scheduled or part of routine system maintenance? Are there correlating change management records for the activity? Which user initiated the command and is this action consistent with their usual activity? Were there any preceding alerts or logs indicating malicious behaviors, like attempts to wipe disk structure or inhibit recovery? |
+| Decision for Escalation | Escalate if there are indications that the shutdown/reboot is unauthorized, unscheduled, or occurs in conjunction with other suspicious activities such as file deletions, system recovery alterations, or anomalous user account activities such as multiple failed logins. |
+| Additional Analysis Steps for L1 | Cross-check the timing of the shutdown/reboot event against scheduled maintenance windows. Verify the user account responsible for initiating the shutdown command and compare it against known, authorized accounts. Review related logs (security, application) for any preceding or concurrent suspicious activity. |
+| T2 Analyst Actions | Perform comprehensive log analysis to identify any sequences of events leading up to the shutdown/reboot that may indicate compromised accounts or systems (e.g., disk wipe attempts, unsuccessful logins). Check network traffic around the time of the incident for anomalies. Coordinate with IT operations to confirm whether the shutdown was authorized or unauthorized, and ensure that all user credentials have not been compromised. |
+| Containment and Further Analysis | If an incident is confirmed, isolate affected systems from the network to prevent further damage or unauthorized access. Conduct forensic analysis on affected systems to determine the full scope of compromise. Engage with IT staff to restore system availability safely and ensure that recovery processes are not inhibited. Consider implementing additional monitoring on critical systems to prevent future unauthorized shutdowns. |

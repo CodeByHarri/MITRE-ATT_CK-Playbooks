@@ -1,0 +1,15 @@
+# Search_Open_Websites_Domains - T1593
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Reconnaissance |
+| MITRE TTP | T1593 |
+| MITRE Sub-TTP | T1593 |
+| Name | Search Open Websites/Domains |
+| Log Sources to Investigate | Web traffic logs, social media monitoring tools, domain access logs, query logs from search engines if accessible, and historical log data of unusual searches or domain requests. Examples include network web proxy logs to identify outbound requests to specific open websites/domains, and social media platform API use logs for identifying patterns of access possibly linked to reconnaissance activities. |
+| Key Indicators | Frequent access or requests to multiple public domain information sites in a short period, repeated queries regarding specific sensitive projects or employee details, access attempts to sites collecting corporate disclosures or employment listings, unusual patterns of social media API queries, or increased search activities around specific events or campaigns. |
+| Questions for Analysis | Are the queries or accesses aligned with the normal scope of business operations? Is there a link between the suspicious activity and known organizational projects or employees? Are multiple sites being accessed in quick succession indicative of data gathering? Is there established behavior change in network traffic? Is the same source IP involved in accessing multiple public data sources? |
+| Decision for Escalation | Escalate to Tier 2 if there is evidence of systematic data gathering involving sensitive information, particularly if tied to known adversarial host IPs, or if the same source IP or user is attempting broad access inclusive of social media intelligence and technical data repositories. |
+| Additional Analysis Steps for L1 | Analyze the IP addresses involved for geolocation to determine potential regions of interest. Check reverse DNS for any known affiliation with recognized threat groups or previous adversarial activities. Verify whether accessed webpages/domains are commonly used in documented TTPs. Track the frequency and timing of web queries relative to known project timelines or public disclosures. |
+| T2 Analyst Actions | Correlate data with threat intelligence on recent open source intelligence (OSINT) attacks and campaigns. Cross-reference with any ongoing phishing attempts or unusual account activities within the organization. Perform deeper packet inspection on the traffic associated with the known suspicious IPs or URLs to identify any secondary activities or requests nesting. |
+| Containment and Further Analysis | Implement access control measures or blocks to known malicious IPs or URLs involved in reconnaissance. Increase monitoring of outbound traffic for continued attempts. Conduct employee awareness training if related to social media usage. Engage in digital risk protection to guard against data leakage. Conduct forensic analysis on any compromised endpoints potentially accessed by adversaries. |

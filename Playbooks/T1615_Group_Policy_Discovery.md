@@ -1,0 +1,15 @@
+# Group_Policy_Discovery - T1615
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Discovery |
+| MITRE TTP | T1615 |
+| MITRE Sub-TTP | T1615 |
+| Name | Group Policy Discovery |
+| Log Sources to Investigate | Security Information and Event Management (SIEM) logs, particularly Windows Event Logs. Key logs include: Event ID 4688 (process creation) for tracking the execution of commands like 'gpresult' and PowerShell scripts. PowerShell Operational logs (Event ID 4104) for capturing script execution events that may include commands such as 'Get-DomainGPO' or 'Get-DomainGPOLocalGroup'. Network logs from packet captures or NetFlow data to investigate unusual access to the SYSVOL directory. Active Directory audit logs for changes or access to Group Policy Objects. |
+| Key Indicators | Execution of 'gpresult' or corresponding PowerShell commands. Unusual access to SYSVOL directory paths like '\<DOMAIN>\SYSVOL\<DOMAIN>\Policies'. Abnormal process activity originating from non-standard or high-privilege accounts accessing GPO metadata. Suspicious timing of GPO queries, especially if aligned with privilege escalation attempts. |
+| Questions for Analysis | Did the command execution originate from an authorized user or system? Are there any correlating events that suggest follow-on activities such as privilege escalation? Is the access to SYSVOL directory aligned with normal behavior or recent administrative activities? Do the accessed GPOs contain sensitive configurations that could indicate a potential security breach? |
+| Decision for Escalation | Escalate to Tier 2 if the command execution stems from unknown, unauthorized, or suspicious accounts, especially if accompanied by unforeseen modifications in GPOs. Also escalate if the activity coincides with other suspicious alerts, such as lateral movement, network scanning, or privilege escalation attempts. |
+| Additional Analysis Steps for L1 | Verify the legitimacy of the user and system associated with the activity. Correlate the detected events with any planned administrative activities. Check for similar activities across other domain controllers. Review recent changes in user permissions or roles. |
+| T2 Analyst Actions | Perform a detailed investigation of the user's session and behavior patterns. Cross-reference with threat intelligence for known indicators of compromise (IoCs) related to GPO discovery and manipulation. Analyze related network traffic for signs of data exfiltration or lateral movement. Conduct a deeper review of accessed and amended GPOs for unauthorized changes. |
+| Containment and Further Analysis | Isolate affected systems if malicious activity is confirmed or strongly suspected to prevent further manipulation. Implement stricter monitoring on Group Policy changes. Reset credentials and audit all privileged accounts involved in the suspicious activity. Undertake forensic analysis to assess the extent of access and potential alteration to GPOs. Prepare incident response measures if broader threat activity is detected. |

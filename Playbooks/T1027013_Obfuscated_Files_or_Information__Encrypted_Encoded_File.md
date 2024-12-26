@@ -1,0 +1,15 @@
+# Obfuscated_Files_or_Information:_Encrypted_Encoded_File - T1027013
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1027.013 |
+| MITRE Sub-TTP | T1027.013 |
+| Name | Obfuscated Files or Information: Encrypted/Encoded File |
+| Log Sources to Investigate | Focus on file access logs, particularly on systems where suspicious activity or data transfers have been detected. Track changes to known file hashes and monitor for encrypted or encoded files appearing unexpectedly. Examples include Windows Event Logs (for file activity such as Event ID 4663 - Access to an object was attempted), Antivirus or EDR logs (catching encoding or encryption patterns), and DLP solutions that might identify unusual data patterns in file transfers. |
+| Key Indicators | 1. Presence of encrypted or Base64 encoded data in files that previously did not contain such patterns.<br>2. Detection of password-protected archive files (.zip, .rar, etc.) appearing unexpectedly on systems or network shares.<br>3. Use of uncommon file extensions in areas where plaintext files are expected. 4. Large spike in the creation or modification of specific file types known to be used in obfuscation, such as .docx or .sfx. |
+| Questions for Analysis | 1. Do the encoded or encrypted files correspond to known business processes, or are they anomalous?<br>2. Have these files been accessed or executed at unusual times or by unauthorized users?<br>3. Are there signs of decryption or decoding attempts following the creation of these files? 4. Do any files contain known or suspicious hash values linked to malware or known adversarial tactics? |
+| Decision for Escalation | Escalate to Tier 2 if any of the following criteria are met: 1. Encoded or encrypted files are associated with known malicious hashes or indicators.<br>2. There are concurrent detections of suspicious activity such as unexpected User Execution events following these file's appearances.<br>3. Multiple instances of suspicious encrypted or encoded files are found across different systems or users. |
+| Additional Analysis Steps for L1 | 1. Correlate the appearance of these files with logs indicating user activity or file execution around the same time.<br>2. Verify if there is any legitimate software or process that could justify the encryption or encoding.<br>3. Perform a quick manual inspection of file metadata for any suspicious anomalies in creation or modification times. |
+| T2 Analyst Actions | 1. Perform a deeper forensic analysis of the affected systems, focusing on file contents and origins.<br>2. Use decryption tools and techniques to analyze the contents of suspect files where possible.<br>3. Cross-reference encoded or encrypted data with threat intelligence for known adversarial indicators. |
+| Containment and Further Analysis | 1. Isolate affected systems to prevent further communication with adversarial C2 infrastructure.<br>2. Gather and preserve relevant logs and system images for deeper investigation.<br>3. If applicable, retrieve and analyze potential C2 communication to understand scope and objective of the adversary. |

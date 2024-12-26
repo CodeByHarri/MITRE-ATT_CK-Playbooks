@@ -1,0 +1,15 @@
+# Hide_Artifacts - T1564
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1564 |
+| MITRE Sub-TTP | T1564 |
+| Name | Hide Artifacts |
+| Log Sources to Investigate | Investigate logs from endpoint detection and response (EDR) systems, file integrity monitoring (FIM) solutions, and system events logs. Examples include Windows Event Logs (e.g., Event ID 4663 for object access), logs from Linux systems (e.g., auditd logs), and any changes captured by the filesystem monitoring services. Collect logs from security information and event management (SIEM) tools to correlate activities at the time the artifacts were hidden. |
+| Key Indicators | Unusual access or modification to hidden files or system directories, unexpected creation of hidden files or directories, accounts created or modified with elevated privileges without corresponding administrative actions, absence of expected logs (indicating potential log deletion or suppression), and any logs indicating virtualization technology usage in non-standard environments. |
+| Questions for Analysis | Is there a legitimate process or user with the credentials and privileges necessary to hide or modify these artifacts? Are there known applications or system processes that could naturally create hidden files or directories at the logged times? Is there any history of this pattern of behavior for the system or user account under investigation? |
+| Decision for Escalation | Escalate to Tier 2 if hidden artifacts are related to unauthorized privilege escalation, if there is evidence of tampering with security logs, or if artifacts or activities were identified that are outside normal business operations. Escalate if there is a pattern suggesting the use of virtualization to conceal malicious behaviors. |
+| Additional Analysis Steps for L1 | Verify timestamps and actors involved in the changes. Look for any related alerts or log entries that might indicate parallel suspicious activities. Cross-reference with known threat intelligence feeds for indicators of compromise (IOCs) matching activity related to hidden artifacts. |
+| T2 Analyst Actions | Conduct in-depth analysis of file system state and permissions changes. Investigate the context of potential log tampering, assess the use of any off-the-shelf software or custom scripts that might have facilitated these actions, and verify if the apparent virtualization is being used legitimately. Engage with user or system owners on anomalous activities to gather additional context. |
+| Containment and Further Analysis | If malicious behavior is confirmed, isolate affected systems from the network to prevent further compromise. Perform a comprehensive audit of file system integrity and permissions. Use forensic tools to analyze any suspect system images for persistent threats. Reassess security controls to prevent similar future activities and consider deploying additional monitoring measures targeting file and system integrity. |

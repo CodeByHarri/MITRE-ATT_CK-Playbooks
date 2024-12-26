@@ -1,0 +1,15 @@
+# OS_Credential_Dumping - T1003
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Credential Access |
+| MITRE TTP | T1003 |
+| MITRE Sub-TTP | T1003 |
+| Name | OS Credential Dumping |
+| Log Sources to Investigate | Investigate security event logs, particularly Windows Event logs (e.g., Event ID 4625 for failed login attempts, Event ID 4672 for assignment of special privileges), System and Application logs for signs of execution of unusual processes such as 'mimikatz.exe', 'procdump.exe', or other credential-dumping tools. Review logs from endpoint detection and response (EDR) solutions, and any logs pertaining to suspicious file creations or modifications within common credential storage directories (e.g., System32\config, memory dump files) can provide insights into potential credential dumping events. |
+| Key Indicators | Presence of hash dump tools (like Mimikatz, Procdump) running on systems, unexpected use of 'lsass.exe' process for credential dumping, unusual or unauthorized access to LSASS memory, abnormal number of authentication requests, and elevated privileges execution by uncommon processes. Network traffic containing credential data being transmitted, or event logs that indicate scraping of SAM, NTDS.dit files. |
+| Questions for Analysis | Is there evidence of unauthorized access or use of credential dumping tools? Are there logs showing access to LSASS by non-standard software? Is there abnormal behavior from privileged accounts following these events? Are there multiple login failures or successful logins from unusual locations or devices? |
+| Decision for Escalation | Escalate to Tier 2 if credential dumping tools are confirmed on critical infrastructure, evidence of successful credential access or dumping, anomalous behavior post-credential access, especially in sensitive accounts, or if it's determined that an adversary may have obtained access to domain-level credentials. |
+| Additional Analysis Steps for L1 | Correlate logs with SIEM to identify patterns or anomalies, verify the occurrence of unusual processes related to known credential dumping tools, cross-reference accounts logged with recent incidents, and ensure all systems involved are identified and included in the analysis. |
+| T2 Analyst Actions | Perform in-depth analysis of compromised credentials, review the scope of access or exfiltration, determine the time window of compromise, check for persistence mechanisms, review lateral movement paths, and collaborate with IT for security patches. Initiate deeper investigation into the compromised account behavior and evaluate potential account lockout or password changes. |
+| Containment and Further Analysis | Isolate affected systems from the network, reset or suspend compromised accounts, apply patches and increase monitoring for suspicious activities. Develop signatures for future detection of similar activities and ensure antivirus/antimalware solutions are updated. Follow up with user education and enhance network segmentation and access controls to minimize attack surface. |

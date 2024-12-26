@@ -1,0 +1,15 @@
+# Direct_Volume_Access - T1006
+
+| Column Name | Value |
+|-------------|-------|
+| MITRE Tactic | Defense Evasion |
+| MITRE TTP | T1006 |
+| MITRE Sub-TTP | T1006 |
+| Name | Direct Volume Access |
+| Log Sources to Investigate | Investigate logs from file integrity monitoring systems that can identify unauthorized access to file systems or logical volumes. Event logs from Windows, such as Security logs [event IDs 5145 (A network share object was checked to see whether client can be granted desired access) and 4663 (An attempt was made to access an object)], should be scrutinized. Audit logs from Windows Shadow Copies and any usage of utilities like `vssadmin`, `wbadmin`, and `esentutl`. Additionally, endpoint detection and response (EDR) tools that can log real-time file system activity are invaluable. |
+| Key Indicators | Unusual direct access to logical volumes by processes that typically don't perform such actions, like `PowerShell.exe` executing scripts (e.g., `NinjaCopy`) that interact directly with file systems. Unexpected creation of shadow copies or use of backup utilities. Network share access logs showing abnormal patterns of volume access. |
+| Questions for Analysis | Is the process attempting direct volume access a known and approved process? Is there any legitimate business justification for the elevated activity, such as system maintenance or updates? Are there any other correlated alerts indicating malicious activity from the same host or user account? |
+| Decision for Escalation | Escalate if an unauthorized or unknown process is observed accessing logical volumes directly. Escalate if there's lateral movement indicated by the process, correlation with other suspicious activity, or if shadow copies are being created without administrative actions preceding it. Also, escalate if there's any PowerShell script executing known malicious utilities like `NinjaCopy` without explicit approval. |
+| Additional Analysis Steps for L1 | Review recent changes or updates applied to the systems and validate with IT if these changes require direct volume access. Cross-reference user account activities with HR to verify employment status and role-based permissions. Check for any open support tickets that might authorize such access. |
+| T2 Analyst Actions | Validate the legitimacy of the process observed by cross-referencing with change management records and interviewing responsible personnel. Perform deeper investigation on the system and related systems (network connections, running processes) to identify any lateral movement or data exfiltration attempts. Conduct a thorough review of shadow copy creation by analyzing the Volume Shadow Copy Service's usage logs. |
+| Containment and Further Analysis | Quarantine the system from the network to prevent lateral movement or data exfiltration. Reset credentials of affected accounts. Collect and preserve forensic evidence, including disk images and memory captures, for further investigation. Implement additional monitoring rules for direct volume access and shadow copy creation, ensuring alerts are generated for future suspicious activities. |
