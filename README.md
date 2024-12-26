@@ -1,7 +1,6 @@
 # MITRE ATT&CK Playbooks Repository
 
-These playbooks are starting points/ drafts for initial triage.
-
+These playbooks serve as **drafts** and starting points for **initial triage**. They are not intended to be final, out-of-the-box solutions but should be adapted to fit the specific practices, procedures, and workflows of the Security Operations Center (SOC) using them.
 
 ## Folder Structure
 
@@ -57,3 +56,23 @@ Each playbook is structured as follows:
 - **Additional Analysis Steps for L1:** Actions for Tier 1 analysts to validate and contextualize detections.
 - **T2 Analyst Actions:** Specific tasks for Tier 2 analysts, including containment and advanced analysis.
 - **Containment and Further Analysis:** Detailed steps for mitigation and investigation.
+
+## 🛠️ **Usefulness for SOC L1/L2 Triaging**
+
+These playbooks are primarily designed to assist **SOC L1 and L2 analysts** with the initial triage, validation, and escalation processes in the event of potential security incidents.
+
+- **For L1 Analysts**: These playbooks provide clear and structured guidance on how to investigate specific TTPs. L1 analysts can use these to follow a predefined set of steps to determine whether an alert is benign or malicious, significantly reducing the time spent on repetitive decision-making processes. They will know which logs to examine, which indicators to look for, and the types of questions to ask in their analysis.
+  
+- **For L2 Analysts**: Once an alert has been escalated to L2, these playbooks offer detailed instructions for a deeper investigation, including advanced analysis steps and containment actions. By following the playbooks, L2 analysts can validate findings, correlate activities across multiple data sources, and take necessary actions to mitigate threats, such as isolating compromised systems or performing memory analysis.
+
+- **Where General Playbooks Aren’t Available**: These playbooks are especially useful in scenarios where a general-purpose playbook or response procedure may not exist. They provide targeted guidance for specific tactics and techniques outlined in the MITRE ATT&CK framework, ensuring that analysts can proceed with confidence even when there is no pre-built, generic playbook available. This allows the SOC team to handle emerging threats and novel attack techniques more effectively.
+
+### **Adaptation to SOC Practices**
+
+**Important**: These playbooks are **drafts** and **starting points**. They should be reviewed and customized to align with the specific workflows, tools, and processes of the SOC using them. SOC teams should adapt these playbooks to their internal standards and infrastructure, ensuring that they match the particular context and capabilities of their environment.
+
+For example:
+- The **Log Sources to Investigate** section may need to be adjusted to reflect the specific tools or log sources available in your SOC environment (e.g., endpoint detection tools, firewalls, network monitoring).
+- The **Additional Analysis Steps** and **Containment Actions** should be tailored to the organization's specific policies, response protocols, and available resources.
+
+By adapting these playbooks, SOC teams can ensure they are aligned with their internal operational procedures and best practices.
