@@ -1,6 +1,43 @@
 # MITRE ATT&CK Playbooks Repository
 
-These playbooks are starting points/ drafts for inital triage.
+These playbooks are starting points/ drafts for initial triage.
+
+
+## Folder Structure
+
+The folder structure is organized as follows:
+
+```
+/Playbooks
+    /Defense_Evasion
+        T1548_Abuse_Elevation_Control_Mechanism.md
+    /Privilege_Escalation
+        T1548_Abuse_Elevation_Control_Mechanism.md
+    /Persistence
+        T1568.002_Another_Example.md
+    /Execution
+        T1568.001_Execution_Playbook.md
+    ...
+```
+
+### Key Points:
+
+- **Top-Level Folder (`/Markdowns`)**: All the generated Markdown files are stored in the root folder called `Markdowns`.
+- **Tactic-Specific Subfolders**: Inside the `Markdowns` folder, each tactic (e.g., `Defense_Evasion`, `Privilege_Escalation`, `Persistence`) has its own subfolder. These subfolders contain the corresponding playbook Markdown files that are relevant to that specific tactic.
+    - For example, a playbook associated with the tactic "Privilege Escalation" will be placed in the `Privilege_Escalation` folder.
+    - Multiple tactics in the same row will ensure that the playbook is placed in the folder corresponding to each relevant tactic.
+- **Markdown Files**: Each Markdown file is named using a combination of the MITRE TTP identifier (e.g., `T1548`) and the playbook name (e.g., `Abuse_Elevation_Control_Mechanism`). These files contain the details of the playbook, including relevant analysis steps, indicators, and actions for specific TTPs.
+
+### File Naming Convention
+
+Each file is named using the following format:
+
+```
+{MITRE_TTP}_{Name}.md
+```
+
+- **`MITRE_TTP`**: The unique identifier for the MITRE TTP (e.g., `T1548`).
+- **`Name`**: The name or description of the playbook (e.g., `Abuse_Elevation_Control_Mechanism`).
 
 ## 🔎 **Playbook Format**
 
